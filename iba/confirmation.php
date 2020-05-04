@@ -38,6 +38,16 @@
         $_SESSION['next_day_deposit'] = $_POST['next_day_deposit'];
     }
 
+    if($_POST['prem_count']) {
+        $_SESSION['prem_count'] = $_POST['prem_count'];
+        $_SESSION['prem_total'] = $_POST['prem_total'];
+    }
+
+    if($_POST['for_selling_count']) {
+        $_SESSION['for_selling_count'] = $_POST['for_selling_count'];
+        $_SESSION['for_selling_total'] = $_POST['for_selling_total'];
+    }
+
 ?>
 <html>
 <head>
@@ -116,6 +126,24 @@
             </div>
         </div>
 
+        <div>
+            <div>
+                <h4>8. プレミアム食事券</h4>
+                <div>枚数： <?php echo $_SESSION['prem_count']; ?></div>
+                <div>金額：　<?php echo $_SESSION['prem_total'];?></div>
+                <button class="edit_button prem">edit</button>
+            </div>
+        </div>
+
+        <div>
+            <div>
+                <h4>9. 販売用食事券</h4>
+                <div>枚数： <?php echo $_SESSION['for_selling_count']; ?></div>
+                <div>金額：　<?php echo $_SESSION['for_selling_total'];?></div>
+                <button class="edit_button for_selling">edit</button>
+            </div>
+        </div>
+
     </div>
 
     <!-- modal for date -->
@@ -169,10 +197,14 @@
         <div class="content">
             <form class="ui form" action="" method="post">
                 <?php for($i = 0; $i < count($_SESSION['received_from']); $i++):?>
-                <input type="text" name="received_from[]" value="<?php echo $_SESSION['received_from'][$i];?>">
-                <input type="number" name="total_received[]" value="<?php echo $_SESSION['total_received'][$i];?>">
-                <input type="text" name="content_received[]" value="<?php echo $_SESSION['content_received'][$i];?>">
-                <hr>
+                <div id="each_received_edit">
+                <label for="received_from">取引先</label>
+                <input type="text" name="received_from[]" id="received_from" value="<?php echo $_SESSION['received_from'][$i];?>">
+                <label for="total_received">金額</label>
+                <input type="number" name="total_received[]" id="total_received" value="<?php echo $_SESSION['total_received'][$i];?>">
+                <label for="content_received">内容</label>
+                <input type="text" name="content_received[]" id="content_received" value="<?php echo $_SESSION['content_received'][$i];?>">
+                </div>
                 <?php endfor; ?>
                 <button class="ui button" type="submit">編集を完了</button>
             </form>
@@ -188,11 +220,49 @@
         <div class="content">
             <form class="ui form" action="" method="post">
                 <?php for($i = 0; $i < count($_SESSION['sent_to']); $i++):?>
-                <input type="text" name="sent_to[]" value="<?php echo $_SESSION['sent_to'][$i];?>">
-                <input type="number" name="total_sent[]" value="<?php echo $_SESSION['total_sent'][$i];?>">
-                <input type="text" name="content_sent[]" value="<?php echo $_SESSION['content_sent'][$i];?>">
-                <hr>
+                <div id="each_sent_edit">
+                <label for="sent_to">出金先</label>
+                <input type="text" name="sent_to[]" id="sent_to" value="<?php echo $_SESSION['sent_to'][$i];?>">
+                <label for="total_sent">金額</label>
+                <input type="number" name="total_sent[]" id="total_sent" value="<?php echo $_SESSION['total_sent'][$i];?>">
+                <label for="content_sent">内容</label>
+                <input type="text" name="content_sent[]" id="content_sent" value="<?php echo $_SESSION['content_sent'][$i];?>">
+                </div>
                 <?php endfor; ?>
+                <button class="ui button" type="submit">編集を完了</button>
+            </form>
+        </div>
+    </div>
+
+     <!-- modal for prem -->
+     <div class="ui modal prem">
+        <i class="close icon"></i>
+        <div class="header">
+            <span class="title"></span>
+        </div>
+        <div class="content">
+            <form class="ui form" action="" method="post">
+                <label for="prem_count">枚数</label>
+                <input type="number" name="prem_count" id="prem_count" value="<?php echo $_SESSION['prem_count'];?>">
+                <label for="prem_total">金額</label>
+                <input type="number" name="prem_total" id="prem_total" value="<?php echo $_SESSION['prem_total'];?>">
+                <button class="ui button" type="submit">編集を完了</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- modal for for_selling -->
+    <div class="ui modal for_selling">
+        <i class="close icon"></i>
+        <div class="header">
+            <span class="title"></span>
+        </div>
+        <div class="content">
+            <form class="ui form" action="" method="post">
+                <label for="for_selling_count">枚数</label>
+                <input type="number" name="for_selling_count" id="for_selling_count" value="<?php echo $_SESSION['for_selling_count'];?>">
+                <label for="for_selling_total">金額</label>
+                <input type="number" name="for_selling_total" id="for_selling_total" value="<?php echo $_SESSION['for_selling_total'];?>">
                 <button class="ui button" type="submit">編集を完了</button>
             </form>
         </div>
@@ -214,6 +284,10 @@
                     $('.ui.modal.received').modal('show');
                 } else if($(this).hasClass('sent')) {
                     $('.ui.modal.sent').modal('show');
+                } else if($(this).hasClass('prem')) {
+                    $('.ui.modal.prem').modal('show');
+                } else if($(this).hasClass('for_selling')) {
+                    $('.ui.modal.for_selling').modal('show');
                 }
                 
                 

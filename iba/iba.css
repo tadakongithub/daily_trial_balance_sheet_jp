@@ -5,3 +5,7 @@
     justify-content: space-between;
     width: 400px;
 }
+
+#each_sent_edit, #each_received_edit{
+    padding-top: 20px;
+}

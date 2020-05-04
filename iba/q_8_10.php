@@ -24,7 +24,7 @@
     <form action="" method="post">
     
         <div>
-            <div>プレミアム食事券の枚数と金額を入力してください</div>
+            <div>8. プレミアム食事券の枚数と金額を入力してください</div>
 
             <div>
                 <label for="prem_count">枚数</label>
@@ -35,7 +35,7 @@
         </div>
 
         <div>
-            <div>販売用食事券の枚数と金額を入力してください</div>
+            <div>9. 販売用食事券の枚数と金額を入力してください</div>
 
             <div>
                 <label for="for_selling_count">枚数</label>
@@ -46,7 +46,7 @@
         </div>
 
         <div class="service_wrapper">
-            <div>サービス用回収の種類、枚数、金額を入力してください。</div>
+            <div>10. サービス用回収の種類、枚数、金額を入力してください。</div>
 
             <div>
                 <label for="service_name">種類</label>
