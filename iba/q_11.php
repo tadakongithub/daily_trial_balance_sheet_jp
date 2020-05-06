@@ -23,7 +23,7 @@
 <body>
     <form action="" method="post">
         <div class="dc_container">
-            <div>DCカード金額（1取引ごと）</div>
+            <div>11. DCカード金額（1取引ごと）</div>
 
             <div>
                 <label for="dc_how_much">金額</label>

@@ -10,9 +10,12 @@
         $_SESSION['prem_total'] = $_POST['prem_total'];
         $_SESSION['for_selling_count'] = $_POST['for_selling_count'];
         $_SESSION['for_selling_total'] = $_POST['for_selling_total'];
-        $_SESSION['service_name'] = $_POST['service_name'];
-        $_SESSION['for_service_count'] = $_POST['for_service_count'];
-        $_SESSION['for_service_total'] = $_POST['for_service_total'];
+        $_SESSION['thousand_count'] = $_POST['thousand_count'];
+        $_SESSION['thousand_total'] = $_POST['thousand_total'];
+        $_SESSION['five_count'] = $_POST['five_count'];
+        $_SESSION['five_total'] = $_POST['five_total'];
+        $_SESSION['two_count'] = $_POST['two_count'];
+        $_SESSION['two_total'] = $_POST['two_total'];
         header('Location: q_11.php');
     }
 ?>
@@ -49,44 +52,31 @@
             <div>10. サービス用回収の種類、枚数、金額を入力してください。</div>
 
             <div>
-                <label for="service_name">種類</label>
-                <input type="text" name="service_name[]" id="service_name" required>
-                <label for="for_service_count">枚数</label>
-                <input type="number" name="for_service_count[]" id="for_service_count" required>
-                <label for="for_service_total">金額</label>
-                <input type="number" name="for_service_total[]" id="for_service_total" required>
+                <div>1000円券:
+                    <label for="thousand_count">枚数</label>
+                    <input type="number" name="thousand_count" id="thousand_count" required>
+                    <label for="thousand_total">金額</label>
+                    <input type="number" name="thousand_total" id="thousand_total" required>
+                </div>
+
+                <div>500円券:
+                    <label for="five_count">枚数</label>
+                    <input type="number" name="five_count" id="five_count" required>
+                    <label for="thousand_total">金額</label>
+                    <input type="number" name="five_total" id="five_total" required>
+                </div>
+
+                <div>200円券:
+                    <label for="two_count">枚数</label>
+                    <input type="number" name="two_count" id="two_count" required>
+                    <label for="thousand_total">金額</label>
+                    <input type="number" name="two_total" id="two_total" required>
+                </div>
             </div>
         </div>
-        <button class="add_button">サービス追加</button>
 
         <input type="submit" value="次へ" name="q_8_10">
     </form>
 
-    <script>
-        $(document).ready(function(){
-            var add_button = $(".add_button");
-            var wrapper = $(".service_wrapper");
-
-            $(add_button).click(function(e){
-                e.preventDefault();
-                $(wrapper).append(
-                    '<div>' +
-                    '<label for="service_name">種類</label>' +
-                    '<input type="text" name="service_name[]" id="service_name" required>' +
-                    '<label for="for_service_count">枚数</label>' +
-                    '<input type="number" name="for_service_count[]" id="for_service_count" required>' +
-                    '<label for="for_service_total">金額</label>' +
-                    '<input type="number" name="for_service_total[]" id="for_service_total" required>' +
-                    '<button class="remove_field">削除</button>' +
-                    '</div>'
-                );
-            });
-
-            $(wrapper).on('click', '.remove_field', function(e){
-                e.preventDefault();
-                $(this).parent('div').remove();
-            });
-        });
-    </script>
 </body>
 </html>

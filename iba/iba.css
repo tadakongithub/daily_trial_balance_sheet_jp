@@ -1,11 +1,46 @@
-.each_received, .each_sent{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 400px;
+table{
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 1000px;
+    margin: 10px auto;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
 }
 
-#each_sent_edit, #each_received_edit{
-    padding-top: 20px;
+td{
+    border-top: 1px solid #000;
+    border-left: 1px solid #000;
+}
+
+.table-cell-no-border{
+    border: none;
+}
+
+.row-1{
+    display: grid;
+    grid-template-columns: 25% 25% 50%;
+}
+
+.row-2{
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+}
+
+.table-2-row-1{
+    display: grid;
+    grid-template-columns: 50% 25% 25%;
+}
+
+.table-2-row-2{
+    display: grid;
+    grid-template-columns: 10% 30% 30% 30%;
+}
+
+.table-2-row-3, .table-2-row-4, .table-2-row-5{
+    display: grid;
+    grid-template-columns: 10% 15% 15% 15% 15% 15% 15%;
+}
+
+.null{
+    background-color: #ddd;
 }
