@@ -7,7 +7,6 @@
     $year = date('Y', $unixtime);
     $month = date('m', $unixtime);
     $date = date('d', $unixtime);
-
     /*
     if(!$_SESSION['logged_in'] == 'logged_in') {
         header('Location: index.php');
@@ -74,7 +73,7 @@
 <body>
     
     <div class="confirmation-container">
-        <div>記入者：</div>
+        <div>記入者：<?php echo $_SESSION['name'];?></div>
 
         <div>日付：<?php echo $year;?>月<?php echo $month;?>月<?php echo $date;?>日</div>
 
@@ -84,13 +83,13 @@
             <table>
                 <tr class="row-1">
                     <td>釣り銭</td>
-                    <td></td>
+                    <td><?php echo $_SESSION['change'];?></td>
                     <td>内訳</td>
                 </tr>
 
                 <tr class="row-2">
                     <td>現金売り上げ</td>
-                    <td></td>
+                    <td><?php echo $_SESSION['earning'];?></td>
                     <td>購入取引先名</td>
                     <td>明細</td>
                 </tr>
@@ -199,8 +198,84 @@
                     <td><?php echo $_SESSION['two_count'];?>枚</td>
                     <td><?php echo $_SESSION['two_total'];?>円</td>
                 </tr>
+
+            </table>
+
+            <table>
+                <div class="table-title">売掛け金</div>
+
+                <tr class="client-row">
+                    <?php for($i = 0; $i < count($_SESSION['client_name']); $i++):?>
+                        <td><?php echo $_SESSION['client_name'][$i];?>様</td>
+                        <td><?php echo $_SESSION['urikake_total'][$i];?>円</td>
+                    <?php endfor;?>
+                </tr>
+            </table>
+
+            <table>
+                <div class="table-title">DC売り上げ内訳</div>
+
+                <tr class="dc-each-row">
+                    <?php for($i = 0; $i < count($_SESSION['dc_how_much']); $i++):?>
+                        <td style="text-align: center"><?php echo $_SESSION['dc_how_much'][$i];?>円</td>
+                    <?php endfor;?>
+                </tr>
+
+                <tr class="dc-total">
+                    <td>DC売り上げ合計</td>
+                    <td><?php echo count($_SESSION['dc_how_much']);?>件</td>
+                    <td><?php echo array_sum($_SESSION['dc_how_much']);?>円</td>
+                </tr>
+            </table>
+
+            <table>
+                <div class="table-title">JCB売り上げ内訳</div>
+
+                <tr class="dc-each-row">
+                    <?php for($i = 0; $i < count($_SESSION['jcb_how_much']); $i++):?>
+                        <td style="text-align: center"><?php echo $_SESSION['jcb_how_much'][$i];?>円</td>
+                    <?php endfor;?>
+                </tr>
+
+                <tr class="dc-total">
+                    <td>JCB売り上げ合計</td>
+                    <td><?php echo count($_SESSION['jcb_how_much']);?>件</td>
+                    <td><?php echo array_sum($_SESSION['jcb_how_much']);?>円</td>
+                </tr>
+            </table>
+
+            <table>
+                <div class="table-title">PayPay売り上げ合計</div>
+                <tr class="paypay">
+                    <td><?php echo $_SESSION['paypay_count'];?>件</td>
+                    <td><?php echo $_SESSION['paypay_total'];?>円</td>
+                </tr>
+            </table>
+
+            <table>
+                <div class="table-title">その他</div>
+
+                <tr class="other-total">
+                    <td>nanaco</td>
+                    <td><?php echo $_SESSION['nanaco_count'];?>件</td>
+                    <td><?php echo $_SESSION['nanaco_total'];?>円</td>
+                </tr>
+
+                <tr class="other-total">
+                    <td>edy</td>
+                    <td><?php echo $_SESSION['edy_count'];?>件</td>
+                    <td><?php echo $_SESSION['edy_total'];?>円</td>
+                </tr>
+
+                <tr class="other-total">
+                    <td>suica</td>
+                    <td><?php echo $_SESSION['suica_count'];?>件</td>
+                    <td><?php echo $_SESSION['suica_total'];?>円</td>
+                </tr>
             </table>
         </div>
+
+        <button><a href="submit.php">送信</a></button>
     </div>
 
  

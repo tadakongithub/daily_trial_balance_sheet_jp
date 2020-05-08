@@ -22,61 +22,68 @@
 <html>
 <head>
 <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="iba.css">
 </head>
 <body>
-    <form action="" method="post">
-    
-        <div>
-            <div>8. プレミアム食事券の枚数と金額を入力してください</div>
+    <div class="q-container">
+        <h1>茨城店　日計表</h1>
+        <form action="" method="post">
+        
+            <div class="each-ticket">
+                <div>8. プレミアム食事券の枚数と金額を入力してください</div>
 
-            <div>
-                <label for="prem_count">枚数</label>
-                <input type="number" name="prem_count" id="prem_count" required>
-                <label for="prem_total">金額</label>
-                <input type="number" name="prem_total" id="prem_total" required>
-            </div>
-        </div>
-
-        <div>
-            <div>9. 販売用食事券の枚数と金額を入力してください</div>
-
-            <div>
-                <label for="for_selling_count">枚数</label>
-                <input type="number" name="for_selling_count" id="for_selling_count" required>
-                <label for="for_selling_total">金額</label>
-                <input type="number" name="for_selling_total" id="for_selling_total" required>
-            </div>
-        </div>
-
-        <div class="service_wrapper">
-            <div>10. サービス用回収の種類、枚数、金額を入力してください。</div>
-
-            <div>
-                <div>1000円券:
-                    <label for="thousand_count">枚数</label>
-                    <input type="number" name="thousand_count" id="thousand_count" required>
-                    <label for="thousand_total">金額</label>
-                    <input type="number" name="thousand_total" id="thousand_total" required>
-                </div>
-
-                <div>500円券:
-                    <label for="five_count">枚数</label>
-                    <input type="number" name="five_count" id="five_count" required>
-                    <label for="thousand_total">金額</label>
-                    <input type="number" name="five_total" id="five_total" required>
-                </div>
-
-                <div>200円券:
-                    <label for="two_count">枚数</label>
-                    <input type="number" name="two_count" id="two_count" required>
-                    <label for="thousand_total">金額</label>
-                    <input type="number" name="two_total" id="two_total" required>
+                <div>
+                    <label for="prem_count">枚数</label>
+                    <input type="number" name="prem_count" id="prem_count" required>
+                    <label for="prem_total">金額</label>
+                    <input type="number" name="prem_total" id="prem_total" required>
                 </div>
             </div>
-        </div>
 
-        <input type="submit" value="次へ" name="q_8_10">
-    </form>
+            <div class="each-ticket">
+                <div>9. 販売用食事券の枚数と金額を入力してください</div>
+
+                <div>
+                    <label for="for_selling_count">枚数</label>
+                    <input type="number" name="for_selling_count" id="for_selling_count" required>
+                    <label for="for_selling_total">金額</label>
+                    <input type="number" name="for_selling_total" id="for_selling_total" required>
+                </div>
+            </div>
+
+            <div class="service_wrapper each-ticket">
+                <div>10. サービス用回収の種類、枚数、金額を入力してください。</div>
+
+                <div>
+                    <div>
+                        <div>1000円券:</div>
+                        <label for="thousand_count">枚数</label>
+                        <input type="number" name="thousand_count" id="thousand_count" required>
+                        <label for="thousand_total">金額</label>
+                        <input type="number" name="thousand_total" id="thousand_total" required>
+                    </div>
+
+                    <div>
+                        <div>500円券:</div>
+                        <label for="five_count">枚数</label>
+                        <input type="number" name="five_count" id="five_count" required>
+                        <label for="thousand_total">金額</label>
+                        <input type="number" name="five_total" id="five_total" required>
+                    </div>
+
+                    <div>
+                        <div>200円券:</div>
+                        <label for="two_count">枚数</label>
+                        <input type="number" name="two_count" id="two_count" required>
+                        <label for="thousand_total">金額</label>
+                        <input type="number" name="two_total" id="two_total" required>
+                    </div>
+                </div>
+            </div>
+
+            <input type="submit" value="次へ" name="q_8_10">
+        </form>
+    </div>
 
 </body>
 </html>

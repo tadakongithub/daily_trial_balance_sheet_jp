@@ -6,6 +6,7 @@
     } 
 
     if($_POST["q_1_3"]) {
+        $_SESSION['name'] = $_POST['name'];
         $_SESSION['date'] = $_POST['date'];
         $_SESSION['change'] = $_POST['change'];
         $_SESSION['earning'] = $_POST['earning'];
@@ -15,20 +16,35 @@
 ?>
 <html>
 <head>
+    <link rel="stylesheet" href="iba.css">
 </head>
 <body>
-    <div>茨城店　日計表</div>
-    <form action="" method="post">
-        <div>1. 今日の日付を入力してください。</div>
-        <input type="date" name="date" required>
 
-        <div>2. 釣り銭金額</div>
-        <input type="number" name="change" required>
+    <div class="q-container">
+        <h1>茨城店　日計表</h1>
+        <form action="" method="post" >
+            <div class="each-field">
+                <label for="name">名前</label>
+                <input type="text" name="name" id="name" required>
+            </div>
 
-        <div>3. 現金売り上げ</div>
-        <input type="number" name="earning" required>
+            <div class="each-field">
+                <label for="date"> 1. 今日の日付を入力してください。</label>
+                <input type="date" name="date" id="date" required>
+            </div>
+            
+            <div class="each-field">
+                <label for="change">2. 釣り銭金額</label>
+                <input type="number" name="change" id="change" required>
+            </div>
 
-        <input type="submit" value="次へ" name="q_1_3">
-    </form>
+            <div class="each-field">
+                <label for="earning">3. 現金売り上げ</label>
+                <input type="number" name="earning" id="earning" required>
+            </div>
+            
+            <input type="submit" name="q_1_3" class="next-btn" value="次へ">
+        </form>
+    </div>
 </body>
 </html>

@@ -13,18 +13,26 @@
 ?>
 <html>
 <head>
+<link rel="stylesheet" href="iba.css" >
+
 </head>
 <body>
-    <form action="" method="post">
-        <div>
-            <div>6. 翌日のつり銭額を入力してください</div>
-            <input type="number" name="next_day_change" required>
+    <div class="q-container">
+        <h1>茨城店　日計表</h1>
+        <form action="" method="post">
+            <div class="next-day">
+                <div class="each-field">
+                    <div>6. 翌日のつり銭額を入力してください</div>
+                    <input type="number" name="next_day_change" required>
+                </div>
+                
+                <div class="each-field">
+                    <div>7. 翌日預入の金額を入力してください(0円の場合も記入）</div>
+                    <input type="number" name="next_day_deposit" required>
+                </div>
+            </div>
 
-            <div>7. 翌日預入の金額を入力してください(0円の場合も記入をしてください）</div>
-            <input type="number" name="next_day_deposit" required>
-        </div>
-
-        <input type="submit" value="次へ" name="q_6_7">
-    </form>
+            <input type="submit" value="次へ" name="q_6_7">
+        </form>
 </body>
 </html>

@@ -10,68 +10,86 @@
         $_SESSION['jcb_how_much'] = $_POST['jcb_how_much'];
         $_SESSION['paypay_count'] = $_POST['paypay_count'];
         $_SESSION['paypay_total'] = $_POST['paypay_total'];
-        $_SESSION['which_card'] = $_POST['which_card'];
-        $_SESSION['others_count'] = $_POST['others_count'];
-        $_SESSION['others_total'] = $_POST['others_total'];
-        header('Location: confirmation.php');
+        $_SESSION['nanaco_count'] = $_POST['nanaco_count'];
+        $_SESSION['nanaco_total'] = $_POST['nanaco_total'];
+        $_SESSION['edy_count'] = $_POST['edy_count'];
+        $_SESSION['edy_total'] = $_POST['edy_total'];
+        $_SESSION['suica_count'] = $_POST['suica_count'];
+        $_SESSION['suica_total'] = $_POST['suica_total'];
+        header('Location: q_12.php');
     }
 ?>
 <html>
 <head>
 <script src="https://code.jquery.com/jquery-3.5.0.js" integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="iba.css">
 </head>
 <body>
-    <form action="" method="post">
-        <div class="dc_container">
-            <div>11. DCカード金額（1取引ごと）</div>
+    <div class="q-container">
+        <h1>茨城店　日計表</h1>
+        <form action="" method="post">
+            <div class="dc_container each-card">
+                <div>11. DCカード金額（1取引ごと）</div>
 
-            <div>
-                <label for="dc_how_much">金額</label>
-                <input type="number" name="dc_how_much[]" id="dc_how_much" required>
+                <div>
+                    <label for="dc_how_much">金額</label>
+                    <input type="number" name="dc_how_much[]" id="dc_how_much" required>
+                </div>
             </div>
-        </div>
-        <button class="add_dc">追加</button>
+            <button class="add_dc">追加</button>
 
-        <div class="jcb_container">
-            <div>JCBカード金額（1取引ごと）</div>
+            <div class="jcb_container each-card">
+                <div>JCBカード金額（1取引ごと）</div>
 
-            <div>
-                <label for="jcb_how_much">金額</label>
-                <input type="number" name="jcb_how_much[]" id="jcb_how_much" required>
+                <div>
+                    <label for="jcb_how_much">金額</label>
+                    <input type="number" name="jcb_how_much[]" id="jcb_how_much" required>
+                </div>
             </div>
-        </div>
-        <button class="add_jcb">追加</button>
+            <button class="add_jcb">追加</button>
 
-        <div class="paypay_container">
-            <div>PayPay金額</div>
+            <div class="paypay_container each-card">
+                <div>PayPay金額</div>
 
-            <div>
-                <label for="paypay_count">件数</label>
-                <input type="number" name="paypay_count" id="paypay_count">
-                <label for="paypay_total">総額</label>
-                <input type="number" name="paypay_total" id="paypay_total">
+                <div>
+                    <label for="paypay_count">件数</label>
+                    <input type="number" name="paypay_count" id="paypay_count">
+                    <label for="paypay_total">総額</label>
+                    <input type="number" name="paypay_total" id="paypay_total">
+                </div>
             </div>
-        </div>
 
-        <div class="others_container">
-            <div>その他</div>
+            <div class="others_container each-card">
+                <div>その他</div>
 
-            <div>
-                <label for="which_card">カード</label>
-                <select name="which_card" id="which_card">
-                    <option value="nanaco">nanaco</option>
-                    <option value="edy">edy</option>
-                    <option value="suica">suica</option>
-                </select>
-                <label for="others_count">件数</label>
-                <input type="number" name="others_count" id="others_count">
-                <label for="others_total">金額</label>
-                <input type="number" name="others_total" id="others_total">
+                <div>
+                    <div>
+                        <div>nanaco:</div>
+                        <label for="nanaco_count">枚数</label>
+                        <input type="number" name="nanaco_count" id="nanaco_count">
+                        <label for="nanaco_total">金額</label>
+                        <input type="number" name="nanaco_total" id="nanaco_total">
+                    </div>
+                    <div>
+                        <div>edy:</div>
+                        <label for="edy_count">枚数</label>
+                        <input type="number" name="edy_count" id="edy_count">
+                        <label for="edy_total">金額</label>
+                        <input type="number" name="edy_total" id="edy_total">
+                    </div>
+                    <div>
+                        <div>suica:</div>
+                        <label for="suica_count">枚数</label>
+                        <input type="number" name="suica_count" id="suica_count">
+                        <label for="suica_total">金額</label>
+                        <input type="number" name="suica_total" id="suica_total">
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <input type="submit" value="確認画面へ" name="q_11">
-    </form>
+            <input type="submit" value="次へ" name="q_11">
+        </form>
+    </div>
 
     <script>
         $(document).ready(function(){
