@@ -138,3 +138,20 @@ td{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
 }
+
+.send-data{
+    display: block;
+    margin: 30px auto;
+    width: 150px;
+    height: 40px;
+}
+
+.send-data a{
+    display: block;
+    text-decoration: none;
+    line-height: 40px;
+    text-align: center;
+    width: 150px;
+    height: 40px;
+    margin: auto;
+}

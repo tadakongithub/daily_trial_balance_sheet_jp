@@ -2,6 +2,10 @@
 
 session_start();
 
+if($_SESSION['logged_in'] !== 'logged_in') {
+    header('Location: ../index.php');
+}
+
 if($_POST['q_12']) {
     $_SESSION['client_name'] = $_POST['client_name'];
     $_SESSION['urikake_total'] = $_POST['urikake_total'];

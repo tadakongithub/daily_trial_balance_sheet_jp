@@ -11,11 +11,11 @@
         $_SESSION['for_selling_count'] = $_POST['for_selling_count'];
         $_SESSION['for_selling_total'] = $_POST['for_selling_total'];
         $_SESSION['thousand_count'] = $_POST['thousand_count'];
-        $_SESSION['thousand_total'] = $_POST['thousand_total'];
+        $_SESSION['thousand_total'] = 1000 * $_POST['thousand_count'];
         $_SESSION['five_count'] = $_POST['five_count'];
-        $_SESSION['five_total'] = $_POST['five_total'];
+        $_SESSION['five_total'] = 500 * $_POST['five_count'];
         $_SESSION['two_count'] = $_POST['two_count'];
-        $_SESSION['two_total'] = $_POST['two_total'];
+        $_SESSION['two_total'] = 200 * $_POST['two_count'];
         header('Location: q_11.php');
     }
 ?>
@@ -55,28 +55,19 @@
                 <div>10. サービス用回収の種類、枚数、金額を入力してください。</div>
 
                 <div>
-                    <div>
-                        <div>1000円券:</div>
-                        <label for="thousand_count">枚数</label>
+                    <div class-"each-field">
+                        <label for="thousand_count">1000円券枚数</label>
                         <input type="number" name="thousand_count" id="thousand_count" required>
-                        <label for="thousand_total">金額</label>
-                        <input type="number" name="thousand_total" id="thousand_total" required>
                     </div>
 
-                    <div>
-                        <div>500円券:</div>
-                        <label for="five_count">枚数</label>
+                    <div class="each-field">
+                        <label for="five_count">500円券枚数</label>
                         <input type="number" name="five_count" id="five_count" required>
-                        <label for="thousand_total">金額</label>
-                        <input type="number" name="five_total" id="five_total" required>
                     </div>
 
-                    <div>
-                        <div>200円券:</div>
-                        <label for="two_count">枚数</label>
+                    <div class="each-field">
+                        <label for="two_count">200円券枚数</label>
                         <input type="number" name="two_count" id="two_count" required>
-                        <label for="thousand_total">金額</label>
-                        <input type="number" name="two_total" id="two_total" required>
                     </div>
                 </div>
             </div>

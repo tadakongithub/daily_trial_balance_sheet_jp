@@ -77,6 +77,9 @@ $query = "INSERT INTO ibaraki (
 $myPDO->exec($query);
 
 //destroy session
+session_destroy();
+
 //redirect to index.php
+header('Location: ../index.php');
 
 ?>

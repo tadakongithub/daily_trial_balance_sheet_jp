@@ -2,6 +2,10 @@
 
     session_start();
 
+    if($_SESSION['logged_in'] !== 'logged_in') {
+        header('Location: ../index.php');
+    }
+
     $unixtime = strtotime($_SESSION['date']);
 
     $year = date('Y', $unixtime);
@@ -275,7 +279,7 @@
             </table>
         </div>
 
-        <button><a href="submit.php">送信</a></button>
+        <button class="send-data"><a href="submit.php">送信</a></button>
     </div>
 
  
