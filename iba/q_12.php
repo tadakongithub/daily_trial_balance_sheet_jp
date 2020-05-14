@@ -24,7 +24,7 @@ if($_POST['q_12']) {
     <div class="q-container">
         <h1>茨城店　日計表</h1> 
         <form action="" method="post">
-            <div>売掛け金</div>
+            <div>15. 売掛け金</div>
 
             <div class="client-container">
                 <div class="each-client">

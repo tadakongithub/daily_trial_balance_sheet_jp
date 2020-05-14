@@ -39,7 +39,7 @@
             <button class="add_dc">追加</button>
 
             <div class="jcb_container each-card">
-                <div>JCBカード金額（1取引ごと）</div>
+                <div>12. JCBカード金額（1取引ごと）</div>
 
                 <div>
                     <label for="jcb_how_much">金額</label>
@@ -49,7 +49,7 @@
             <button class="add_jcb">追加</button>
 
             <div class="paypay_container each-card">
-                <div>PayPay金額</div>
+                <div>13. PayPay金額</div>
 
                 <div>
                     <label for="paypay_count">件数</label>
@@ -60,25 +60,25 @@
             </div>
 
             <div class="others_container each-card">
-                <div>その他</div>
+                <div>14. その他</div>
 
                 <div>
                     <div>
-                        <div>nanaco:</div>
+                        <div>Nanaco:</div>
                         <label for="nanaco_count">枚数</label>
                         <input type="number" name="nanaco_count" id="nanaco_count">
                         <label for="nanaco_total">金額</label>
                         <input type="number" name="nanaco_total" id="nanaco_total">
                     </div>
                     <div>
-                        <div>edy:</div>
+                        <div>Edy:</div>
                         <label for="edy_count">枚数</label>
                         <input type="number" name="edy_count" id="edy_count">
                         <label for="edy_total">金額</label>
                         <input type="number" name="edy_total" id="edy_total">
                     </div>
                     <div>
-                        <div>suica:</div>
+                        <div>Suica:</div>
                         <label for="suica_count">枚数</label>
                         <input type="number" name="suica_count" id="suica_count">
                         <label for="suica_total">金額</label>
