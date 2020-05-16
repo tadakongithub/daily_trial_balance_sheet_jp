@@ -36,6 +36,7 @@ while($record = $results->fetch()) {
     ->setCellValue('J1', '記入者')
     ->setCellValue('K1', $record['name'])
     ->setCellValue('A2', '日付')
+    ->mergeCells('C2:C2')
     ->setCellValue('B2', $record['date'])
     ->setCellValue('J3', '店舗名')
     ->setCellValue('K3', '茨城店')
@@ -54,6 +55,35 @@ while($record = $results->fetch()) {
     ->mergeCells('K5:M5')
     ->setCellValue('K5', '明細')
     ;
+
+    //1 ~ 5行目スタイル
+    $activeSheet
+        ->getStyle('K1')->getBorders()->getBottom()
+        ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+    $activeSheet
+        ->getStyle('B2')
+        ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+    $activeSheet
+        ->getStyle('B2')
+        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+    $activeSheet
+        ->getStyle('B2')
+        ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+    $activeSheet
+        ->getStyle('B2')
+        ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+    $activeSheet
+        ->getStyle('C2')
+        ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+    $activeSheet
+        ->getStyle('C2')
+        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+    $activeSheet
+        ->getStyle('C2')
+        ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+    $activeSheet
+        ->getStyle('C2')
+        ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
 
     
     //入金のデータを配列に戻す
@@ -105,10 +135,24 @@ while($record = $results->fetch()) {
                 ->mergeCells('K'.(6+$received_count+$j).':M'.(6+$received_count+$j))
                 ->setCellValue('K'.(6+$received_count+$j), $content_sent_array[$j]);
         }
+    
+    //出金の最後の行
+    $lastRow = 5+$received_count+$sent_count;
+    
+    //出金までのスタイル
+    $styleArray = [
+        'borders' => [
+            'allBorders' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                'color' => ['rgb' => '000000'],
+            ],
+        ],
+    ];
+    
+    $activeSheet->getStyle('A4:M'.$lastRow)->applyFromArray($styleArray);
 
     //現時点で最終行を変数に入れ、「支払計」〜「翌日預け入れ」までの
     //行番号を変数に格納する
-    $lastRow = 5+$received_count+$sent_count;
     $shiharai = $lastRow + 1;
     $reji = $lastRow + 2;
     $genkin = $lastRow + 3;
@@ -116,7 +160,7 @@ while($record = $results->fetch()) {
     $tsuri = $lastRow + 5;
     $azuke = $lastRow + 6;
 
-    //セルを結合し項目名を記入
+    //「支払い」〜「翌日預け入れ」項目名
     $activeSheet
         ->mergeCells('A'.$shiharai.':C'.$shiharai)
         ->mergeCells('A'.$reji.':C'.$reji)
@@ -133,7 +177,7 @@ while($record = $results->fetch()) {
         ->setCellValue('D'.$tsuri, $record['next_day_change'])
         ->setCellValue('D'.$azuke, $record['next_day_deposit']);
 
-    //「支払計」〜「翌日預け入れ」の残り
+    //「支払計」〜「翌日預け入れ」値を入れる部分
     $activeSheet
         ->mergeCells('D'.$shiharai.':G'.$shiharai)
         ->mergeCells('D'.$reji.':G'.$reji)
@@ -155,6 +199,36 @@ while($record = $results->fetch()) {
         ->mergeCells('K'.$jissen.':M'.$jissen)
         ->mergeCells('K'.$tsuri.':M'.$tsuri)
         ->mergeCells('K'.$azuke.':M'.$azuke);
+    
+    //「支払い」〜「翌日預け入れ」スタイル
+    $styleArray = [
+        'borders' => [
+            'allBorders' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                'color' => ['rgb' => '000000'],
+            ],
+        ],
+    ];
+    
+    $activeSheet->getStyle('A'.$shiharai.':G'.$azuke)->applyFromArray($styleArray);
+
+    //本部記入欄のスタイル
+    $activeSheet->getStyle('J'.$shiharai.':J'.$azuke)->getAlignment()
+    ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+
+    $styleArray = [
+        'borders' => [
+            'horizontal' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOTTED,
+                'color' => ['rgb' => '000000'],
+            ],
+        ],
+    ];
+    
+    $activeSheet->getStyle('K'.$reji.':M'.$azuke)->applyFromArray($styleArray);
+
+    $activeSheet->getStyle('K'.$azuke.':M'.$azuke)->getBorders()->getBottom()
+    ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOTTED);
 
     //食事券らんの行番号
     $ticketRow1 = $azuke + 2;
@@ -178,18 +252,59 @@ while($record = $results->fetch()) {
         ->setCellValue('F'.$ticketRow2, '販売用回収')
         ->setCellValue('J'.$ticketRow2, 'サービス用回収')
         ->setCellValue('A'.$ticketRow3, '千円券')
+        ->setCellValue('B'.$ticketRow3, $record['prem_count'])
         ->setCellValue('C'.$ticketRow3, '枚')
+        ->setCellValue('D'.$ticketRow3, $record['prem_total'])
         ->setCellValue('E'.$ticketRow3, '円')
+        ->setCellValue('F'.$ticketRow3, $record['for_selling_count'])
         ->setCellValue('G'.$ticketRow3, '枚')
+        ->setCellValue('H'.$ticketRow3, $record['for_selling_total'])
         ->setCellValue('I'.$ticketRow3, '円')
+        ->setCellValue('J'.$ticketRow3, $record['thousand_count'])
         ->setCellValue('K'.$ticketRow3, '枚')
+        ->setCellValue('L'.$ticketRow3, $record['thousand_total'])
         ->setCellValue('M'.$ticketRow3, '円')
+        ->setCellValue('J'.$ticketRow4, $record['five_count'])
         ->setCellValue('K'.$ticketRow4, '枚')
+        ->setCellValue('L'.$ticketRow4, $record['five_total'])
         ->setCellValue('M'.$ticketRow4, '円')
+        ->setCellValue('J'.$ticketRow5, $record['two_count'])
         ->setCellValue('K'.$ticketRow5, '枚')
+        ->setCellValue('L'.$ticketRow5, $record['two_total'])
         ->setCellValue('M'.$ticketRow5, '円')
         ->setCellValue('A'.$ticketRow4, '500円')
         ->setCellValue('A'.$ticketRow5, '200円');
+    
+    //食事券スタイル
+    $styleArray = [
+        'borders' => [
+            'allBorders' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                'color' => ['rgb' => '000000'],
+            ],
+        ],
+    ];
+    
+    $activeSheet->getStyle('H'.$ticketRow1.':M'.$ticketRow1)->applyFromArray($styleArray);
+
+    $styleArray = [
+        'borders' => [
+            'allBorders' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                'color' => ['rgb' => '000000'],
+            ],
+        ],
+    ];
+    
+    $activeSheet->getStyle('A'.$ticketRow2.':M'.$ticketRow5)->applyFromArray($styleArray);
+
+    $activeSheet->getStyle('B'.$ticketRow2.':M'.$ticketRow2)->getAlignment()
+    ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+
+    $activeSheet->getStyle('B'.$ticketRow4.':I'.$ticketRow5)
+    ->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
+    $activeSheet->getStyle('B'.$ticketRow4.':I'.$ticketRow5)
+    ->getFill()->getStartColor()->setARGB('dddddd');
 
     
     //売掛の名前と金額の配列
@@ -230,13 +345,26 @@ while($record = $results->fetch()) {
         ->setCellValue('G'.$dcRow1, 'JCB売上内訳');
 
         for($j = 0; $j < $dc_count; $j++) {
-            $activeSheet
+            if($j == 0) {
+                $activeSheet
                 ->setCellValue('E'.($dcRow1+$j), $dc_how_much[$j].'円');
+            } else {
+                $activeSheet
+                    ->mergeCells('E'.($dcRow1+$j).':F'.($dcRow1+$j))
+                    ->setCellValue('E'.($dcRow1+$j), $dc_how_much[$j].'円');
+            }
+            
         }
 
         for($j = 0; $j < $jcb_count; $j++) {
-            $activeSheet
+            if($j == 0) {
+                $activeSheet
                 ->setCellValue('K'.($dcRow1+$j), $jcb_how_much[$j].'円');
+            } else {
+                $activeSheet
+                    ->mergeCells('K'.($dcRow1+$j).':L'.($dcRow1+$j))
+                    ->setCellValue('K'.($dcRow1+$j), $jcb_how_much[$j].'円');
+            }
         }
 
     //dc,jcb合計の行
@@ -309,6 +437,18 @@ while($record = $results->fetch()) {
         ->mergeCells('A'.$noteTitleRow.':C'.$noteTitleRow)
         ->mergeCells('A'.$noteRow.':L'.($noteRow+4))
         ->setCellValue('A'.$noteTitleRow, 'メモ、伝達事項：');
+
+    //メモらんスタイル
+    $styleArray = [
+        'borders' => [
+            'allBorders' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                'color' => ['rgb' => '000000'],
+            ],
+        ],
+    ];
+    
+    $activeSheet->getStyle('A'.$noteRow.':L'.($noteRow+4))->applyFromArray($styleArray);
 
 
 
