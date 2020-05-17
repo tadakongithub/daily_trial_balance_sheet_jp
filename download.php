@@ -3,8 +3,16 @@
 $myPDO = new PDO('mysql:host=localhost;dbname=ljm', 'root', 'root');
 $myPDO->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 
-$results = $myPDO->query("SELECT * FROM ibaraki");
-$count = $myPDO->prepare("SELECT count(*) FROM ibaraki");
+$table = '';
+$yearMonth = '';
+if($_POST) {
+    global $table, $yearMonth;
+    $table = $_POST['tableName'];
+    $yearMonth = $_POST['yearMonth'];
+}
+
+$results = $myPDO->query("SELECT * FROM $table where date REGEXP '^$yearMonth'");
+$count = $myPDO->prepare("SELECT count(*) FROM $table");
 $count->execute();
 
 $recordCount = $count->fetchColumn();
@@ -458,19 +466,23 @@ while($record = $results->fetch()) {
     $i++;
 }
 
-
-
-
 $writer = new Xlsx($spreadsheet);
 $writer->save('hello world.xlsx');
 
 
+//test to download with php header
+$file = 'hello world.xlsx';
+
+if (file_exists($file)) {
+    header('Content-Description: File Transfer');
+    header('Content-Type: application/octet-stream');
+    header('Content-Disposition: attachment; filename="'.basename($file).'"');
+    header('Expires: 0');
+    header('Cache-Control: must-revalidate');
+    header('Pragma: public');
+    header('Content-Length: ' . filesize($file));
+    readfile($file);
+    exit;
+}
 
 ?>
-<html>
-<head>
-</head>
-<body>
-    <div><a href="hello world.xlsx" download>download</a></div>
-</body>
-</html>

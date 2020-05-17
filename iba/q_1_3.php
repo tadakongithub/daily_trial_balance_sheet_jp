@@ -7,7 +7,6 @@
 
     if($_POST["q_1_3"]) {
         $_SESSION['name'] = $_POST['name'];
-        $_SESSION['date'] = $_POST['date'];
         $_SESSION['change'] = $_POST['change'];
         $_SESSION['earning'] = $_POST['earning'];
         header('Location: q_4.php');
@@ -24,13 +23,8 @@
         <h1>茨城店　日計表</h1>
         <form action="" method="post" >
             <div class="each-field">
-                <label for="name">名前</label>
+                <label for="name">1. 名前</label>
                 <input type="text" name="name" id="name" required>
-            </div>
-
-            <div class="each-field">
-                <label for="date"> 1. 今日の日付を入力してください。</label>
-                <input type="date" name="date" id="date" required>
             </div>
             
             <div class="each-field">

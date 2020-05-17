@@ -13,7 +13,7 @@
     if($_POST['login']) {
         if($_POST['pass'] == $row['password']) {
             $_SESSION['logged_in'] = 'logged_in';
-            header('Location: iba/q_1_3.php');
+            header('Location: iba/date.php');
         } else {
             $incorrect_password = 'パスワードが違います';
         }
@@ -25,6 +25,12 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+        <nav>
+            <ul>
+                <li><a href="index.php">トップ</a></li>
+                <li><a href="list.php">ダウンロードページ</a></li>
+            </ul>
+        </nav>
         <div class="home-container">
             <div>LMJ 茨城店</div>
             <form action="" method="post">
