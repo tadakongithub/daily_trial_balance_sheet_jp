@@ -26,6 +26,7 @@
         //ユーザーが入力した日付のデータがあれば編集ページに、なければ次の入力画面へ
         if($matchDate !== '') {
             $_SESSION['date'] = $matchDate;
+            $_SESSION['from_date'] = "from_date";
             header('Location: edit.php');
         } else {
             $_SESSION['date'] = $_POST['date'];
