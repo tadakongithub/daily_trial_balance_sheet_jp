@@ -17,7 +17,7 @@
         while($result = $results->fetch()) {
             if($result['date'] == $_POST['date']) {
                 global $matchDate;
-                if($matchDate !== '') {
+                if($matchDate == '') {
                     $matchDate = $_POST['date'];
                 }
             }
