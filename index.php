@@ -11,7 +11,7 @@
    
 
     if($_POST['login']) {
-        if($_POST['pass'] == $row['password']) {
+        if(password_verify($_POST['pass'], $row['password'])) {
             $_SESSION['logged_in'] = 'logged_in';
             header('Location: iba/date.php');
         } else {
@@ -22,24 +22,29 @@
 
 <html>
     <head>
+        <?php require 'semantic.php'; ?>
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <nav>
-            <ul>
-                <li><a href="index.php">トップ</a></li>
-                <li><a href="list.php">ダウンロードページ</a></li>
-            </ul>
-        </nav>
+        <div class="ui two item menu">
+            <a class="item" href="index.php">トップ</a>
+            <a class="item" href="list.php">ダウンロードページ</a>
+        </div>
         <div class="home-container">
-            <div>LMJ 茨城店</div>
-            <form action="" method="post">
-                <input type="text" name="pass">
-                <input type="submit" value="ログイン" name="login">
+            <h1 class="ui header">LMJ 茨城店</h1>
+            <form action="" method="post" class="ui form"  name="login">
+                <div class="field">
+                    <input type="text" name="pass">
+                </div>
+                <input type="hidden" name="login" value="login">
+                <div class="submit-container">
+                    <button type="submit" class="submit-btn">ログイン</button>
+                </div>
             </form>
             <?php if($incorrect_password):?>
             <div><?php echo $incorrect_password; ?></div>
             <?php endif ;?>
         </div>
+        
     </body>
 </html>

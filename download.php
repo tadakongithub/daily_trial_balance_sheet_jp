@@ -467,11 +467,11 @@ while($record = $results->fetch()) {
 }
 
 $writer = new Xlsx($spreadsheet);
-$writer->save('hello world.xlsx');
+$writer->save($yearMonth.'.xlsx');
 
 
 //test to download with php header
-$file = 'hello world.xlsx';
+$file = $yearMonth.'.xlsx';
 
 if (file_exists($file)) {
     header('Content-Description: File Transfer');

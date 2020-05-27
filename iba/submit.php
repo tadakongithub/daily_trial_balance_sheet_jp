@@ -6,7 +6,20 @@ require '../db.php';
 
 
 $name = $_SESSION['name'];
-$date = $_SESSION['date'];
+if($_SESSION['from_edit']) {
+    $date = $_SESSION['year'].'-'.$_SESSION['month'].'-'.$_SESSION['date'];
+} else {
+    $date = $_SESSION['date'];
+    $results = $myPDO->query("SELECT * FROM ibaraki WHERE date = '$date'");
+    $rows = $results->fetch(FETCH_ASSOC);
+    if(count($rows) > 0) {
+        header('Location: ../dataexist.php');
+    }
+}
+
+
+
+
 $change = $_SESSION['change'];
 $earning = $_SESSION['earning'];
 $received_from = serialize($_SESSION['received_from']);
@@ -39,6 +52,7 @@ $suica_count = $_SESSION['suica_count'];
 $suica_total = $_SESSION['suica_total'];
 $client_name = serialize($_SESSION['client_name']);
 $urikake_total = serialize($_SESSION['urikake_total']);
+$time_created = time();
 
 $query = "INSERT INTO ibaraki (
     name, date, change1, earning,
@@ -55,7 +69,8 @@ $query = "INSERT INTO ibaraki (
     nanaco_count, nanaco_total,
     edy_count, edy_total,
     suica_count, suica_total,
-    client_name, urikake_total
+    client_name, urikake_total,
+    time_created
 ) VALUES (
     '$name', '$date', '$change', '$earning',
     '$received_from', '$total_received', '$content_received',
@@ -71,7 +86,8 @@ $query = "INSERT INTO ibaraki (
     '$nanaco_count', '$nanaco_total',
     '$edy_count', '$edy_total',
     '$suica_count', '$suica_total',
-    '$client_name', '$urikake_total')";
+    '$client_name', '$urikake_total',
+    '$time_created')";
 
 
 $myPDO->exec($query);
@@ -80,6 +96,6 @@ $myPDO->exec($query);
 session_destroy();
 
 //redirect to index.php
-header('Location: ../index.php');
+header('Location: ../success.php');
 
 ?>

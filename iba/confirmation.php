@@ -6,82 +6,67 @@
         header('Location: ../index.php');
     }
 
+    //もし１つでも項目がなかったら、トップページに戻る
+    if(!isset($_SESSION['date']) or
+        !isset($_SESSION['name']) or
+        !isset($_SESSION['change']) or
+        !isset($_SESSION['earning']) or
+        !isset($_SESSION['received_from']) or
+        !isset($_SESSION['total_received']) or
+        !isset($_SESSION['content_received']) or
+        !isset($_SESSION['sent_to']) or
+        !isset($_SESSION['total_sent']) or
+        !isset($_SESSION['content_sent']) or
+        !isset($_SESSION['next_day_change']) or
+        !isset($_SESSION['next_day_deposit']) or
+        !isset($_SESSION['prem_count']) or
+        !isset($_SESSION['prem_total']) or
+        !isset($_SESSION['for_selling_count']) or
+        !isset($_SESSION['for_selling_total']) or
+        !isset($_SESSION['thousand_count']) or
+        !isset($_SESSION['thousand_total']) or
+        !isset($_SESSION['five_count']) or
+        !isset($_SESSION['five_total']) or
+        !isset($_SESSION['two_count']) or
+        !isset($_SESSION['two_total']) or
+        !isset($_SESSION['dc_how_much']) or
+        !isset($_SESSION['jcb_how_much']) or
+        !isset($_SESSION['paypay_count']) or
+        !isset($_SESSION['paypay_total']) or
+        !isset($_SESSION['nanaco_count']) or
+        !isset($_SESSION['nanaco_total']) or
+        !isset($_SESSION['edy_count']) or
+        !isset($_SESSION['edy_total']) or
+        !isset($_SESSION['suica_count']) or
+        !isset($_SESSION['suica_total']) or
+        !isset($_SESSION['client_name']) or
+        !isset($_SESSION['urikake_total'])) {
+        
+        header('Location: ../lackofdata.php');
+
+    };
+
+
     $unixtime = strtotime($_SESSION['date']);
 
     $year = date('Y', $unixtime);
     $month = date('m', $unixtime);
     $date = date('d', $unixtime);
-    /*
-    if(!$_SESSION['logged_in'] == 'logged_in') {
-        header('Location: index.php');
-    }
-
-    if($_POST['date']) {
-        $_SESSION['date'] = $_POST['date'];
-    }
-
-    if($_POST['change']) {
-        $_SESSION['change'] = $_POST['change'];
-    }
-
-    if($_POST['earning']) {
-        $_SESSION['earning'] = $_POST['earning'];
-    }
-
-    if($_POST['received_from']) {
-        $_SESSION['received_from'] = $_POST['received_from'];
-        $_SESSION['total_received'] = $_POST['total_received'];
-        $_SESSION['content_received'] = $_POST['content_received'];
-    }
-
-    if($_POST['sent_to']) {
-        $_SESSION['sent_to'] = $_POST['sent_to'];
-        $_SESSION['total_sent'] = $_POST['total_sent'];
-        $_SESSION['content_sent'] = $_POST['content_sent'];
-    }
-
-    if($_POST['next_day_change']) {
-        $_SESSION['next_day_change'] = $_POST['next_day_change'];
-    }
-
-    if($_POST['next_day_deposit']) {
-        $_SESSION['next_day_deposit'] = $_POST['next_day_deposit'];
-    }
-
-    if($_POST['prem_count']) {
-        $_SESSION['prem_count'] = $_POST['prem_count'];
-        $_SESSION['prem_total'] = $_POST['prem_total'];
-    }
-
-    if($_POST['for_selling_count']) {
-        $_SESSION['for_selling_count'] = $_POST['for_selling_count'];
-        $_SESSION['for_selling_total'] = $_POST['for_selling_total'];
-    }
-
-    if($_POST['service_name']) {
-        $_SESSION['service_name'] = $_POST['service_name'];
-        $_SESSION['for_service_count'] = $_POST['for_service_count'];
-        $_SESSION['for_service_total'] = $_POST['for_service_total'];
-    }
-
-    if($_POST['dc_how_much']) {
-        $_SESSION['dc_how_much'] = $_POST['dc_how_much'];
-    }
-    */
-
+    
 ?>
 <html>
 <head>
+    <?php require '../semantic.php';?>
 <link rel="stylesheet" href="iba.css">
 </head>
 <body>
     
     <div class="confirmation-container">
-        <div>記入者：<?php echo $_SESSION['name'];?></div>
+        <h2 class="ui header">記入者：<?php echo $_SESSION['name'];?></h2>
 
-        <div>日付：<?php echo $year;?>月<?php echo $month;?>月<?php echo $date;?>日</div>
+        <h2 class="ui header">日付：<?php echo $year;?>月<?php echo $month;?>月<?php echo $date;?>日</h2>
 
-        <div>店舗名：茨城店</div>
+        <h2 class="ui header">店舗名：茨城店</h2>
 
         <div>
             <table>
@@ -159,9 +144,12 @@
                 </tr>
             </table>
 
+            <div>※食事券計は、ジャーナルの食事券計と合致すること。</div>
+
             <table>
+
                 <tr class="table-2-row-1">
-                    <td class="table-cell-no-border">※食事券計は、ジャーナルの食事券計と合致すること。</td>
+                    <td class="table-cell-no-border"></td>
                     <td>食事券計</td>
                     <td></td>
                 </tr>
@@ -219,11 +207,13 @@
             <table>
                 <div class="table-title">DC売り上げ内訳</div>
 
-                <tr class="dc-each-row">
+                
                     <?php for($i = 0; $i < count($_SESSION['dc_how_much']); $i++):?>
+                        <tr class="dc-each-row">
                         <td style="text-align: center"><?php echo $_SESSION['dc_how_much'][$i];?>円</td>
+                        </tr>
                     <?php endfor;?>
-                </tr>
+                
 
                 <tr class="dc-total">
                     <td>DC売り上げ合計</td>
@@ -235,11 +225,13 @@
             <table>
                 <div class="table-title">JCB売り上げ内訳</div>
 
-                <tr class="dc-each-row">
+                
                     <?php for($i = 0; $i < count($_SESSION['jcb_how_much']); $i++):?>
+                        <tr class="dc-each-row">
                         <td style="text-align: center"><?php echo $_SESSION['jcb_how_much'][$i];?>円</td>
+                        </tr>
                     <?php endfor;?>
-                </tr>
+  
 
                 <tr class="dc-total">
                     <td>JCB売り上げ合計</td>
@@ -279,7 +271,9 @@
             </table>
         </div>
 
-        <button class="send-data"><a href="submit.php">送信</a></button>
+        <div class="submit-container">
+            <a class="ui button send-data" href="submit.php">送信</a>
+        </div>
     </div>
 
  

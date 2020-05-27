@@ -5,3 +5,68 @@
     justify-content: center;
     height: 100vh;
 }
+
+.submit-container{
+    text-align: center;
+    margin: 100px auto;
+}
+
+h1.ui.header{
+    font-size: 2rem;
+}
+
+button.submit-btn{
+    display: inline-block;
+    width: 220px;
+    height: 38px;
+    font-size: 25px;
+    background-color: #bbb;
+    color: #fff;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+@media only screen and (max-device-width: 480px) {
+    h1.ui.header{
+        font-size: 4rem;
+    }
+
+    .ui.form input[type=text]{
+        font-size: 3rem;
+    }
+
+    .ui.form .field>label{
+        font-size: 3rem;
+        line-height: 3rem;
+        margin-bottom: 50px;
+    }
+
+    div.ui.select.dropdown.selection{
+        font-size: 3rem;
+    }
+
+    button.submit-btn{
+        width: 500px;
+        height: 70px;
+        font-size: 50px;
+    }
+
+    a.item{
+        height: 100px;
+        font-size: 40px;
+    }
+
+    .success-message{
+        font-size: 50px;
+        margin-bottom: 100px;;
+    }
+
+    .back_to_top{
+        font-size: 50px;
+    }
+
+}
+
+

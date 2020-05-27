@@ -1,18 +1,45 @@
 <?php
 
     session_start();
+    require '../db.php';
 
     if($_SESSION['logged_in'] !== 'logged_in') {
         header('Location: ../index.php');
     }
 
+    if(!$_SESSION['date']) {
+        session_destroy();
+        header('Location: ../index.php');
+    }
+
+    //もし日付のセッションがないか、その日付のデータがデータベースにない場合はトップページに
+    $date = $_SESSION['date'];
+    $stmt = $myPDO->query("SELECT * FROM ibaraki WHERE date = '$date'");
+    $result = $stmt->fetch(FETCH_ASSOC);
+    $rowCount = count($result);
+
+    if($rowCount = 0) {
+        session_destroy();
+        header('Location: ../index.php');
+    }
+
     if($_SESSION["from_date"] == "from_date") {
         unset($_SESSION['from_date']);
-        $date = $_SESSION['date'];
+        $_SESSION['from_edit'] = true;
+        
 
-        require '../db.php';
-        $result = $myPDO->query("SELECT * FROM ibaraki WHERE date = '$date'");
-        $record = $result->fetch();
+        
+        $results = $myPDO->query("SELECT * FROM ibaraki WHERE date = '$date'");
+        $record;
+        $time_created = 0;
+        while($row = $results->fetch()) {
+            global $record;
+            global $time_created;
+            if($row['time_created'] > $time_created) {
+                $time_created = $row['time_created'];
+                $record = $row;
+            }
+        }
     
         //表示する項目のデータを変数に入れる
         $_SESSION['name'] = $record['name'];
@@ -21,6 +48,7 @@
         $_SESSION['year'] = date('Y', $unixtime);
         $_SESSION['month'] = date('m', $unixtime);
         $_SESSION['date'] = date('d', $unixtime);
+
     
         $_SESSION['change'] = $record['change1'];
         $_SESSION['earning'] = $record['earning'];
@@ -185,29 +213,24 @@
 ?>
 <html>
 <head>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha256-9mbkOfVho3ZPXfM7W8sV2SndrGDuh7wuyLjtsWeTI1Q=" crossorigin="anonymous" />
-<script
-  src="https://code.jquery.com/jquery-3.5.1.js"
-  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-  crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" integrity="sha256-t8GepnyPmw9t+foMh3mKNvcorqNHamSKtKRxxpUEgFI=" crossorigin="anonymous"></script>
+<?php require '../semantic.php';?>
 <link rel="stylesheet" href="iba.css">
 </head>
 <body>
     
     <div class="confirmation-container">
-        <div>
+        <h2 class="ui header">
             <span class="item-name">記入者：</span>
             <span class="item-value"><?php echo $_SESSION['name'];?></span>
-            <button class="edit name">編集</button>
-        </div>
+            <button class="edit name ui button">編集</button>
+        </h2>
 
-        <div>
+        <h2 class="ui header">
             <span class="item-name">日付：</span>
             <span><?php echo $_SESSION['year'];?>月<?php echo $_SESSION['month'];?>月<?php echo $_SESSION['date'];?>日</span>
-        </div>
+        </h2>
 
-        <div>店舗名：茨城店</div>
+        <h2 class="ui header">店舗名：茨城店</h2>
 
         <div>
             
@@ -285,7 +308,10 @@
                     <td></td>
                 </tr>
             </table>
-            <button class="edit firstTable">ここまでを編集</button>
+            <div class="edit-button-container">
+                <button class="edit firstTable ui button">ここまでを編集</button>
+            </div>
+            
 
             <table>
                 <tr class="table-2-row-1">
@@ -332,7 +358,10 @@
                 </tr>
 
             </table>
-            <button class="edit secondTable">ここまでを編集</button>
+            <div class="edit-button-container">
+            <button class="edit secondTable ui button">ここまでを編集</button>
+            </div>
+            
 
             <table>
                 <div class="table-title">売掛け金</div>
@@ -344,7 +373,10 @@
                     <?php endfor;?>
                 </tr>
             </table>
-            <button class="edit thirdTable">ここまで編集</button>
+            <div class="edit-button-container">
+            <button class="edit thirdTable ui button">ここまで編集</button>
+            </div>
+            
 
             <table>
                 <div class="table-title">DC売り上げ内訳</div>
@@ -385,7 +417,10 @@
                     <td><?php echo $_SESSION['paypay_total'];?>円</td>
                 </tr>
             </table>
-            <button class="edit fourthTable">ここまで編集</button>
+            <div class="edit-button-container">
+            <button class="edit fourthTable ui button">ここまで編集</button>
+            </div>
+            
 
             <table>
                 <div class="table-title">その他</div>
@@ -408,10 +443,16 @@
                     <td><?php echo $_SESSION['suica_total'];?>円</td>
                 </tr>
             </table>
-            <button class="edit fifthTable">ここまで編集</button>
+            <div class="edit-button-container">
+            <button class="edit fifthTable ui button center">ここまで編集</button>
+            </div>
+            
         </div>
 
-        <button class="send-data"><a href="submit.php">送信</a></button>
+        <div class="submit-container">
+        <a href="submit.php" class="send-data ui button">送信</a>
+        </div>
+        
     </div>
 
  

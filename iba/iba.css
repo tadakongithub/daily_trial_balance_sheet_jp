@@ -1,3 +1,4 @@
+/*
 body{
     max-width: 1000px;
     margin: auto;
@@ -5,11 +6,45 @@ body{
 }
 
 
+
+
 @media only screen and (max-width: 480px) {
     body{
         font-size: 40px;
     }
 }
+
+*/
+body{
+    max-width: 1000px;
+    margin: auto;
+}
+
+button.submit-btn{
+    display: inline-block;
+    width: 220px;
+    height: 38px;
+    font-size: 25px;
+    background-color: #bbb;
+    color: #fff;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.add_button{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+}
+
+.remove_field, .remove_dc, .remove_jcb{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+}
+
 
 input{
     font-size: 20px;
@@ -30,22 +65,56 @@ input{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding-top: 50px;
 }
+
+.q-container-add{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 50px;
+}
+
+.confirmation-container{
+    padding-top: 50px;
+}
+
 
 .each-received, .each-sent, .each-client{
     border: 1px solid #ddd;
     margin-top: 20px;
+    padding: 5px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
 }
 
 .each-field{
     margin: 15px 10px;
 }
 
-.remove_field{
-    display: block;
-    float: right;
-    width: 60px;
-    height: 20px;
+.icon-container{
+    text-align: right;
+}
+
+.add-container{
+    margin-top: 10px;
+}
+
+.submit-container{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+
+
+.edit-button-container{
+    text-align: center;
+    margin: 40px auto;
 }
 
 input[type=submit] {
@@ -154,4 +223,79 @@ td{
     width: 150px;
     height: 40px;
     margin: auto;
+}
+
+
+@media only screen and (max-device-width: 480px) {
+    h1.ui.header{
+        font-size: 4rem;
+        margin-bottom: 100px;
+    }
+
+    h2.ui.header{
+        font-size: 3rem;
+        margin-bottom: 50px;
+    }
+
+    .q-container, .q-container-add{
+        width: 90%;
+        margin: auto;
+    }
+
+    .ui.form .field>label{
+        font-size: 3rem;
+        line-height: 3rem;
+        margin-bottom: 50px;
+    }
+
+    input#date, input#name,
+    input#change, input#earning,
+    input#received_from, input#total_received,
+    input#content_received, input#sent_to,
+    input#total_sent, input#content_sent,
+    input#next_day_change, input#next_day_deposit,
+    input#prem_count, input#prem_total,
+    input#for_selling_count, input#for_selling_total,
+    input#thousand_count, input#five_count,
+    input#two_count, input#dc_how_much,
+    input#jcb_how_much, input#paypay_count,
+    input#paypay_total, input#nanaco_count,
+    input#nanaco_total, input#edy_count,
+    input#edy_total, input#suica_count,
+    input#suica_total, input#client_name,
+    input#urikake_total{
+        font-size: 3rem;
+    }
+
+    div.submit-container{
+        margin: 100px auto;
+    }
+
+    button.submit-btn{
+        width: 500px;
+        height: 70px;
+        font-size: 50px;
+    }
+
+    .add_button{
+        width: 60px;
+        height: 60px;
+    }
+
+    .remove_field, .remove_dc, .remove_jcb{
+        width: 40px;
+        height: 40px;
+    }
+
+    tr{
+        height: 60px;
+    }
+
+    td{
+        font-size: 25px;
+    }
+
+    td.table-cell-no-border{
+        font-size: 18px;
+    }
 }

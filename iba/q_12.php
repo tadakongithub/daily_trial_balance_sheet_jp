@@ -17,59 +17,64 @@ if($_POST['q_12']) {
 
 <html>
 <head>
-    <script src="https://code.jquery.com/jquery-3.5.0.js" integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
+<?php require '../semantic.php';?>
     <link rel="stylesheet" href="iba.css" >
 </head>
 <body>
-    <div class="q-container">
-        <h1>茨城店　日計表</h1> 
-        <form action="" method="post">
-            <div>15. 売掛け金</div>
+    <div class="q-container-add">
+        <h1 class="ui header">茨城店　日計表</h1> 
+        <form action="" method="post" class="ui form">
+            <h2 class="ui header">15. 売掛け金</h2>
 
             <div class="client-container">
                 <div class="each-client">
-                    <div class="each-field">
-                        <div>お客様</div>
+                    <div class="each-field field">
+                        <label for="client_name">お客様</label>
                         <input type="text" name="client_name[]" id="client_name">
                     </div>
-                    <div class="each-field">
-                        <div>金額</div>
+                    <div class="each-field field">
+                        <label for="urikake_total">金額</label>
                         <input type="number" name="urikake_total[]" id="urikake_total">
                     </div>
                 </div>
             </div>
             
 
-            <button class="add">追加</button>
-
-            <input type="submit" value="確認画面へ" name="q_12">
+            <div class="add-container">
+                <img class="add_button" src="../img/plus.png" alt="追加">
+            </div>
+            <input type="hidden" name="q_12" value="q_12">
+            <div class="submit-container">
+                <button type="submit" class="submit-btn">確認画面へ</button>
+            </div>
         </form>
     </div> 
 
         <script>
             $(document).ready(function(){
-                var add = $('.add');
+                var add = $('.add_button');
                 var wrapper = $('.client-container');
 
                 $(add).click(function(e){
                     e.preventDefault();
                     $(wrapper).append('<div class="each-client">' +
-                    '<div class="each-field">' +
-                    '<div>お客様</div>' +
+                    '<div class="icon-container">' +
+                    '<img class="remove_field" src="../img/close.png" alt="削除">' +
+                    '</div>' +
+                    '<div class="each-field field">' +
+                    '<label for="client_name">お客様</label>' +
                     '<input type="text" name="client_name[]" id="client_name">' +
                     '</div>'+
-                    '<div class="each-field">'+
-                    '<div>金額</div>' +
+                    '<div class="each-field field">'+
+                    '<label for="urikake_total">金額</label>' +
                     '<input type="number" name="urikake_total[]" id="urikake_total">' +
                     '</div>' +
-                    '<button class="remove_field">削除</button>' +
-                    '</div>'+
                     '</div>');
                 });
 
                 $(wrapper).on('click', '.remove_field', function(e){
                     e.preventDefault();
-                    $(this).parent('div').remove();
+                    $(this).parent('div').parent('div').remove();
                 });
             });
         </script>

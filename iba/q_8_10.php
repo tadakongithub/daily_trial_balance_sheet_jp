@@ -2,7 +2,7 @@
     session_start();
 
     if(!$_SESSION['logged_in'] == 'logged_in') {
-        header('Location: index.php');
+        header('Location: ../index.php');
     }
 
     if($_POST['q_8_10']) {
@@ -21,58 +21,63 @@
 ?>
 <html>
 <head>
-<script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+<?php require '../semantic.php';?>
 <link rel="stylesheet" href="iba.css">
 </head>
 <body>
-    <div class="q-container">
-        <h1>茨城店　日計表</h1>
-        <form action="" method="post">
+    <div class="q-container-add">
+        <h1 class="ui header">茨城店　日計表</h1>
+        <form action="" method="post" class="ui form">
         
             <div class="each-ticket">
-                <div>8. プレミアム食事券の枚数と金額を入力してください</div>
+                <h2 class="ui header">8. プレミアム食事券の枚数と金額を入力してください</h2>
 
-                <div>
+                <div class="field">
                     <label for="prem_count">枚数</label>
                     <input type="number" name="prem_count" id="prem_count" required>
+                </div>
+                <div class="field">
                     <label for="prem_total">金額</label>
                     <input type="number" name="prem_total" id="prem_total" required>
                 </div>
             </div>
 
             <div class="each-ticket">
-                <div>9. 販売用食事券の枚数と金額を入力してください</div>
+                <h2 class="ui header">9. 販売用食事券の枚数と金額を入力してください</h2>
 
-                <div>
+                <div class="field">
                     <label for="for_selling_count">枚数</label>
                     <input type="number" name="for_selling_count" id="for_selling_count" required>
+                </div>
+                <div class="field">
                     <label for="for_selling_total">金額</label>
                     <input type="number" name="for_selling_total" id="for_selling_total" required>
                 </div>
             </div>
 
             <div class="service_wrapper each-ticket">
-                <div>10. サービス用回収の種類、枚数、金額を入力してください。</div>
+                <h2 class="ui header">10. サービス用回収の種類、枚数、金額を入力してください。</h2>
 
-                <div>
-                    <div class-"each-field">
-                        <label for="thousand_count">1000円券枚数</label>
-                        <input type="number" name="thousand_count" id="thousand_count" required>
-                    </div>
-
-                    <div class="each-field">
-                        <label for="five_count">500円券枚数</label>
-                        <input type="number" name="five_count" id="five_count" required>
-                    </div>
-
-                    <div class="each-field">
-                        <label for="two_count">200円券枚数</label>
-                        <input type="number" name="two_count" id="two_count" required>
-                    </div>
+                <div class="field">
+                    <label for="thousand_count">1000円券枚数</label>
+                    <input type="number" name="thousand_count" id="thousand_count" required>
                 </div>
+                   
+                <div class="field">
+                    <label for="five_count">500円券枚数</label>
+                    <input type="number" name="five_count" id="five_count" required>
+                </div>
+                   
+                <div class="field">
+                    <label for="two_count">200円券枚数</label>
+                    <input type="number" name="two_count" id="two_count" required>
+                </div>       
             </div>
 
-            <input type="submit" value="次へ" name="q_8_10">
+            <input type="hidden" name="q_8_10" value="q_8_10">
+            <div class="submit-container">
+                <button type="submit" class="submit-btn">次へ</button>
+            </div>
         </form>
     </div>
 

@@ -2,7 +2,7 @@
     session_start();
 
     if(!$_SESSION['logged_in'] == 'logged_in') {
-        header('Location: index.php');
+        header('Location: ../index.php');
     } 
 
     require '../db.php';
@@ -38,19 +38,22 @@
 ?>
 <html>
 <head>
+<?php require '../semantic.php';?>
     <link rel="stylesheet" href="iba.css">
 </head>
 <body>
 
     <div class="q-container">
-        <h1>茨城店　日計表</h1>
-        <form action="" method="post" >
-            <div class="each-field">
+        <h1 class="ui header">茨城店　日計表</h1>
+        <form action="" method="post" class="ui form">
+            <div class="each-field field">
                 <label for="date">今日の日付を入力してください。</label>
                 <input type="date" name="date" id="date" required>
             </div>
-            
-            <input type="submit" name="dateForm" class="next-btn" value="次へ">
+            <input type="hidden" name="dateForm" value="dateForm">
+            <div class="submit-container">
+                <button type="submit" class="submit-btn">次へ</button>
+            </div>
         </form>
     </div>
 </body>

@@ -17,29 +17,41 @@ while($result = $results->fetch()) {
 
 ?>
 <html>
-<head></head>
+<head>
+    <?php require 'semantic.php'; ?>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        $(document).ready(function(){
+            $('.select.dropdown').dropdown();
+        });
+    </script>
+</head>
 <body>
-    <nav>   
-        <ul>
-            <li><a href="index.php">トップ</a></li>
-            <li><a href="list.php">ダウンロードページ</a></li>
-        </ul>
-    </nav>
+    <div class="ui two item menu">
+        <a class="item" href="index.php">トップ</a>
+        <a class="item" href="list.php">ダウンロードページ</a>
+    </div>
 
-    <form action="download.php" method="post">
-        <table>
-            <tr>
-                <td>茨城店<input type="hidden" value="ibaraki" name="tableName"/></td>
-                <td>
-                    <select name="yearMonth">
-                        <?php foreach($yearMonthArray as $yearMonth):?>
-                            <option value="<?php echo $yearMonth;?>"><?php echo $yearMonth;?></option>
-                        <?php endforeach;?>
-                    </select>
-                </td>
-                <td><input type="submit" value="ダウンロード" name="ibaraki"></td>
-            </tr>
-        </table>
-    </form>
+    <div class="home-container">
+        <form action="download.php" method="post" class="ui form">
+            <div class="field">
+                <label for="tableName">茨城店</label>
+                <input type="hidden" value="ibaraki" name="tableName"/>
+            </div>
+                
+            <div class="field">
+                <select name="yearMonth" class="ui select dropdown" id="yearMonth">
+                    <?php foreach($yearMonthArray as $yearMonth):?>
+                        <option value="<?php echo $yearMonth;?>"><?php echo $yearMonth;?></option>
+                    <?php endforeach;?>
+                </select>
+            </div>
+                   
+            <input type="hidden" name="ibaraki" value="ibaraki">
+            <div class="submit-container">
+                <button type="submit" class="submit-btn">ダウンロード</button>
+            </div>
+        </form>
+    </div>               |
 </body>
 </html>
