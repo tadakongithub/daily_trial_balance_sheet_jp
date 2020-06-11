@@ -28,6 +28,10 @@ button.submit-btn{
     -o-border-radius: 5px;
 }
 
+.to-form{
+    font-size: 25px;
+}
+
 @media only screen and (max-device-width: 480px) {
     h1.ui.header{
         font-size: 4rem;
@@ -64,6 +68,10 @@ button.submit-btn{
     }
 
     .back_to_top{
+        font-size: 50px;
+    }
+
+    .to-form{
         font-size: 50px;
     }
 

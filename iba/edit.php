@@ -13,8 +13,8 @@
     }
 
     //もし日付のセッションがないか、その日付のデータがデータベースにない場合はトップページに
-    $date = $_SESSION['date'];
-    $stmt = $myPDO->query("SELECT * FROM ibaraki WHERE date = '$date'");
+    $checkDate = $_SESSION['date'];
+    $stmt = $myPDO->query("SELECT * FROM ibaraki WHERE date = '$checkDate'");
     $result = $stmt->fetch(FETCH_ASSOC);
     $rowCount = count($result);
 
@@ -26,10 +26,10 @@
     if($_SESSION["from_date"] == "from_date") {
         unset($_SESSION['from_date']);
         $_SESSION['from_edit'] = true;
-        
 
-        
-        $results = $myPDO->query("SELECT * FROM ibaraki WHERE date = '$date'");
+
+
+        $results = $myPDO->query("SELECT * FROM ibaraki WHERE date = '$checkDate'");
         $record;
         $time_created = 0;
         while($row = $results->fetch()) {
@@ -40,16 +40,16 @@
                 $record = $row;
             }
         }
-    
+
         //表示する項目のデータを変数に入れる
         $_SESSION['name'] = $record['name'];
-    
-        $unixtime = strtotime($date);
+
+        $unixtime = strtotime($_SESSION['date']);
         $_SESSION['year'] = date('Y', $unixtime);
         $_SESSION['month'] = date('m', $unixtime);
-        $_SESSION['date'] = date('d', $unixtime);
+        $_SESSION['displayDate'] = date('d', $unixtime);
 
-    
+
         $_SESSION['change'] = $record['change1'];
         $_SESSION['earning'] = $record['earning'];
         $_SESSION['received_from'] = unserialize($record['received_from']);
@@ -59,6 +59,7 @@
         $_SESSION['total_sent'] = unserialize($record['total_sent']);
         $_SESSION['content_sent'] = unserialize($record['content_sent']);
         $_SESSION['next_day_change'] = $record['next_day_change'];
+        $_SESSION['jisen_total'] = $record['jisen_total'];
         $_SESSION['next_day_deposit'] = $record['next_day_deposit'];
         $_SESSION['prem_count'] = $record['prem_count'];
         $_SESSION['prem_total'] = $record['prem_total'];
@@ -83,9 +84,9 @@
         $_SESSION['suica_count'] = $record['suica_count'];
         $_SESSION['suica_total'] = $record['suica_total'];
     }
-    
-    
-    
+
+
+
         if($_POST['name']) {
             $_SESSION['name'] = $_POST['name'];
         }
@@ -97,7 +98,7 @@
         if($_POST['earning']) {
             $_SESSION['earning'] = $_POST['earning'];
         }
-    
+
         if($_POST['received_from']){
             $_SESSION['received_from'] = $_POST['received_from'];
         }
@@ -124,6 +125,10 @@
 
         if($_POST['next_day_change']) {
             $_SESSION['next_day_change'] = $_POST['next_day_change'];
+        }
+
+        if($_POST['jisen_total']) {
+            $_SESSION['jisen_total'] = $_POST['jisen_total'];
         }
 
         if($_POST['next_day_deposit']) {
@@ -217,23 +222,23 @@
 <link rel="stylesheet" href="iba.css">
 </head>
 <body>
-    
+
     <div class="confirmation-container">
         <h2 class="ui header">
             <span class="item-name">記入者：</span>
             <span class="item-value"><?php echo $_SESSION['name'];?></span>
-            <button class="edit name ui button">編集</button>
+            <button class="edit name" id="edit-btn">編集</button>
         </h2>
 
         <h2 class="ui header">
             <span class="item-name">日付：</span>
-            <span><?php echo $_SESSION['year'];?>月<?php echo $_SESSION['month'];?>月<?php echo $_SESSION['date'];?>日</span>
+            <span><?php echo $_SESSION['year'];?>月<?php echo $_SESSION['month'];?>月<?php echo $_SESSION['displayDate'];?>日</span>
         </h2>
 
         <h2 class="ui header">店舗名：茨城店</h2>
 
         <div>
-            
+
             <table>
                 <tr class="row-1">
                     <td>釣り銭</td>
@@ -289,7 +294,7 @@
 
                 <tr class="row-2">
                     <td>実践合計</td>
-                    <td></td>
+                    <td><?php echo $_SESSION['jisen_total'];?></td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -309,9 +314,9 @@
                 </tr>
             </table>
             <div class="edit-button-container">
-                <button class="edit firstTable ui button">ここまでを編集</button>
+                <button class="edit firstTable" id="edit-section-btn">ここまでを編集</button>
             </div>
-            
+
 
             <table>
                 <tr class="table-2-row-1">
@@ -359,9 +364,9 @@
 
             </table>
             <div class="edit-button-container">
-            <button class="edit secondTable ui button">ここまでを編集</button>
+            <button class="edit secondTable" id="edit-section-btn">ここまでを編集</button>
             </div>
-            
+
 
             <table>
                 <div class="table-title">売掛け金</div>
@@ -374,18 +379,20 @@
                 </tr>
             </table>
             <div class="edit-button-container">
-            <button class="edit thirdTable ui button">ここまで編集</button>
+            <button class="edit thirdTable" id="edit-section-btn">ここまで編集</button>
             </div>
-            
+
 
             <table>
                 <div class="table-title">DC売り上げ内訳</div>
 
-                <tr class="dc-each-row">
+
                     <?php for($i = 0; $i < count($_SESSION['dc_how_much']); $i++):?>
+                      <tr class="dc-each-row">
                         <td style="text-align: center"><?php echo $_SESSION['dc_how_much'][$i];?>円</td>
+                          </tr>
                     <?php endfor;?>
-                </tr>
+
 
                 <tr class="dc-total">
                     <td>DC売り上げ合計</td>
@@ -397,11 +404,13 @@
             <table>
                 <div class="table-title">JCB売り上げ内訳</div>
 
-                <tr class="dc-each-row">
+
                     <?php for($i = 0; $i < count($_SESSION['jcb_how_much']); $i++):?>
+                        <tr class="dc-each-row">
                         <td style="text-align: center"><?php echo $_SESSION['jcb_how_much'][$i];?>円</td>
+                          </tr>
                     <?php endfor;?>
-                </tr>
+
 
                 <tr class="dc-total">
                     <td>JCB売り上げ合計</td>
@@ -418,9 +427,9 @@
                 </tr>
             </table>
             <div class="edit-button-container">
-            <button class="edit fourthTable ui button">ここまで編集</button>
+            <button class="edit fourthTable" id="edit-section-btn">ここまで編集</button>
             </div>
-            
+
 
             <table>
                 <div class="table-title">その他</div>
@@ -444,19 +453,19 @@
                 </tr>
             </table>
             <div class="edit-button-container">
-            <button class="edit fifthTable ui button center">ここまで編集</button>
+            <button class="edit fifthTable center" id="edit-section-btn">ここまで編集</button>
             </div>
-            
+
         </div>
 
         <div class="submit-container">
-        <a href="submit.php" class="send-data ui button">送信</a>
+        <a href="submit.php" id="send-btn" class="send-data">送信</a>
         </div>
-        
+
     </div>
 
- 
-   
+
+
     <!-- modal for name -->
     <div class="ui modal name">
         <i class="close icon"></i>
@@ -524,6 +533,10 @@
                 <div class="field">
                     <label for="next_day_change">翌日つり銭</label>
                     <input type="number" id="next_day_change" name="next_day_change" value="<?php echo $_SESSION['next_day_change'];?>">
+                </div>
+                <div class="field">
+                    <label for="jisen_total">実践合計</label>
+                    <input type="number" id="jisen_total" name="jisen_total" value="<?php echo $_SESSION['jisen_total'];?>">
                 </div>
                 <div class="field">
                     <label for="next_day_deposit">翌日預入</label>
@@ -674,7 +687,7 @@
 
 
     <script>
-        
+
         $(document).ready(function(){
             var edit = $(".edit");
 
@@ -694,10 +707,10 @@
                 } else if($(this).hasClass('fifthTable')) {
                     $('.ui.modal.fifthTable').modal('show');
                 }
-                
+
             });
 
-            
+
 
 
         });

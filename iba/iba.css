@@ -45,6 +45,49 @@ button.submit-btn{
     height: 20px;
 }
 
+#send-btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 40px;
+  color: rgba(0,0,0, .6);
+  font-weight: 700;
+  background-color: #e0e1e2;
+  border-radius: 8px;
+  border-radius: .28571429rem;
+  -webkit-border-radius: .28571429rem;
+  -moz-border-radius: .28571429rem;
+  -o-border-radius: .28571429rem;
+}
+
+#edit-btn{
+  display: inline-block;
+  width: 100px;
+  height: 35px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: rgba(0,0,0, .6);
+  background-color: #e0e1e2;
+  border-radius: .28571429rem;
+  -webkit-border-radius: .28571429rem;
+  -moz-border-radius: .28571429rem;
+  -o-border-radius: .28571429rem;
+}
+
+#edit-section-btn{
+  display: inline-block;
+  width: 250px;
+  height: 50px;
+  color: rgba(0,0,0, .6);
+  font-weight: 700;
+  background-color: #e0e1e2;
+  border-radius: 8px;
+  border-radius: .28571429rem;
+  -webkit-border-radius: .28571429rem;
+  -moz-border-radius: .28571429rem;
+  -o-border-radius: .28571429rem;
+}
 
 input{
     font-size: 20px;
@@ -128,23 +171,33 @@ input[type=submit] {
     margin: 15px auto;
 }
 
-table{
+/* td{
+
+} */
+
+table, td, th{
     border-collapse: collapse;
+}
+
+table{
     width: 100%;
     max-width: 1000px;
     margin: 10px auto;
-    border-right: 1px solid #000;
-    border-bottom: 1px solid #000;
+    border: 2px solid #000;
+    margin: 30px auto;
 }
 
 td{
-    border-top: 1px solid #000;
-    border-left: 1px solid #000;
+    border: 1px solid rgb(160, 160, 160);
 }
 
-.table-cell-no-border{
-    border: none;
+.first-sent{
+    border-top: 2px solid #000;
 }
+
+/* .table-cell-no-border{
+    border: none;
+} */
 
 .row-1{
     display: grid;
@@ -182,6 +235,8 @@ td{
 
 .table-title{
     text-align: center;
+    font-size: 25px;
+    font-weight: 700;
 }
 
 .dc-each-row{
@@ -192,6 +247,7 @@ td{
 .dc-total{
     display:grid;
     grid-template-columns: 1fr 1fr 1fr;
+    border-top: 2px solid #000;
 }
 
 .paypay{
@@ -268,7 +324,7 @@ td{
     }
 
     div.submit-container{
-        margin: 100px auto;
+        margin: 100px auto 200px;
     }
 
     button.submit-btn{
@@ -276,6 +332,7 @@ td{
         height: 70px;
         font-size: 50px;
     }
+
 
     .add_button{
         width: 60px;
@@ -298,4 +355,23 @@ td{
     td.table-cell-no-border{
         font-size: 18px;
     }
+
+    #send-btn{
+      width: 500px;
+      height: 100px;
+      font-size: 3rem;
+    }
+
+    #edit-btn{
+      width: 200px;
+      height: 60px;
+      font-size: 2rem;
+    }
+
+    #edit-section-btn{
+      width: 500px;
+      height: 100px;
+      font-size: 3rem;
+    }
+
 }

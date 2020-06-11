@@ -9,7 +9,7 @@
         $_SESSION['sent_to'] = $_POST['sent_to'];
         $_SESSION['total_sent'] = $_POST['total_sent'];
         $_SESSION['content_sent'] = $_POST['content_sent'];
-        header('Location: q_6_7.php');
+        header('Location: q_6_7_8.php');
     }
 ?>
 <html>
@@ -21,18 +21,23 @@
     <div class="q-container-add">
         <h1 class="ui header">茨城店　日計表</h1>
             <form action="" method="post" id="form_received" class="ui form">
-            <h2 class="ui header">5. 出金額、取引先やスタッフ名、出金の内容</h2>
+            <h2 class="ui header">5. 現金のレジ出金を記入してください。</h2>
+            <small>（消耗品購入・食材仕入・お手伝いスタッフの人件費など）</small>
+            <small>※注意※　×シェル→〇関東礦油
+                <br>ブランド名ではなく、会社名を記載してください。
+            </small>
 
             <div class="input_fields_wrapper">
                 <div class="each-sent">
                     <div class="each-field field">
-                        <label for="sent_to">取引先</label>
+                        <label for="sent_to">購入先・スタッフ名など</label>
                         <input type="text" name="sent_to[]" id="sent_to" required>
                     </div>
                     
                     <div class="each-field field">
                         <label for="total_sent">出金額</label>
-                        <input type="number" name="total_sent[]" id="total_sent" required>
+                        <input type="number" name="total_sent[]" id="total_sent"
+                         required>
                     </div>
                     
                     <div class="each-field field">
@@ -70,7 +75,7 @@
                     '</div>' +
                     '<div class="each-field field">' +
                     '<label for="total_sent">出金額</label>' +
-                    '<input type="number" name="total_sent[]" id="total_sent" required>' +
+                    '<input type="number" name="total_sent[]" id="total_sent" placeholder="取引なしは0" required>' +
                     '</div>' +
                     '<div class="each-field field">' +
                     '<label for="content_sent">出金の内容</label>' +

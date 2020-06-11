@@ -18,6 +18,7 @@
         !isset($_SESSION['total_sent']) or
         !isset($_SESSION['content_sent']) or
         !isset($_SESSION['next_day_change']) or
+        !isset($_SESSION['jisen_total']) or
         !isset($_SESSION['next_day_deposit']) or
         !isset($_SESSION['prem_count']) or
         !isset($_SESSION['prem_total']) or
@@ -41,7 +42,7 @@
         !isset($_SESSION['suica_total']) or
         !isset($_SESSION['client_name']) or
         !isset($_SESSION['urikake_total'])) {
-        
+
         header('Location: ../lackofdata.php');
 
     };
@@ -52,7 +53,7 @@
     $year = date('Y', $unixtime);
     $month = date('m', $unixtime);
     $date = date('d', $unixtime);
-    
+
 ?>
 <html>
 <head>
@@ -60,7 +61,7 @@
 <link rel="stylesheet" href="iba.css">
 </head>
 <body>
-    
+
     <div class="confirmation-container">
         <h2 class="ui header">記入者：<?php echo $_SESSION['name'];?></h2>
 
@@ -92,8 +93,29 @@
                     </tr>
                 <?php endfor;?>
 
+                <?php
+                    if(count($_SESSION['received_from']) < 5) {
+                        $num_of_blank_received_rows = 5 - count($_SESSION['received_from']);
+                        for($i = 0; $i < $num_of_blank_received_rows; $i++) { ?>
+                            <tr class="row-2">
+                                <td>入金</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        <?php
+                        }
+                    }
+                ?>
+
                 <?php for($i = 0; $i < count($_SESSION['sent_to']); $i++):?>
-                    <tr class="row-2">
+                    <tr class="<?php 
+                        if($i == 0){
+                            echo "row-2 first-sent";
+                        } else {
+                            echo "row-2";
+                        };
+                    ?>">
                         <td>出金</td>
                         <td><?php echo $_SESSION['total_sent'][$i];?></td>
                         <td><?php echo $_SESSION['sent_to'][$i];?></td>
@@ -101,30 +123,54 @@
                     </tr>
                 <?php endfor;?>
 
+                <?php
+                    if(count($_SESSION['sent_to']) < 10) {
+                        $num_of_blank_sent_to = 10 - count($_SESSION['received_from']);
+                        for($i = 0; $i < $num_of_blank_sent_to; $i++) { ?>
+                            <tr class="row-2">
+                                <td>出金</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        <?php
+                        }
+                    }
+                ?>
+
                 <tr class="row-2">
                     <td>支払い計</td>
-                    <td></td>
+                    <td><?php echo array_sum($_SESSION['total_sent']);?></td>
                     <td></td>
                     <td></td>
                 </tr>
+
+                <?php
+                    $reji_zankei = $_SESSION['change'] + $_SESSION['earning'] 
+                    + array_sum($_SESSION['total_received']) - array_sum($_SESSION['total_sent']);
+                ?>
 
                 <tr class="row-2">
                     <td>レジ残計</td>
-                    <td></td>
+                    <td><?php echo $reji_zankei;?></td>
                     <td></td>
                     <td></td>
                 </tr>
+
+                <?php
+                    $kabusoku = $reji_zankei - $_SESSION['jisen_total'];
+                ?>
 
                 <tr class="row-2">
                     <td>現金過不足</td>
-                    <td></td>
+                    <td><?php echo $kabusoku;?></td>
                     <td></td>
                     <td></td>
                 </tr>
 
                 <tr class="row-2">
-                    <td>実践合計</td>
-                    <td></td>
+                    <td>実残合計</td>
+                    <td><?php echo $_SESSION['jisen_total'];?></td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -148,10 +194,15 @@
 
             <table>
 
+                <?php
+                    $shokuji = $_SESSION['prem_total'] + $_SESSION['for_selling_total'] +
+                    $_SESSION['thousand_total'] + $_SESSION['five_total'] + $_SESSION['two_total'];
+                ?>
+
                 <tr class="table-2-row-1">
-                    <td class="table-cell-no-border"></td>
-                    <td>食事券計</td>
                     <td></td>
+                    <td>食事券計</td>
+                    <td><?php echo $shokuji;?>円</td>
                 </tr>
 
                 <tr class="table-2-row-2">
@@ -194,7 +245,7 @@
             </table>
 
             <table>
-                <div class="table-title">売掛け金</div>
+                <div class="table-title">売掛金</div>
 
                 <tr class="client-row">
                     <?php for($i = 0; $i < count($_SESSION['client_name']); $i++):?>
@@ -205,15 +256,15 @@
             </table>
 
             <table>
-                <div class="table-title">DC売り上げ内訳</div>
+                <div class="table-title">DC売上内訳</div>
 
-                
+
                     <?php for($i = 0; $i < count($_SESSION['dc_how_much']); $i++):?>
                         <tr class="dc-each-row">
                         <td style="text-align: center"><?php echo $_SESSION['dc_how_much'][$i];?>円</td>
                         </tr>
                     <?php endfor;?>
-                
+
 
                 <tr class="dc-total">
                     <td>DC売り上げ合計</td>
@@ -225,13 +276,13 @@
             <table>
                 <div class="table-title">JCB売り上げ内訳</div>
 
-                
+
                     <?php for($i = 0; $i < count($_SESSION['jcb_how_much']); $i++):?>
                         <tr class="dc-each-row">
                         <td style="text-align: center"><?php echo $_SESSION['jcb_how_much'][$i];?>円</td>
                         </tr>
                     <?php endfor;?>
-  
+
 
                 <tr class="dc-total">
                     <td>JCB売り上げ合計</td>
@@ -272,12 +323,12 @@
         </div>
 
         <div class="submit-container">
-            <a class="ui button send-data" href="submit.php">送信</a>
+            <a id="send-btn" class="send-data" href="submit.php">送信</a>
         </div>
     </div>
 
- 
-    <!-- modal for date 
+
+    <!-- modal for date
     <div class="ui modal date">
         <i class="close icon"></i>
         <div class="header">
@@ -292,7 +343,7 @@
     </div>
                 -->
 
-    <!-- modal for number 
+    <!-- modal for number
     <div class="ui modal number">
         <i class="close icon"></i>
         <div class="header">
@@ -307,7 +358,7 @@
     </div>
     -->
 
-    <!-- modal for text 
+    <!-- modal for text
     <div class="ui modal text">
         <i class="close icon"></i>
         <div class="header">
@@ -322,7 +373,7 @@
     </div>
                 -->
 
-    <!-- modal for received 
+    <!-- modal for received
     <div class="ui modal received">
         <i class="close icon"></i>
         <div class="header">
@@ -370,7 +421,7 @@
     </div>
                 -->
 
-     <!-- modal for prem 
+     <!-- modal for prem
      <div class="ui modal prem">
         <i class="close icon"></i>
         <div class="header">
@@ -388,7 +439,7 @@
     </div>
                 -->
 
-    <!-- modal for for_selling 
+    <!-- modal for for_selling
     <div class="ui modal for_selling">
         <i class="close icon"></i>
         <div class="header">
@@ -406,7 +457,7 @@
     </div>
                 -->
 
-    <!-- modal for service 
+    <!-- modal for service
     <div class="ui modal service">
         <i class="close icon"></i>
         <div class="header">
@@ -430,7 +481,7 @@
     </div>
                 -->
 
-    <!-- modal for dc 
+    <!-- modal for dc
     <div class="ui modal dc">
         <i class="close icon"></i>
         <div class="header">
@@ -447,7 +498,7 @@
     </div>
                 -->
 
-    
+
 
     <script>
         /*
@@ -475,12 +526,12 @@
                 } else if($(this).hasClass('dc')) {
                     $('.ui.modal.dc').modal('show');
                 }
-                
-                
+
+
                 var title = $(this).parent('div').children('h4').text();
                 var data = $(this).parent('div').children('div').text();
                 var id = $(this).attr('id');
-        
+
 
                 $(".title").text(title);
                 $("div.field > input").attr('name', id);

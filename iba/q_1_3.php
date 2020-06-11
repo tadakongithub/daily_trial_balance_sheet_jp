@@ -25,17 +25,17 @@
         <form action="" method="post" class="ui form">
             <div class="each-field field">
                 <label for="name">1. 名前</label>
-                <input type="text" name="name" id="name" required>
+                <input type="text" name="name" id="name" value="<?php echo $_SESSION['name'];?>" required>
             </div>
             
             <div class="each-field field">
                 <label for="change">2. 釣り銭金額</label>
-                <input type="number" name="change" id="change" required>
+                <input type="number" name="change" id="change" value="<?php echo $_SESSION['change'];?>" required>
             </div>
 
             <div class="each-field field">
                 <label for="earning">3. 現金売り上げ</label>
-                <input type="number" name="earning" id="earning" required>
+                <input type="number" name="earning" id="earning" value="<?php echo $_SESSION['earning'];?>" required>
             </div>
             <input type="hidden" name="q_1_3" value="q_1_3">
             <div class="submit-container">

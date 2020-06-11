@@ -5,21 +5,19 @@ session_start();
 require '../db.php';
 
 
-$name = $_SESSION['name'];
-if($_SESSION['from_edit']) {
-    $date = $_SESSION['year'].'-'.$_SESSION['month'].'-'.$_SESSION['date'];
-} else {
+
+
     $date = $_SESSION['date'];
     $results = $myPDO->query("SELECT * FROM ibaraki WHERE date = '$date'");
     $rows = $results->fetch(FETCH_ASSOC);
     if(count($rows) > 0) {
         header('Location: ../dataexist.php');
     }
-}
 
 
 
 
+$name = $_SESSION['name'];
 $change = $_SESSION['change'];
 $earning = $_SESSION['earning'];
 $received_from = serialize($_SESSION['received_from']);
@@ -29,6 +27,7 @@ $sent_to = serialize($_SESSION['sent_to']);
 $total_sent = serialize($_SESSION['total_sent']);
 $content_sent = serialize($_SESSION['content_sent']);
 $next_day_change = $_SESSION['next_day_change'];
+$jisen_total = $_SESSION['jisen_total'];
 $next_day_deposit = $_SESSION['next_day_deposit'];
 $prem_count = $_SESSION['prem_count'];
 $prem_total = $_SESSION['prem_total'];
@@ -58,7 +57,7 @@ $query = "INSERT INTO ibaraki (
     name, date, change1, earning,
     received_from, total_received, content_received,
     sent_to, total_sent, content_sent,
-    next_day_change, next_day_deposit,
+    next_day_change, jisen_total, next_day_deposit,
     prem_count, prem_total,
     for_selling_count, for_selling_total,
     thousand_count, thousand_total,
@@ -75,8 +74,8 @@ $query = "INSERT INTO ibaraki (
     '$name', '$date', '$change', '$earning',
     '$received_from', '$total_received', '$content_received',
     '$sent_to', '$total_sent', '$content_sent',
-    '$next_day_change', '$next_day_deposit',
-    '$prem_count', '$prem_total', 
+    '$next_day_change', '$jisen_total','$next_day_deposit',
+    '$prem_count', '$prem_total',
     '$for_selling_count', '$for_selling_total',
     '$thousand_count', '$thousand_total',
     '$five_count', '$five_total',

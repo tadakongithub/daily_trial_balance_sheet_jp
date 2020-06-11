@@ -28,11 +28,12 @@
     <div class="q-container-add">
         <h1 class="ui header">茨城店　日計表</h1>
         <form action="" method="post" id="form_received" class="ui form">
-            <h2 class="ui header">4. 入金額、取引先やスタッフ名、入金の内容</h2>
+            <h2 class="ui header">4. 現金のレジ入金を記入してください。</h2>
+            <small>（取引先・お手伝いスタッフの源泉税など）</small>
             <div class="input_fields_wrapper">
                 <div class="each-received">
                     <div class="each-field field">
-                        <label for="received_from">取引先</label>
+                        <label for="received_from">取引先・スタッフ名など</label>
                         <input type="text" name="received_from[]" id="received_from" required>
                     </div>
 

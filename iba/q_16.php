@@ -6,7 +6,7 @@ if($_SESSION['logged_in'] !== 'logged_in') {
     header('Location: ../index.php');
 }
 
-if($_POST['q_12']) {
+if($_POST['q_16']) {
     $_SESSION['client_name'] = $_POST['client_name'];
     $_SESSION['urikake_total'] = $_POST['urikake_total'];
     header('Location: confirmation.php');
@@ -24,7 +24,7 @@ if($_POST['q_12']) {
     <div class="q-container-add">
         <h1 class="ui header">茨城店　日計表</h1> 
         <form action="" method="post" class="ui form">
-            <h2 class="ui header">15. 売掛け金</h2>
+            <h2 class="ui header">16. 売掛金</h2>
 
             <div class="client-container">
                 <div class="each-client">
@@ -43,7 +43,7 @@ if($_POST['q_12']) {
             <div class="add-container">
                 <img class="add_button" src="../img/plus.png" alt="追加">
             </div>
-            <input type="hidden" name="q_12" value="q_12">
+            <input type="hidden" name="q_16" value="q_16">
             <div class="submit-container">
                 <button type="submit" class="submit-btn">確認画面へ</button>
             </div>
