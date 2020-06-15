@@ -78,7 +78,7 @@
                 </tr>
 
                 <tr class="row-2">
-                    <td>現金売り上げ</td>
+                    <td>現金売上</td>
                     <td><?php echo $_SESSION['earning'];?></td>
                     <td>購入取引先名</td>
                     <td>明細</td>
@@ -267,14 +267,14 @@
 
 
                 <tr class="dc-total">
-                    <td>DC売り上げ合計</td>
+                    <td>DC売上合計</td>
                     <td><?php echo count($_SESSION['dc_how_much']);?>件</td>
                     <td><?php echo array_sum($_SESSION['dc_how_much']);?>円</td>
                 </tr>
             </table>
 
             <table>
-                <div class="table-title">JCB売り上げ内訳</div>
+                <div class="table-title">JCB売上内訳</div>
 
 
                     <?php for($i = 0; $i < count($_SESSION['jcb_how_much']); $i++):?>
@@ -285,14 +285,14 @@
 
 
                 <tr class="dc-total">
-                    <td>JCB売り上げ合計</td>
+                    <td>JCB売上合計</td>
                     <td><?php echo count($_SESSION['jcb_how_much']);?>件</td>
                     <td><?php echo array_sum($_SESSION['jcb_how_much']);?>円</td>
                 </tr>
             </table>
 
             <table>
-                <div class="table-title">PayPay売り上げ合計</div>
+                <div class="table-title">PayPay売上合計</div>
                 <tr class="paypay">
                     <td><?php echo $_SESSION['paypay_count'];?>件</td>
                     <td><?php echo $_SESSION['paypay_total'];?>円</td>

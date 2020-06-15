@@ -39,6 +39,7 @@ while($record = $results->fetch()) {
     //現在のシートを変数にする
     $activeSheet = $spreadsheet->getSheet($i);
 
+
     //1 ~ 5行目
     $activeSheet
     ->setCellValue('J1', '記入者')
@@ -64,7 +65,7 @@ while($record = $results->fetch()) {
     ->setCellValue('K5', '明細')
     ;
 
-    //1 ~ 5行目スタイル
+    //1 ~ 2行目スタイル
     $activeSheet
         ->getStyle('K1')->getBorders()->getBottom()
         ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
@@ -92,6 +93,7 @@ while($record = $results->fetch()) {
     $activeSheet
         ->getStyle('C2')
         ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+    
 
     
     //入金のデータを配列に戻す
@@ -102,10 +104,18 @@ while($record = $results->fetch()) {
     //入金の個数（回数）
     $received_count = count($received_from_array);
 
+
     //A列のセルを結合「入金」
-    $activeSheet
+    if($received_count >= 5) {
+        $activeSheet
         ->mergeCells("A6:A".(5+$received_count))
         ->setCellValue('A6', '入金');
+    } else if($received_count < 5) {
+        $activeSheet
+        ->mergeCells("A6:A10")
+        ->setCellValue('A6', '入金');
+    }
+    
     
     //入金のデータ入力
         for($j = 0; $j < $received_count; $j++) {
@@ -118,6 +128,27 @@ while($record = $results->fetch()) {
                 ->mergeCells('K'.(6+$j).':M'.(6+$j))
                 ->setCellValue('K'.(6+$j), $content_received_array[$j]);
         }
+
+        //入金の列最低5
+        if($received_count < 5) {
+            $received_blank_num = 5 - $received_count;
+            for($j = 0; $j < $received_blank_num; $j++) {
+                $activeSheet
+                ->mergeCells('B'.(6+$received_count+$j).':C'.(6+$received_count+$j))
+                ->mergeCells('D'.(6+$received_count+$j).':G'.(6+$received_count+$j))
+                ->mergeCells('H'.(6+$received_count+$j).':J'.(6+$received_count+$j))
+                ->mergeCells('K'.(6+$received_count+$j).':M'.(6+$received_count+$j));
+            }
+        }
+    //最終的な入金の列の数
+    $final_received_num;
+    if($received_count >= 5) {
+        global $final_received_num;
+        $final_received_num = $received_count;
+    } else if($received_count < 5) {
+        global $final_received_num;
+        $final_received_num = 5;
+    }
     
     //出金のデータを配列に戻す
     $sent_to_array = unserialize($record['sent_to']);
@@ -128,24 +159,54 @@ while($record = $results->fetch()) {
     $sent_count = count($sent_to_array);
 
     //A列のセルを結合「出金」
-    $activeSheet
-        ->mergeCells("A".(6+$received_count).":A".(7+$sent_count))
-        ->setCellValue('A'.(6+$received_count), '出金');
+    
+        if($sent_count >= 10) {
+            $activeSheet
+            ->mergeCells("A".(6+$final_received_num).":A".(6+$final_received_num+$sent_count-1))
+            ->setCellValue('A'.(6+$received_count), '出金');
+        } else if($sent_count < 10) {
+            $activeSheet
+            ->mergeCells("A".(6+$final_received_num).":A".(6+$final_received_num+9))
+            ->setCellValue('A'.(6+$final_received_num), '出金');
+        }
+        
 
     //出金のデータ入力
         for($j = 0; $j < $sent_count; $j++) {
             $activeSheet
-                ->mergeCells('B'.(6+$received_count+$j).':C'.(6+$received_count+$j))
-                ->setCellValue('B'.(6+$received_count+$j), $total_sent_array[$j])
-                ->mergeCells('D'.(6+$received_count+$j).':G'.(6+$received_count+$j))
-                ->mergeCells('H'.(6+$received_count+$j).':J'.(6+$received_count+$j))
-                ->setCellValue('H'.(6+$received_count+$j), $sent_to_array[$j])
-                ->mergeCells('K'.(6+$received_count+$j).':M'.(6+$received_count+$j))
-                ->setCellValue('K'.(6+$received_count+$j), $content_sent_array[$j]);
+                ->mergeCells('B'.(6+$final_received_num+$j).':C'.(6+$final_received_num+$j))
+                ->setCellValue('B'.(6+$final_received_num+$j), $total_sent_array[$j])
+                ->mergeCells('D'.(6+$final_received_num+$j).':G'.(6+$final_received_num+$j))
+                ->mergeCells('H'.(6+$final_received_num+$j).':J'.(6+$final_received_num+$j))
+                ->setCellValue('H'.(6+$final_received_num+$j), $sent_to_array[$j])
+                ->mergeCells('K'.(6+$final_received_num+$j).':M'.(6+$final_received_num+$j))
+                ->setCellValue('K'.(6+$final_received_num+$j), $content_sent_array[$j]);
+        }
+
+        //値が入ってる出金の最後の列
+        $last_sent_row_with_value = 6 + $final_received_num + $sent_count - 1;
+
+        //出金の列最低10
+        if($sent_count < 10) {
+            $sent_blank_num = 10 - $sent_count;
+            for($j = 0; $j < $sent_blank_num; $j++) {
+                $activeSheet
+                ->mergeCells('B'.($last_sent_row_with_value+1+$j).':C'.($last_sent_row_with_value+1+$j))
+                ->mergeCells('D'.($last_sent_row_with_value+1+$j).':G'.($last_sent_row_with_value+1+$j))
+                ->mergeCells('H'.($last_sent_row_with_value+1+$j).':J'.($last_sent_row_with_value+1+$j))
+                ->mergeCells('K'.($last_sent_row_with_value+1+$j).':M'.($last_sent_row_with_value+1+$j));
+            }
         }
     
     //出金の最後の行
-    $lastRow = 5+$received_count+$sent_count;
+    $lastRow;
+    if($sent_count >= 10) {
+        global $lastRow;
+        $lastRow = 5 + $final_received_num + $sent_count;
+    } else if ($sent_count < 10) {
+        global $lastRow;
+        $lastRow = 5 + $final_received_num + 10;
+    }
     
     //出金までのスタイル
     $styleArray = [
@@ -159,6 +220,24 @@ while($record = $results->fetch()) {
     
     $activeSheet->getStyle('A4:M'.$lastRow)->applyFromArray($styleArray);
 
+    //出金までの外枠などスタイル
+    $activeSheet
+        ->getStyle('A4:M4')
+        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+    $activeSheet
+        ->getStyle('A4:A'.$lastRow)
+        ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+        $activeSheet
+        ->getStyle('M4:M'.$lastRow)
+        ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+        $activeSheet
+        ->getStyle('A'.$lastRow.':M'.$lastRow)
+        ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+        $activeSheet
+        ->getStyle('A'.(6+$final_received_num).':M'.(6+$final_received_num))
+        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+        
+
     //現時点で最終行を変数に入れ、「支払計」〜「翌日預け入れ」までの
     //行番号を変数に格納する
     $shiharai = $lastRow + 1;
@@ -167,6 +246,11 @@ while($record = $results->fetch()) {
     $jissen = $lastRow + 4;
     $tsuri = $lastRow + 5;
     $azuke = $lastRow + 6;
+
+    $received_sum = array_sum($total_received_array);
+    $sent_sum = array_sum($total_sent_array);
+    $reji_zan = $record['change1'] + $record['earning'] + $received_sum - $sent_sum;
+    $kabusoku = $reji_zan - $record['jisen_total'];
 
     //「支払い」〜「翌日預け入れ」項目名
     $activeSheet
@@ -182,10 +266,15 @@ while($record = $results->fetch()) {
         ->setCellValue('A'.$jissen, '実践合計')
         ->setCellValue('A'.$tsuri, '翌日つり銭')
         ->setCellValue('A'.$azuke, '翌日預け入れ')
+        ->setCellValue('D'.$shiharai, $sent_sum)
+        ->setCellValue('D'.$reji, $reji_zan)
+        ->setCellValue('D'.$genkin, $kabusoku)
+        ->setCellValue('D'.$jissen, $record['jisen_total'])
         ->setCellValue('D'.$tsuri, $record['next_day_change'])
         ->setCellValue('D'.$azuke, $record['next_day_deposit']);
 
     //「支払計」〜「翌日預け入れ」値を入れる部分
+    
     $activeSheet
         ->mergeCells('D'.$shiharai.':G'.$shiharai)
         ->mergeCells('D'.$reji.':G'.$reji)
@@ -193,7 +282,7 @@ while($record = $results->fetch()) {
         ->mergeCells('D'.$jissen.':G'.$jissen)
         ->mergeCells('D'.$tsuri.':G'.$tsuri)
         ->mergeCells('D'.$azuke.':G'.$azuke)
-        
+
         ->setCellValue('J'.$shiharai, '本部記入欄')
         ->setCellValue('J'.$reji, '8%')
         ->setCellValue('J'.$genkin, '10%')
@@ -219,6 +308,11 @@ while($record = $results->fetch()) {
     ];
     
     $activeSheet->getStyle('A'.$shiharai.':G'.$azuke)->applyFromArray($styleArray);
+
+    //出金のしたのA~Gのborderbottom
+    $activeSheet
+        ->getStyle('A'.$shiharai.':G'.$shiharai)
+        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
 
     //本部記入欄のスタイル
     $activeSheet->getStyle('J'.$shiharai.':J'.$azuke)->getAlignment()
