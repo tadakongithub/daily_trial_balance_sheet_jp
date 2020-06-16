@@ -94,6 +94,10 @@ $myPDO->exec($query);
 //destroy session
 session_destroy();
 
+session_start();
+
+$_SESSION['logged_in'] = "logged_in";
+
 //redirect to index.php
 header('Location: ../success.php');
 

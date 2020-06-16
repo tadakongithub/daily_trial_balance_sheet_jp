@@ -2,6 +2,8 @@
 
 session_start();
 
+session_destroy();
+
 ?>
 
 <html>
@@ -11,8 +13,8 @@ session_start();
 </head>
 <body>
     <div class="home-container">
-    <div class="success-message">データが送信されました。</div>
-    <a href="index.php" class="back_to_top">トップページに戻る</a>
+    <div class="success-message">ログアウトしました</div>
+    <a href="login.php" class="back_to_top">ログインする</a>
     </div>
 </body>
 </html>

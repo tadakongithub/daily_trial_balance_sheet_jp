@@ -1,6 +1,5 @@
 <?php
     session_start();
-    session_destroy();
 ?>
 <html>
     <head>
@@ -10,7 +9,7 @@
     <body>
         <div class="home-container">
             <div class="success-message">パスワードが変更されました。</div>
-            <a href="index.php" class="back_to_top">トップページに戻る</a>
+            <a href="admin-dashboard.php" class="back_to_top">管理画面に戻る</a>
         </div>
     </body>
 </html>

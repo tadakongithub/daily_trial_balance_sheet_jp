@@ -30,11 +30,13 @@ if($_POST['q_16']) {
                 <div class="each-client">
                     <div class="each-field field">
                         <label for="client_name">お客様</label>
-                        <input type="text" name="client_name[]" id="client_name">
+                        <input type="text" name="client_name[]" id="client_name"
+                        value="<?php echo $_SESSION['client_name'][0];?>">
                     </div>
                     <div class="each-field field">
                         <label for="urikake_total">金額</label>
-                        <input type="number" name="urikake_total[]" id="urikake_total">
+                        <input type="number" name="urikake_total[]" id="urikake_total"
+                        value="<?php echo $_SESSION['urikake_total'][0];?>">
                     </div>
                 </div>
             </div>

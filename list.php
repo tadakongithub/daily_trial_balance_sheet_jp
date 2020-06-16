@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require 'db.php';
 
 //all data in ibaraki table
@@ -27,9 +29,12 @@ while($result = $results->fetch()) {
     </script>
 </head>
 <body>
-    <div class="ui two item menu">
-        <a class="item" href="index.php">トップ</a>
-        <a class="item" href="list.php">ダウンロードページ</a>
+    <div id="admin-header" class="ui three item menu">
+        <a href="admin-dashboard.php" class="item">管理画面</a>
+        
+        <a href="admin-pass.php" class="item">パスワード変更</a>
+    
+        <a class="item" href="admin-logout.php">ログアウト</a>
     </div>
 
     <div class="home-container">

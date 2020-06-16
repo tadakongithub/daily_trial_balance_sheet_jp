@@ -298,6 +298,10 @@ td{
         margin: auto;
     }
 
+    form.ui.form{
+        width: 90%;
+    }
+
     .ui.form .field>label{
         font-size: 3rem;
         line-height: 3rem;
@@ -320,6 +324,10 @@ td{
     input#edy_total, input#suica_count,
     input#suica_total, input#client_name,
     input#urikake_total{
+        font-size: 3rem;
+    }
+
+    .ui.form input[type=text], .ui.form input[type=number], .ui.form input[type=password]{
         font-size: 3rem;
     }
 

@@ -115,6 +115,9 @@ while($record = $results->fetch()) {
         ->mergeCells("A6:A10")
         ->setCellValue('A6', '入金');
     }
+
+    $activeSheet
+    ->getStyle('A6')->getAlignment()->setHorizontal('center')->setVertical('center');
     
     
     //入金のデータ入力
@@ -169,6 +172,9 @@ while($record = $results->fetch()) {
             ->mergeCells("A".(6+$final_received_num).":A".(6+$final_received_num+9))
             ->setCellValue('A'.(6+$final_received_num), '出金');
         }
+    
+        $activeSheet
+        ->getStyle('A'.(6+$final_received_num))->getAlignment()->setHorizontal('center')->setVertical('center');
         
 
     //出金のデータ入力
@@ -263,7 +269,7 @@ while($record = $results->fetch()) {
         ->setCellValue('A'.$shiharai, '支払計')
         ->setCellValue('A'.$reji, 'レジ残計')
         ->setCellValue('A'.$genkin, '現金過不足')
-        ->setCellValue('A'.$jissen, '実践合計')
+        ->setCellValue('A'.$jissen, '実残合計')
         ->setCellValue('A'.$tsuri, '翌日つり銭')
         ->setCellValue('A'.$azuke, '翌日預け入れ')
         ->setCellValue('D'.$shiharai, $sent_sum)
@@ -340,6 +346,8 @@ while($record = $results->fetch()) {
     $ticketRow5 = $ticketRow4 + 1;
 
     //食事券のらん
+    $shokuji_total = $record['prem_total'] + $record['for_selling_total'] 
+    + $record['thousand_total'] + $record['five_total'] + $record['two_total'];
     $activeSheet
         ->mergeCells('A'.$ticketRow1.':G'.$ticketRow1)
         ->mergeCells('H'.$ticketRow1.':I'.$ticketRow1)
@@ -349,6 +357,7 @@ while($record = $results->fetch()) {
         ->mergeCells('J'.$ticketRow2.':M'.$ticketRow2)
         ->setCellValue('A'.$ticketRow1, '※食事券計は、ジャーナルの食事券計と合致すること。')
         ->setCellValue('H'.$ticketRow1, '食事券計')
+        ->setCellValue('J'.$ticketRow1, $shokuji_total)
         ->setCellValue('M'.$ticketRow1, '円')
         ->setCellValue('B'.$ticketRow2, 'プレミアム食事券')
         ->setCellValue('F'.$ticketRow2, '販売用回収')
@@ -397,8 +406,43 @@ while($record = $results->fetch()) {
             ],
         ],
     ];
+
     
     $activeSheet->getStyle('A'.$ticketRow2.':M'.$ticketRow5)->applyFromArray($styleArray);
+
+    $activeSheet
+        ->getStyle('H'.$ticketRow1.':M'.$ticketRow1)
+        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+    $activeSheet
+        ->getStyle('H'.$ticketRow1)
+        ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+    $activeSheet
+        ->getStyle('M'.$ticketRow1.':M'.$ticketRow5)
+        ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+    $activeSheet
+        ->getStyle('A'.$ticketRow2.':M'.$ticketRow2)
+        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+    $activeSheet
+        ->getStyle('A'.$ticketRow3.':M'.$ticketRow3)
+        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+    $activeSheet
+        ->getStyle('A'.$ticketRow2.':A'.$ticketRow5)
+        ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+        $activeSheet
+        ->getStyle('A'.$ticketRow2.':A'.$ticketRow5)
+        ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+        $activeSheet
+        ->getStyle('F'.$ticketRow2.':F'.$ticketRow5)
+        ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+        $activeSheet
+        ->getStyle('J'.$ticketRow1.':J'.$ticketRow5)
+        ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+        $activeSheet
+        ->getStyle('A'.$ticketRow5.':M'.$ticketRow5)
+        ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+    $activeSheet
+        ->getStyle('H'.$ticketRow1.':M'.$ticketRow1)
+        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
 
     $activeSheet->getStyle('B'.$ticketRow2.':M'.$ticketRow2)->getAlignment()
     ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);

@@ -34,11 +34,13 @@
 
                 <div class="field">
                     <label for="prem_count">枚数</label>
-                    <input type="number" name="prem_count" id="prem_count" placeholder="取引なしは0" required>
+                    <input type="number" name="prem_count" id="prem_count"
+                    value="<?php echo $_SESSION['prem_count'];?>" placeholder="取引なしは0" required>
                 </div>
                 <div class="field">
                     <label for="prem_total">金額</label>
-                    <input type="number" name="prem_total" id="prem_total" placeholder="取引なしは0" required>
+                    <input type="number" name="prem_total" id="prem_total"
+                    value="<?php echo $_SESSION['prem_total'];?>" placeholder="取引なしは0" required>
                 </div>
             </div>
 
@@ -47,11 +49,13 @@
 
                 <div class="field">
                     <label for="for_selling_count">枚数</label>
-                    <input type="number" name="for_selling_count" id="for_selling_count" placeholder="取引なしは0" required>
+                    <input type="number" name="for_selling_count" id="for_selling_count"
+                    value="<?php echo $_SESSION['for_selling_count'];?>" placeholder="取引なしは0" required>
                 </div>
                 <div class="field">
                     <label for="for_selling_total">金額</label>
-                    <input type="number" name="for_selling_total" id="for_selling_total" placeholder="取引なしは0" required>
+                    <input type="number" name="for_selling_total" id="for_selling_total"
+                    value="<?php echo $_SESSION['for_selling_total'];?>" placeholder="取引なしは0" required>
                 </div>
             </div>
 
@@ -60,17 +64,20 @@
 
                 <div class="field">
                     <label for="thousand_count">1000円券枚数</label>
-                    <input type="number" name="thousand_count" id="thousand_count" placeholder="取引なしは0" required>
+                    <input type="number" name="thousand_count" id="thousand_count" 
+                    value="<?php echo $_SESSION['thousand_count'];?>" placeholder="取引なしは0" required>
                 </div>
                    
                 <div class="field">
                     <label for="five_count">500円券枚数</label>
-                    <input type="number" name="five_count" id="five_count" placeholder="取引なしは0" required>
+                    <input type="number" name="five_count" id="five_count" 
+                    value="<?php echo $_SESSION['five_count'];?>"placeholder="取引なしは0" required>
                 </div>
                    
                 <div class="field">
                     <label for="two_count">200円券枚数</label>
-                    <input type="number" name="two_count" id="two_count" placeholder="取引なしは0" required>
+                    <input type="number" name="two_count" id="two_count"
+                    value="<?php echo $_SESSION['two_count'];?>" placeholder="取引なしは0" required>
                 </div>       
             </div>
 

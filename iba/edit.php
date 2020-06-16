@@ -294,7 +294,7 @@
 
                 <?php
                     if(count($_SESSION['sent_to']) < 10) {
-                        $num_of_blank_sent_to = 10 - count($_SESSION['received_from']);
+                        $num_of_blank_sent_to = 10 - count($_SESSION['sent_to']);
                         for($i = 0; $i < $num_of_blank_sent_to; $i++) { ?>
                             <tr class="row-2">
                                 <td>出金</td>
@@ -421,12 +421,14 @@
             <table>
                 <div class="table-title">売掛金</div>
 
-                <tr class="client-row">
-                    <?php for($i = 0; $i < count($_SESSION['client_name']); $i++):?>
+                
+                <?php for($i = 0; $i < count($_SESSION['client_name']); $i++):?>
+                    <tr class="client-row">
                         <td><?php echo $_SESSION['client_name'][$i];?>様</td>
                         <td><?php echo $_SESSION['urikake_total'][$i];?>円</td>
-                    <?php endfor;?>
-                </tr>
+                    </tr>
+                <?php endfor;?>
+                
             </table>
             <div class="edit-button-container">
             <button class="edit thirdTable" id="edit-section-btn">ここまで編集</button>
