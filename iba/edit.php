@@ -566,7 +566,7 @@
                         </div>
                     <?php endfor ;?>
                 </div>
-                <div>
+                <div class="sent-form-container">
                     <?php for($i = 0; $i < count($_SESSION['sent_to']); $i++):?>
                         <div class="field">
                             <label for="total_sent">出金額</label>
@@ -582,6 +582,7 @@
                         </div>
                     <?php endfor ;?>
                 </div>
+                <div><button class="add-sent">出金を追加</button></div>
                 <div class="field">
                     <label for="next_day_change">翌日つり銭</label>
                     <input type="number" id="next_day_change" name="next_day_change" value="<?php echo $_SESSION['next_day_change'];?>">
@@ -762,7 +763,25 @@
 
             });
 
-
+            var add_sent = $(".add-sent");
+            var sent_form_container = $(".sent-form-container");
+            $(add_sent).on('click', function(e){
+                e.preventDefault();
+                $(sent_form_container).append(
+                    '<div class="field">' +
+                            '<label for="total_sent">出金額</label>' +
+                            '<input type="number" id="total_sent" name="total_sent[]">' +
+                        '</div>' +
+                        '<div class="field">' +
+                            '<label for="sent_to">出金先</label>' +
+                            '<input type="text" id="sent_to" name="sent_to[]">' +
+                        '</div>' +
+                        '<div class="field">' +
+                            '<label for="content_sent">出金内容</label>' +
+                            '<input type="text" id="content_sent" name="content_sent[]">' +
+                        '</div>'
+                )
+            });
 
 
         });
