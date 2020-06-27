@@ -520,7 +520,7 @@
 
     <!-- modal for name -->
     <div class="ui modal name">
-        <i class="close icon"></i>
+        <i id="close_edit" class="massive close icon"><img src="../img/close.png" alt="" width="40px" height="40px"></i>
         <div class="header">
             記入者
         </div>
@@ -536,7 +536,7 @@
 
     <!-- modal for first-table -->
     <div class="ui modal firstTable">
-        <i class="close icon"></i>
+        <i id="close_edit" class="massive close icon"><img src="../img/close.png" alt="" width="40px" height="40px"></i>
         <div class="header">
             釣り銭〜翌日預け入れ
         </div>
@@ -550,7 +550,7 @@
                     <label for="earning">現金売上</label>
                     <input type="number" name="earning" id="earning" value="<?php echo $_SESSION['earning'];?>">
                 </div>
-                <div>
+                <div class="received_form_container">
                     <?php for($i = 0; $i < count($_SESSION['received_from']); $i++):?>
                         <div class="field">
                             <label for="total_received">入金額</label>
@@ -566,6 +566,7 @@
                         </div>
                     <?php endfor ;?>
                 </div>
+                <div><button class="add-received">入金を追加</button></div>
                 <div class="sent-form-container">
                     <?php for($i = 0; $i < count($_SESSION['sent_to']); $i++):?>
                         <div class="field">
@@ -602,7 +603,7 @@
 
     <!-- modal for secondTable -->
     <div class="ui modal secondTable">
-        <i class="close icon"></i>
+        <i id="close_edit" class="massive close icon"><img src="../img/close.png" alt="" width="40px" height="40px"></i>
         <div class="header">
             食事券
         </div>
@@ -643,22 +644,25 @@
 
     <!-- modal for thirdTable -->
     <div class="ui modal thirdTable">
-        <i class="close icon"></i>
+        <i id="close_edit" class="massive close icon"><img src="../img/close.png" alt="" width="40px" height="40px"></i>
         <div class="header">
             売掛金
         </div>
         <div class="content">
             <form class="ui form" action="" method="post">
-                <?php for($i = 0; $i < count($_SESSION['client_name']); $i++):?>
-                    <div class="field">
-                        <label for="client_name">お客様</label>
-                        <input type="text" name="client_name[]" id="client_name" value="<?php echo $_SESSION['client_name'][$i];?>">
-                    </div>
-                    <div class="field">
-                        <label for="urikake_total">金額</label>
-                        <input type="number" name="urikake_total[]" id="urikake_total" value="<?php echo $_SESSION['urikake_total'][$i];?>">
-                    </div>
-                <?php endfor ;?>
+                <div class="client_form_container">
+                    <?php for($i = 0; $i < count($_SESSION['client_name']); $i++):?>
+                        <div class="field">
+                            <label for="client_name">お客様</label>
+                            <input type="text" name="client_name[]" id="client_name" value="<?php echo $_SESSION['client_name'][$i];?>">
+                        </div>
+                        <div class="field">
+                            <label for="urikake_total">金額</label>
+                            <input type="number" name="urikake_total[]" id="urikake_total" value="<?php echo $_SESSION['urikake_total'][$i];?>">
+                        </div>
+                    <?php endfor ;?>
+                </div>
+                <div><button  class="add_client">追加</button></div>
                 <button class="ui button" type="submit" >編集を完了</button>
             </form>
         </div>
@@ -666,13 +670,13 @@
 
     <!-- modal for fourthTable -->
     <div class="ui modal fourthTable">
-        <i class="close icon"></i>
+        <i id="close_edit" class="massive close icon"><img src="../img/close.png" alt="" width="40px" height="40px"></i>
         <div class="header">
             DC, JCB, PAYPAY
         </div>
         <div class="content">
             <form class="ui form" action="" method="post">
-                <div>
+                <div class="dc_form_container">
                     <?php for($i = 0; $i < count($_SESSION['dc_how_much']); $i++):?>
                         <div class="field">
                             <label for="dc_how_much">DC</label>
@@ -680,7 +684,8 @@
                         </div>
                     <?php endfor;?>
                 </div>
-                <div>
+                <div><button  class="add_dc">DCを追加</button></div>
+                <div class="jcb_form_container">
                     <?php for($i = 0; $i < count($_SESSION['jcb_how_much']); $i++):?>
                         <div class="field">
                             <label for="jcb_how_much">JCB</label>
@@ -688,6 +693,7 @@
                         </div>
                     <?php endfor;?>
                 </div>
+                <div><button class="add_jcb">JCBを追加</button></div>
                 <div class="field">
                     <label for="paypay_count">PAYPAY件数</label>
                     <input type="number" id="paypay_count" name="paypay_count" value="<?php echo $_SESSION['paypay_count'];?>">
@@ -703,7 +709,7 @@
 
     <!-- modal for fifthTable -->
     <div class="ui modal fifthTable">
-        <i class="close icon"></i>
+        <i id="close_edit" class="massive close icon"><img src="../img/close.png" alt="" width="40px" height="40px"></i>
         <div class="header">
             その他
         </div>
@@ -763,6 +769,26 @@
 
             });
 
+            var add_received = $(".add-received");
+            var received_form_container = $(".received_form_container");
+            $(add_received).on('click', function(e){
+                e.preventDefault();
+                $(received_form_container).append(
+                    '<div class="field">' +
+                            '<label for="total_received">入金額</label>' +
+                            '<input type="number" id="total_received" name="total_received[]">' +
+                        '</div>' +
+                        '<div class="field">' +
+                            '<label for="received_from">出金先</label>' +
+                            '<input type="text" id="received_from" name="received_from[]">' +
+                        '</div>' +
+                        '<div class="field">' +
+                            '<label for="content_received">出金内容</label>' +
+                            '<input type="text" id="content_received" name="content_received[]">' +
+                        '</div>'
+                )
+            });
+
             var add_sent = $(".add-sent");
             var sent_form_container = $(".sent-form-container");
             $(add_sent).on('click', function(e){
@@ -783,7 +809,45 @@
                 )
             });
 
+            var add_client = $(".add_client");
+            var client_form_container = $(".client_form_container");
+            $(add_client).on('click', function(e) {
+                e.preventDefault();
+                $(client_form_container).append(
+                    '<div class="field">' +
+                            '<label for="client_name">お客様</label>' +
+                            '<input type="text" name="client_name[]" id="client_name">' +
+                        '</div>' +
+                        '<div class="field">' +
+                           '<label for="urikake_total">金額</label>' +
+                            '<input type="number" name="urikake_total[]" id="urikake_total">' +
+                        '</div>'
+                )
+            });
 
+            var add_dc = $('.add_dc');
+            var dc_form_container = $('.dc_form_container');
+            $(add_dc).on('click', function(e) {
+                e.preventDefault();
+                $(dc_form_container).append(
+                    '<div class="field">' +
+                            '<label for="dc_how_much">DC</label>' +
+                            '<input type="number" name="dc_how_much[]"ssssss>' +
+                        '</div>'
+                );
+            });
+
+            var add_jcb = $('.add_jcb');
+            var jcb_form_container = $('.jcb_form_container');
+            $(add_jcb).on('click', function(e) {
+                e.preventDefault();
+                $(jcb_form_container).append(
+                    '<div class="field">' +
+                            '<label for="jcb_how_much">JCB</label>' +
+                            '<input type="number" name="jcb_how_much[]"ssssss>' +
+                        '</div>'
+                )
+            })
         });
 
     </script>

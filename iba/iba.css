@@ -281,6 +281,11 @@ td{
     margin: auto;
 }
 
+.add-received, .add-sent, .add_client, .add_dc, .add_jcb{
+    background-color: dodgerblue;
+    color: #fff;
+}
+
 
 @media only screen and (max-device-width: 480px) {
     h1.ui.header{
@@ -380,6 +385,27 @@ td{
       width: 500px;
       height: 100px;
       font-size: 3rem;
+    }
+
+    .add-received, .add-sent, .add_client, .add_dc, .add_jcb{
+        display: inline-block;
+        width: 400px;
+        height: 80px;
+        font-size: 50px;
+    }
+
+    button.ui.button {
+        display: inline-block;
+        width: 400px;
+        height: 100px;
+        font-size: 40px;
+    }
+
+
+    #close_edit img{
+        position: absolute;
+        top: 0;
+        left: 0;
     }
 
 }
