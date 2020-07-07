@@ -3,30 +3,34 @@
 
     if(!$_SESSION['logged_in'] == 'logged_in') {
         header('Location: ../index.php');
-    } 
+    }
+    
+
+    if($_SESSION['previousURI'] === '/lmj/iba/edit.php') {
+        foreach($_SESSION as $key => $val){
+            if ($key !== 'branch' && $key !== 'logged_in'){
+                unset($_SESSION[$key]);
+            }
+        }
+    }
 
     require '../db.php';
 
     if($_POST['dateForm']) {
         
-        $results = $myPDO->query('SELECT * FROM ibaraki');
+        $statement = $myPDO->query('SELECT * FROM ibaraki');
 
-        //ユーザーが入力した日付のデータがすでにデータベースに存在するかチェック
-        //同じ日付のデータを複数保存するので、どのレコードを編集できるようにするかでコードを変える
-        $matchDate = '';
-        while($result = $results->fetch()) {
-            if($result['date'] == $_POST['date']) {
-                global $matchDate;
-                if($matchDate == '') {
-                    $matchDate = $_POST['date'];
-                }
+        //当店舗と選んだ日付がどっちも入っているデータがあるか調べる
+        $counter = 0;
+        while($row = $statement->fetch()) {
+            if($row['date'] === $_POST['date'] && $row['branch'] === $_SESSION['branch']) {
+                $counter++;
             }
         }
 
-        //ユーザーが入力した日付のデータがあれば編集ページに、なければ次の入力画面へ
-        if($matchDate !== '') {
-            $_SESSION['date'] = $matchDate;
-            $_SESSION['from_date'] = "from_date";
+        //あれば編集画面へ、なければ入力続ける
+        if($counter > 0) {
+            $_SESSION['date'] = $_POST['date'];
             header('Location: edit.php');
         } else {
             $_SESSION['date'] = $_POST['date'];
@@ -38,22 +42,18 @@
 ?>
 <html>
 <head>
-<?php require '../semantic.php';?>
-    <link rel="stylesheet" href="iba.css">
+<?php require 'form-head.php';?>
 </head>
 <body>
-
     <div class="q-container">
-        <h1 class="ui header">茨城店　日計表</h1>
+        <h1 class="ui header"><?php echo $_SESSION['branch'];?>　日計表</h1>
         <form action="" method="post" class="ui form">
-            <div class="each-field field">
+            <div class="field">
                 <label for="date">今日の日付を入力してください。</label>
-                <input type="date" name="date" id="date" required>
+                <input type="date" name="date" id="date" value="<?php echo $_SESSION['date'];?>" required>
             </div>
             <input type="hidden" name="dateForm" value="dateForm">
-            <div class="submit-container">
-                <button type="submit" class="submit-btn">次へ</button>
-            </div>
+            <button class="ui button" type="submit">次へ</button>
         </form>
     </div>
 </body>

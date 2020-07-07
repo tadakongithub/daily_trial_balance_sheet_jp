@@ -8,10 +8,9 @@ session_destroy();
 
 <html>
 <head>
-<?php require 'semantic.php'; ?>
-<link rel="stylesheet" href="style.css">
+<?php require 'head.php'; ?>
 </head>
-<body>
+<body  class="flex-body">
     <div class="home-container">
     <div class="success-message">ログアウトしました</div>
     <a href="login.php" class="back_to_top">ログインする</a>

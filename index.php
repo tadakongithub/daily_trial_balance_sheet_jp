@@ -11,10 +11,9 @@
 
 <html>
     <head>
-        <?php require 'semantic.php'; ?>
-        <link rel="stylesheet" href="style.css">
+        <?php require 'head.php'; ?>
     </head>
-    <body>
+    <body class="flex-body">
         <div class="ui two item menu">
             <a class="item" href="admin-login.php">管理画面</a>
             <a class="item" href="logout.php">ログアウト</a>

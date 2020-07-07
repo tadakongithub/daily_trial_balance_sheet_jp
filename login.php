@@ -3,44 +3,61 @@
 
     require 'db.php';
 
-    $statement = $myPDO->prepare("SELECT * FROM password WHERE store = ?");
-
-    $statement->execute(array('ibaraki'));//店ごとに名前を変える
-
-    $row = $statement -> fetch();
-   
-
     if($_POST['login']) {
-        if(password_verify($_POST['pass'], $row['password'])) {
-            $_SESSION['logged_in'] = 'logged_in';
-            header('Location: index.php');
-        } else {
-            $incorrect_password = 'パスワードが違います';
+        if(empty($_POST['branch_name']) || empty($_POST['password'])) {
+            $message = 'All fields are required';
+        }  else {
+            $query = 'SELECT * FROM branch_list WHERE name = :name';
+            $statement = $myPDO->prepare($query);
+            $statement->execute(array(
+                'name' => $_POST['branch_name']
+            ));
+            $branch = $statement->fetch();
+            if($branch && password_verify($_POST['password'], $branch['password'])) {
+                $_SESSION['branch'] = $_POST['branch_name'];
+                $_SESSION['logged_in'] = 'logged_in';
+                header('Location: index.php');
+            } else {
+                $message = '店舗名とパスワードが一致しませんでした。';
+            }
         }
     }
+
 ?>
 
 <html>
 <head>
-    <?php require 'semantic.php'; ?>
-    <link rel="stylesheet" href="style.css">
+    <?php require 'head.php'; ?>
 </head>
-<body>
-<div class="home-container">
-    <h1 class="ui header">LMJ 茨城店</h1>
-        <form action="" method="post" class="ui form"  name="login">
+<body  class="flex-body">
+<div  class="home-container">
+<?php
+    if(isset($message)) {
+        echo '<p>' . $message . '</p>';
+    }
+?>
+    <h1 class="ui header">LMJ</h1>
+        <form action="" method="post" class="ui form">
             <div class="field">
-                <input type="text" name="pass">
+                <label for="branch_name">店舗名</label>
+                <select name="branch_name" id="branch_name" class="ui dropdown" required>
+                <?php foreach($myPDO->query('SELECT * FROM branch_list') as $row):?>
+                    <option value="<?php echo $row['name'];?>"><?php echo $row['name'];?></option>
+                <?php endforeach ;?>
+                </select>
+            </div>
+            <div class="field">
+            <label for="password">パスワード</label>
+                <input type="text" name="password" id="password" required>
             </div>
             <input type="hidden" name="login" value="login">
-            <div class="submit-container">
-                <button type="submit" class="submit-btn">ログイン</button>
-            </div>
+
+            <button type="submit" class="ui button">ログイン</button>
+           
         </form>
-            <?php if($incorrect_password):?>
-            <div><?php echo $incorrect_password; ?></div>
-            <?php endif ;?>
 </div>
+
+<script src="semantic-ui-pulldown.js"></script>
 </body>
 </html>
 

@@ -17,12 +17,11 @@ if($_POST['q_16']) {
 
 <html>
 <head>
-<?php require '../semantic.php';?>
-    <link rel="stylesheet" href="iba.css" >
+<?php require './form-head.php';?>
 </head>
 <body>
     <div class="q-container-add">
-        <h1 class="ui header">茨城店　日計表</h1> 
+        <h1 class="ui header"><?php echo $_SESSION['branch'];?>　日計表</h1> 
         <form action="" method="post" class="ui form">
             <h2 class="ui header">16. 売掛金</h2>
 
@@ -47,7 +46,7 @@ if($_POST['q_16']) {
             </div>
             <input type="hidden" name="q_16" value="q_16">
             <div class="submit-container">
-                <button type="submit" class="submit-btn">確認画面へ</button>
+            <button type="submit" class="ui button">確認画面へ</button>
             </div>
         </form>
     </div> 

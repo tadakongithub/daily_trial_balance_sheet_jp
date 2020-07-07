@@ -16,7 +16,7 @@ require '../db.php';
 
 
 
-
+$branch = $_SESSION['branch'];
 $name = $_SESSION['name'];
 $change = $_SESSION['change'];
 $earning = $_SESSION['earning'];
@@ -53,7 +53,7 @@ $client_name = serialize($_SESSION['client_name']);
 $urikake_total = serialize($_SESSION['urikake_total']);
 $time_created = time();
 
-$query = "INSERT INTO ibaraki (
+$query = "INSERT INTO ibaraki (branch,
     name, date, change1, earning,
     received_from, total_received, content_received,
     sent_to, total_sent, content_sent,
@@ -70,33 +70,74 @@ $query = "INSERT INTO ibaraki (
     suica_count, suica_total,
     client_name, urikake_total,
     time_created
-) VALUES (
-    '$name', '$date', '$change', '$earning',
-    '$received_from', '$total_received', '$content_received',
-    '$sent_to', '$total_sent', '$content_sent',
-    '$next_day_change', '$jisen_total','$next_day_deposit',
-    '$prem_count', '$prem_total',
-    '$for_selling_count', '$for_selling_total',
-    '$thousand_count', '$thousand_total',
-    '$five_count', '$five_total',
-    '$two_count', '$two_total',
-    '$dc_how_much', '$jcb_how_much',
-    '$paypay_count', '$paypay_total',
-    '$nanaco_count', '$nanaco_total',
-    '$edy_count', '$edy_total',
-    '$suica_count', '$suica_total',
-    '$client_name', '$urikake_total',
-    '$time_created')";
+) VALUES (:branch,
+    :name, :date, :change, :earning,
+    :received_from, :total_received, :content_received,
+    :sent_to, :total_sent, :content_sent,
+    :next_day_change, :jisen_total,:next_day_deposit,
+    :prem_count, :prem_total,
+    :for_selling_count, :for_selling_total,
+    :thousand_count, :thousand_total,
+    :five_count, :five_total,
+    :two_count, :two_total,
+    :dc_how_much, :jcb_how_much,
+    :paypay_count, :paypay_total,
+    :nanaco_count, :nanaco_total,
+    :edy_count, :edy_total,
+    :suica_count, :suica_total,
+    :client_name, :urikake_total,
+    :time_created)";
 
 
-$myPDO->exec($query);
+$statement = $myPDO->prepare($query);
+$statement->execute(array(
+    ':branch' => $branch,
+    ':name' => $name,
+    ':date' => $date,
+    ':change' => $change,
+    ':earning' => $earning,
+    ':received_from' => $received_from,
+    ':total_received' => $total_received,
+    ':content_received' => $content_received,
+    ':sent_to' => $sent_to,
+    ':total_sent' => $total_sent, 
+    ':content_sent' => $content_sent,
+    ':next_day_change' => $next_day_change,
+    ':jisen_total' => $jisen_total,
+    ':next_day_deposit' => $next_day_deposit,
+    ':prem_count' => $prem_count,
+    ':prem_total' => $prem_total,
+    ':for_selling_count' => $for_selling_count,
+    ':for_selling_total' => $for_selling_total,
+    ':thousand_count' => $thousand_count,
+    ':thousand_total' => $thousand_total,
+    ':five_count' => $five_count,
+    ':five_total' => $five_total,
+    ':two_count' => $two_count,
+    ':two_total' => $two_total,
+    ':dc_how_much' => $dc_how_much,
+    ':jcb_how_much' => $jcb_how_much,
+    ':paypay_count' => $paypay_count,
+    ':paypay_total' => $paypay_total,
+    ':nanaco_count' => $nanaco_count,
+    ':nanaco_total' => $nanaco_total,
+    ':edy_count' => $edy_count,
+    ':edy_total' => $edy_total,
+    ':suica_count' => $suica_count,
+    ':suica_total' => $suica_total,
+    ':client_name' => $client_name,
+    ':urikake_total' => $urikake_total,
+    ':time_created' => $time_created
+));
 
 //destroy session
-session_destroy();
-
-session_start();
-
-$_SESSION['logged_in'] = "logged_in";
+foreach($_SESSION as $key => $val)
+{
+    if ($key !== 'logged_in' && $key !== 'branch')
+    {
+      unset($_SESSION[$key]);
+    }
+}
 
 //redirect to index.php
 header('Location: ../success.php');

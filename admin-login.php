@@ -16,18 +16,18 @@ $statement = $myPDO->prepare("SELECT * FROM admin_password WHERE store = ?");
             $_SESSION['admin_logged_in'] = true;
             header('Location: admin-dashboard.php');
         } else {
-            $incorrect_password = 'パスワードが違います';
+            $incorrect_password = '<p>パスワードが違います</p>';
         }
     }
 
 ?>
 <html>
 <head>
-<?php require 'semantic.php'; ?>
-        <link rel="stylesheet" href="style.css">
+<?php require 'head.php'; ?>
 </head>
-<body>
+<body class="flex-body">
 <div class="home-container">
+    <?php echo $incorrect_password;?>
         <form action="" method="post" class="ui form"  name="login">
             <div class="field">
                 <input type="password" name="admin-pass" placeholder="管理者パスワードを入力">
@@ -37,9 +37,6 @@ $statement = $myPDO->prepare("SELECT * FROM admin_password WHERE store = ?");
                 <button type="submit" class="submit-btn">ログイン</button>
             </div>
         </form>
-            <?php if($incorrect_password):?>
-            <div><?php echo $incorrect_password; ?></div>
-            <?php endif ;?>
 </div>
 </body>
 </html>

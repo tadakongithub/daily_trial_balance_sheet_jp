@@ -1,9 +1,10 @@
 .home-container{
+    flex:1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    width: 100%;
 }
 
 .submit-container{
@@ -50,17 +51,25 @@ button.submit-btn{
     font-size: 25px;
 }
 
+.flex-body{
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
 
 @media only screen and (max-device-width: 480px) {
-    h1.ui.header{
+    /* h1.ui.header{
         font-size: 4rem;
-    }
+    }*/
 
     form.ui.form{
         width: 90%;
     }
 
-    .ui.form input[type=text], .ui.form input[type=password]{
+    /*.ui.form input[type=text], .ui.form input[type=password]{
         font-size: 3rem;
     }
 
@@ -100,7 +109,7 @@ button.submit-btn{
 
     .admin-container a{
         font-size: 4rem;
-    }
+    } */
 
 }
 

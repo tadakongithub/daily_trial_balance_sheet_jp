@@ -15,13 +15,12 @@
 ?>
 <html>
 <head>
-<?php require '../semantic.php';?>
-    <link rel="stylesheet" href="iba.css">
+<?php require './form-head.php';?>
 </head>
 <body>
 
     <div class="q-container">
-        <h1 class="ui header">茨城店　日計表</h1>
+        <h1 class="ui header"><?php echo $_SESSION['branch'];?>　日計表</h1>
         <form action="" method="post" class="ui form">
             <div class="each-field field">
                 <label for="name">1. 名前</label>
@@ -38,9 +37,8 @@
                 <input type="number" name="earning" id="earning" value="<?php echo $_SESSION['earning'];?>" required>
             </div>
             <input type="hidden" name="q_1_3" value="q_1_3">
-            <div class="submit-container">
-                <button type="submit" class="submit-btn">次へ</button>
-            </div>
+
+            <button type="submit" class="ui button">次へ</button>
         </form>
     </div>
 </body>

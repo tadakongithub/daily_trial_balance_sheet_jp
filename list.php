@@ -7,8 +7,8 @@ require 'db.php';
 //all data in ibaraki table
 $results = $myPDO->query('SELECT * FROM ibaraki');
 
+//データベースにある全ての「年-月」の組み合わせを配列に入れる
 $yearMonthArray = array();
-//fetching each record
 while($result = $results->fetch()) {
     $timestamp = strtotime($result['date']);
     $value = date('Y-m', $timestamp);
@@ -20,42 +20,44 @@ while($result = $results->fetch()) {
 ?>
 <html>
 <head>
-    <?php require 'semantic.php'; ?>
-    <link rel="stylesheet" href="style.css">
+    <?php require 'head.php'; ?>
     <script>
         $(document).ready(function(){
             $('.select.dropdown').dropdown();
         });
     </script>
 </head>
-<body>
-    <div id="admin-header" class="ui three item menu">
-        <a href="admin-dashboard.php" class="item">管理画面</a>
-        
-        <a href="admin-pass.php" class="item">パスワード変更</a>
-    
-        <a class="item" href="admin-logout.php">ログアウト</a>
+<body class="flex-body">
+    <div class="ui pointing stackable menu">
+        <a class="item" href="admin-dashboard.php">管理トップ</a>
+        <a class="item" href="admin-pass.php">店舗パス変更</a>
+        <a class="item" href="add_branch.php">店舗追加</a>
+        <div class="right menu">
+            <a class="ui item" href="admin-logout.php">ログアウト</a>
+        </div>
     </div>
 
     <div class="home-container">
         <form action="download.php" method="post" class="ui form">
             <div class="field">
-                <label for="tableName">茨城店</label>
-                <input type="hidden" value="ibaraki" name="tableName"/>
+                <label for="branch">茨城店</label>
+                <select name="branch" id="branch" class="ui select dropdown">
+                    <?php foreach($myPDO->query('SELECT * FROM branch_list') as $row):?>
+                        <option value="<?php echo $row['name'];?>"><?php echo $row['name'];?></option>
+                    <?php endforeach ;?>
+                </select>
             </div>
                 
             <div class="field">
-                <select name="yearMonth" class="ui select dropdown" id="yearMonth">
+                <select name="yearMonth" class="ui select dropdown">
                     <?php foreach($yearMonthArray as $yearMonth):?>
                         <option value="<?php echo $yearMonth;?>"><?php echo $yearMonth;?></option>
                     <?php endforeach;?>
                 </select>
             </div>
                    
-            <input type="hidden" name="ibaraki" value="ibaraki">
-            <div class="submit-container">
-                <button type="submit" class="submit-btn">ダウンロード</button>
-            </div>
+            <button class="ui button" type="submit">送信</button>
+            
         </form>
     </div>               |
 </body>

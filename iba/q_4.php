@@ -14,8 +14,7 @@
 ?>
 <html>
 <head>
-<?php require '../semantic.php';?>
-<link rel="stylesheet" href="iba.css">
+<?php require './form-head.php';?>
 <script>
     $(document).ready(function(){
         if($(window).width() < 480) {
@@ -26,7 +25,7 @@
 </head>
 <body>
     <div class="q-container-add">
-        <h1 class="ui header">茨城店　日計表</h1>
+        <h1 class="ui header"><?php echo $_SESSION['branch'];?>　日計表</h1>
         <form action="" method="post" id="form_received" class="ui form">
             <h2 class="ui header">4. 現金のレジ入金を記入してください。</h2>
             <h3 class="ui header">（取引先・お手伝いスタッフの源泉税など）</h3>
@@ -54,7 +53,7 @@
             </div>
             <input type="hidden" name="q_4" value="q_4">
             <div class="submit-container">
-                <button type="submit" class="submit-btn">次へ</button>
+            <button type="submit" class="ui button">次へ</button>
             </div>
         </form>
     </div>

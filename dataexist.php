@@ -3,8 +3,7 @@ session_destroy();
 ?>
 <html>
 <head>
-<?php require 'semantic.php'; ?>
-<link rel="stylesheet" href="style.css">
+<?php require 'head.php'; ?>
 </head>
 <body>
     <div class="home-container">

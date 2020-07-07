@@ -2,21 +2,23 @@
 
 require 'db.php';
 
-$table = '';
-$yearMonth = '';
+
 if($_POST) {
-    global $table, $yearMonth;
-    $table = $_POST['tableName'];
     $yearMonth = $_POST['yearMonth'];
+    $statement = $myPDO->prepare('SELECT * FROM ibaraki WHERE branch = :branch AND date like :yearMonth' . '"%"');
+    $statement->execute(array(
+        ':branch' => $_POST['branch'],
+        ':yearMonth' => $_POST['yearMonth']
+    ));
+    $matchedArray = $statement->fetchAll();
+    if(count($matchedArray) === 0) {
+        echo "選択した月のデータが見つかりませんでした。";
+        return;
+    }
 }
 
-$results = $myPDO->query("SELECT * FROM $table where date REGEXP '^$yearMonth'");
-$count = $myPDO->prepare("SELECT count(*) FROM $table");
+$count = $myPDO->prepare("SELECT count(*) FROM ibaraki");
 $count->execute();
-
-$recordCount = $count->fetchColumn();
-
-
 
 require 'vendor/autoload.php';
 
@@ -27,8 +29,9 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 $spreadsheet = new Spreadsheet();
 
 //日付ごとループ
-$i = 0;
-while($record = $results->fetch()) {
+
+for($i = 0; $i < count($matchedArray); $i++) {
+    $record = $matchedArray[$i];
     if($i == 0) {
         $spreadsheet->getActiveSheet()->setTitle($record['date']);
     } else {
@@ -47,7 +50,7 @@ while($record = $results->fetch()) {
     ->mergeCells('C2:C2')
     ->setCellValue('B2', $record['date'])
     ->setCellValue('J3', '店舗名')
-    ->setCellValue('K3', '茨城店')
+    ->setCellValue('K3', $_POST['branch'])
     ->setCellValue('A4', 'つり銭')
     ->mergeCells('A4:C4')
     ->mergeCells('D4:G4')
@@ -595,12 +598,6 @@ while($record = $results->fetch()) {
     
     $activeSheet->getStyle('A'.$noteRow.':L'.($noteRow+4))->applyFromArray($styleArray);
 
-
-
-
-
-    
-    $i++;
 }
 
 $writer = new Xlsx($spreadsheet);

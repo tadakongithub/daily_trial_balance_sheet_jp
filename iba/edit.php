@@ -7,32 +7,33 @@
         header('Location: ../index.php');
     }
 
-    if(!$_SESSION['date']) {
+    //日付セッションがないか、ブランチセッションがない場合はトップページに
+    if(!$_SESSION['date'] || !$_SESSION['branch']) {
         session_destroy();
         header('Location: ../index.php');
     }
 
-    //もし日付のセッションがないか、その日付のデータがデータベースにない場合はトップページに
-    $checkDate = $_SESSION['date'];
-    $stmt = $myPDO->query("SELECT * FROM ibaraki WHERE date = '$checkDate'");
-    $result = $stmt->fetch(FETCH_ASSOC);
-    $rowCount = count($result);
+    //当店舗と日付セッションを両方含んでいるデータがデータベースにない場合はトップページに
+    $stmt = $myPDO->prepare("SELECT * FROM ibaraki WHERE date = :date AND branch = :branch");
+    $stmt->execute(array(
+        ':date' => $_SESSION['date'],
+        ':branch' => $_SESSION['branch']
+    ));
+    $matchedRowsArray = $stmt->fetchAll();//データを配列にする
+    $rowCount = count($matchedRowsArray);
 
-    if($rowCount = 0) {
+
+    if($rowCount == 0) {
+
         session_destroy();
         header('Location: ../index.php');
-    }
 
-    if($_SESSION["from_date"] == "from_date") {
-        unset($_SESSION['from_date']);
-        $_SESSION['from_edit'] = true;
+    } else {
 
-
-
-        $results = $myPDO->query("SELECT * FROM ibaraki WHERE date = '$checkDate'");
+        //データがある場合は、一番最近入力したデータを探す
         $record;
         $time_created = 0;
-        while($row = $results->fetch()) {
+        foreach($matchedRowsArray as $row) {
             global $record;
             global $time_created;
             if($row['time_created'] > $time_created) {
@@ -40,6 +41,7 @@
                 $record = $row;
             }
         }
+    
 
         //表示する項目のデータを変数に入れる
         $_SESSION['name'] = $record['name'];
@@ -218,8 +220,7 @@
 ?>
 <html>
 <head>
-<?php require '../semantic.php';?>
-<link rel="stylesheet" href="iba.css">
+<?php require './form-head.php';?>
 </head>
 <body>
 
@@ -235,7 +236,7 @@
             <span><?php echo $_SESSION['year'];?>月<?php echo $_SESSION['month'];?>月<?php echo $_SESSION['displayDate'];?>日</span>
         </h2>
 
-        <h2 class="ui header">店舗名：茨城店</h2>
+        <h2 class="ui header">店舗名：<?php echo $_SESSION['branch'];?></h2>
 
         <div>
 
@@ -520,7 +521,7 @@
 
     <!-- modal for name -->
     <div class="ui modal name">
-        <i id="close_edit" class="massive close icon"><img src="../img/close.png" alt="" width="40px" height="40px"></i>
+        <i id="close_edit" class="massive close icon"></i>
         <div class="header">
             記入者
         </div>
@@ -536,7 +537,7 @@
 
     <!-- modal for first-table -->
     <div class="ui modal firstTable">
-        <i id="close_edit" class="massive close icon"><img src="../img/close.png" alt="" width="40px" height="40px"></i>
+        <i id="close_edit" class="massive close icon"></i>
         <div class="header">
             釣り銭〜翌日預け入れ
         </div>
@@ -603,7 +604,7 @@
 
     <!-- modal for secondTable -->
     <div class="ui modal secondTable">
-        <i id="close_edit" class="massive close icon"><img src="../img/close.png" alt="" width="40px" height="40px"></i>
+        <i id="close_edit" class="massive close icon"></i>
         <div class="header">
             食事券
         </div>
@@ -644,7 +645,7 @@
 
     <!-- modal for thirdTable -->
     <div class="ui modal thirdTable">
-        <i id="close_edit" class="massive close icon"><img src="../img/close.png" alt="" width="40px" height="40px"></i>
+        <i id="close_edit" class="massive close icon"></i>
         <div class="header">
             売掛金
         </div>
@@ -670,7 +671,7 @@
 
     <!-- modal for fourthTable -->
     <div class="ui modal fourthTable">
-        <i id="close_edit" class="massive close icon"><img src="../img/close.png" alt="" width="40px" height="40px"></i>
+        <i id="close_edit" class="massive close icon"></i>
         <div class="header">
             DC, JCB, PAYPAY
         </div>
@@ -684,7 +685,7 @@
                         </div>
                     <?php endfor;?>
                 </div>
-                <div><button  class="add_dc">DCを追加</button></div>
+                <div><button  class="edit_add_dc">DCを追加</button></div>
                 <div class="jcb_form_container">
                     <?php for($i = 0; $i < count($_SESSION['jcb_how_much']); $i++):?>
                         <div class="field">
@@ -693,7 +694,7 @@
                         </div>
                     <?php endfor;?>
                 </div>
-                <div><button class="add_jcb">JCBを追加</button></div>
+                <div><button class="edit_add_jcb">JCBを追加</button></div>
                 <div class="field">
                     <label for="paypay_count">PAYPAY件数</label>
                     <input type="number" id="paypay_count" name="paypay_count" value="<?php echo $_SESSION['paypay_count'];?>">
@@ -709,7 +710,7 @@
 
     <!-- modal for fifthTable -->
     <div class="ui modal fifthTable">
-        <i id="close_edit" class="massive close icon"><img src="../img/close.png" alt="" width="40px" height="40px"></i>
+        <i id="close_edit" class="massive close icon"></i>
         <div class="header">
             その他
         </div>
@@ -825,7 +826,7 @@
                 )
             });
 
-            var add_dc = $('.add_dc');
+            var add_dc = $('.edit_add_dc');
             var dc_form_container = $('.dc_form_container');
             $(add_dc).on('click', function(e) {
                 e.preventDefault();
@@ -837,7 +838,7 @@
                 );
             });
 
-            var add_jcb = $('.add_jcb');
+            var add_jcb = $('.edit_add_jcb');
             var jcb_form_container = $('.jcb_form_container');
             $(add_jcb).on('click', function(e) {
                 e.preventDefault();
@@ -850,6 +851,11 @@
             })
         });
 
+        
+
     </script>
 </body>
 </html>
+<?php
+$_SESSION['previousURI'] = $_SERVER['REQUEST_URI'];
+?>

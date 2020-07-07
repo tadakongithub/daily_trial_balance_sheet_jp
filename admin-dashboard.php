@@ -10,26 +10,17 @@ if(!$_SESSION['admin_logged_in']) {
 
 <html>
 <head>
-    <?php require 'semantic.php'; ?>
-    <link rel="stylesheet" href="style.css">
+    <?php require 'head.php'; ?>
 </head>
 
-<body>
-        <div id="admin-header" class="ui two item menu">
-            <a class="item ui">
-                管理画面
-            </a>
-    
-            <a class="ui item" href="admin-logout.php">
-                ログアウト
-            </a>
+<body class="flex-body">
+    <div class="ui pointing stackable menu">
+        <a class="item" href="admin-pass.php">店舗パス変更</a>
+        <a class="item" href="list.php">ダウンロード</a>
+        <a class="item" href="add_branch.php">店舗追加</a>
+        <div class="right menu">
+            <a class="ui item" href="admin-logout.php">ログアウト</a>
         </div>
-            
-        </div>
-
-        <div class="admin-container">
-            <a href="admin-pass.php">フォーム用パスワード変更</a>
-            <a href="list.php">ダウンロードページ</a>
-        </div>
+    </div>
 </body>
 </html>

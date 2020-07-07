@@ -7,7 +7,8 @@
     }
 
     //もし１つでも項目がなかったら、トップページに戻る
-    if(!isset($_SESSION['date']) or
+    if(!isset($_SESSION['branch']) or
+        !isset($_SESSION['date']) or
         !isset($_SESSION['name']) or
         !isset($_SESSION['change']) or
         !isset($_SESSION['earning']) or
@@ -57,8 +58,7 @@
 ?>
 <html>
 <head>
-    <?php require '../semantic.php';?>
-<link rel="stylesheet" href="iba.css">
+    <?php require 'form-head.php';?>
 </head>
 <body>
 
@@ -67,7 +67,7 @@
 
         <h2 class="ui header">日付：<?php echo $year;?>月<?php echo $month;?>月<?php echo $date;?>日</h2>
 
-        <h2 class="ui header">店舗名：茨城店</h2>
+        <h2 class="ui header">店舗名：<?php echo $_SESSION['branch'];?></h2>
 
         <div>
             <table>
@@ -329,229 +329,5 @@
         </div>
     </div>
 
-
-    <!-- modal for date
-    <div class="ui modal date">
-        <i class="close icon"></i>
-        <div class="header">
-            <span class="title"></span>
-        </div>
-        <div class="content">
-            <form class="ui form" action="" method="post">
-                <div class="field"><input type="date"></div>
-                <button class="ui button" type="submit">編集を完了</button>
-            </form>
-        </div>
-    </div>
-                -->
-
-    <!-- modal for number
-    <div class="ui modal number">
-        <i class="close icon"></i>
-        <div class="header">
-            <span class="title"></span>
-        </div>
-        <div class="content">
-            <form class="ui form" action="" method="post">
-                <div class="field"><input type="number"></div>
-                <button class="ui button" type="submit">編集を完了</button>
-            </form>
-        </div>
-    </div>
-    -->
-
-    <!-- modal for text
-    <div class="ui modal text">
-        <i class="close icon"></i>
-        <div class="header">
-            <span class="title"></span>
-        </div>
-        <div class="content">
-            <form class="ui form" action="" method="post">
-                <div class="field"><input type="text"></div>
-                <button class="ui button" type="submit">編集を完了</button>
-            </form>
-        </div>
-    </div>
-                -->
-
-    <!-- modal for received
-    <div class="ui modal received">
-        <i class="close icon"></i>
-        <div class="header">
-            <span class="title"></span>
-        </div>
-        <div class="content">
-            <form class="ui form" action="" method="post">
-                <?php //for($i = 0; $i < count($_SESSION['received_from']); $i++):?>
-                <div class="each_received_edit">
-                <label for="received_from">取引先</label>
-                <input type="text" name="received_from[]" id="received_from" value="<?php //echo $_SESSION['received_from'][$i];?>">
-                <label for="total_received">金額</label>
-                <input type="number" name="total_received[]" id="total_received" value="<?php// echo $_SESSION['total_received'][$i];?>">
-                <label for="content_received">内容</label>
-                <input type="text" name="content_received[]" id="content_received" value="<?php //echo $_SESSION['content_received'][$i];?>">
-                </div>
-                <?php //endfor; ?>
-                <button class="ui button" type="submit">編集を完了</button>
-            </form>
-        </div>
-    </div>
-                -->
-
-    <!-- modal for sent
-    <div class="ui modal sent">
-        <i class="close icon"></i>
-        <div class="header">
-            <span class="title"></span>
-        </div>
-        <div class="content">
-            <form class="ui form" action="" method="post">
-                <?php //for($i = 0; $i < count($_SESSION['sent_to']); $i++):?>
-                <div class="each_sent_edit">
-                <label for="sent_to">出金先</label>
-                <input type="text" name="sent_to[]" id="sent_to" value="<?php //echo $_SESSION['sent_to'][$i];?>">
-                <label for="total_sent">金額</label>
-                <input type="number" name="total_sent[]" id="total_sent" value="<?php //echo $_SESSION['total_sent'][$i];?>">
-                <label for="content_sent">内容</label>
-                <input type="text" name="content_sent[]" id="content_sent" value="<?php //echo $_SESSION['content_sent'][$i];?>">
-                </div>
-                <?php //endfor; ?>
-                <button class="ui button" type="submit">編集を完了</button>
-            </form>
-        </div>
-    </div>
-                -->
-
-     <!-- modal for prem
-     <div class="ui modal prem">
-        <i class="close icon"></i>
-        <div class="header">
-            <span class="title"></span>
-        </div>
-        <div class="content">
-            <form class="ui form" action="" method="post">
-                <label for="prem_count">枚数</label>
-                <input type="number" name="prem_count" id="prem_count" value="<?php //echo $_SESSION['prem_count'];?>">
-                <label for="prem_total">金額</label>
-                <input type="number" name="prem_total" id="prem_total" value="<?php //echo $_SESSION['prem_total'];?>">
-                <button class="ui button" type="submit">編集を完了</button>
-            </form>
-        </div>
-    </div>
-                -->
-
-    <!-- modal for for_selling
-    <div class="ui modal for_selling">
-        <i class="close icon"></i>
-        <div class="header">
-            <span class="title"></span>
-        </div>
-        <div class="content">
-            <form class="ui form" action="" method="post">
-                <label for="for_selling_count">枚数</label>
-                <input type="number" name="for_selling_count" id="for_selling_count" value="<?php //echo $_SESSION['for_selling_count'];?>">
-                <label for="for_selling_total">金額</label>
-                <input type="number" name="for_selling_total" id="for_selling_total" value="<?php //echo $_SESSION['for_selling_total'];?>">
-                <button class="ui button" type="submit">編集を完了</button>
-            </form>
-        </div>
-    </div>
-                -->
-
-    <!-- modal for service
-    <div class="ui modal service">
-        <i class="close icon"></i>
-        <div class="header">
-            <span class="title"></span>
-        </div>
-        <div class="content">
-            <form class="ui form" action="" method="post">
-                <?php //for($i = 0; $i < count($_SESSION['service_name']); $i++):?>
-                    <div class="each_service_edit">
-                        <label for="service_name">サービス名</label>
-                        <input type="text" name="service_name[]" id="service_name" value="<?php //echo $_SESSION['service_name'][$i];?>">
-                        <label for="for_service_count">枚数</label>
-                        <input type="number" name="for_service_count[]" id="for_service_count" value="<?php //echo $_SESSION['for_service_count'][$i];?>">
-                        <label for="for_service_total">金額</label>
-                        <input type="number" name="for_service_total[]" id="for_service_total" value="<?php //echo $_SESSION['for_service_total'][$i];?>">
-                    </div>
-                    <?php //endfor ;?>
-                <button class="ui button" type="submit">編集を完了</button>
-            </form>
-        </div>
-    </div>
-                -->
-
-    <!-- modal for dc
-    <div class="ui modal dc">
-        <i class="close icon"></i>
-        <div class="header">
-            <span class="title"></span>
-        </div>
-        <div class="content">
-            <form class="ui form" action="" method="post">
-                <?php //foreach($_SESSION['dc_how_much'] as $each_dc) :?>
-                    <div><input type="number" name="dc_how_much[]" value="<?php //echo $each_dc;?>"></div>
-                <?php// endforeach ;?>
-                <button class="ui button" type="submit">編集を完了</button>
-            </form>
-        </div>
-    </div>
-                -->
-
-
-
-    <script>
-        /*
-        $(document).ready(function(){
-            var edit_button = $(".edit_button");
-
-            $(edit_button).on('click', function(){
-
-                if($(this).hasClass('date')) {
-                    $('.ui.modal.date').modal('show');
-                } else if($(this).hasClass('number')) {
-                    $('.ui.modal.number').modal('show');
-                } else if($(this).hasClass('text')){
-                    $('.ui.modal.text').modal('show');
-                } else if($(this).hasClass('received')) {
-                    $('.ui.modal.received').modal('show');
-                } else if($(this).hasClass('sent')) {
-                    $('.ui.modal.sent').modal('show');
-                } else if($(this).hasClass('prem')) {
-                    $('.ui.modal.prem').modal('show');
-                } else if($(this).hasClass('for_selling')) {
-                    $('.ui.modal.for_selling').modal('show');
-                } else if($(this).hasClass('service')) {
-                    $('.ui.modal.service').modal('show');
-                } else if($(this).hasClass('dc')) {
-                    $('.ui.modal.dc').modal('show');
-                }
-
-
-                var title = $(this).parent('div').children('h4').text();
-                var data = $(this).parent('div').children('div').text();
-                var id = $(this).attr('id');
-
-
-                $(".title").text(title);
-                $("div.field > input").attr('name', id);
-                $("div.field > input").attr('value', data);
-            });
-
-            //if I close modal while editing, next time I open modal I don't want
-            //to see the data from last time I was editing. I want to see the same
-            //data as shown on the screen
-            $('.ui.modal').modal({
-                onHide: function() {
-                    location.reload();
-                }
-            });
-
-
-        });
-        */
-    </script>
 </body>
 </html>
