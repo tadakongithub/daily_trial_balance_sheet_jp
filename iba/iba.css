@@ -279,6 +279,21 @@ td{
     color: #fff;
 }
 
+#received_h2{
+    background-color: yellow;
+}
+
+.received_blue{
+    color: blue;
+}
+
+#sent_h2{
+    background-color: yellow;
+}
+
+.sent_red{
+    color:red;
+}
 
 @media only screen and (max-device-width: 480px) {
     /* h1.ui.header{

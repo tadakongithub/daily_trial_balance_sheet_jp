@@ -18,7 +18,7 @@
 
     if($_POST['dateForm']) {
         
-        $statement = $myPDO->query('SELECT * FROM ibaraki');
+        $statement = $myPDO->query('SELECT * FROM okasato');
 
         //当店舗と選んだ日付がどっちも入っているデータがあるか調べる
         $counter = 0;

@@ -5,17 +5,7 @@ session_start();
 require '../db.php';
 
 
-
-
-    $date = $_SESSION['date'];
-    $results = $myPDO->query("SELECT * FROM ibaraki WHERE date = '$date'");
-    $rows = $results->fetch(FETCH_ASSOC);
-    if(count($rows) > 0) {
-        header('Location: ../dataexist.php');
-    }
-
-
-
+$date = $_SESSION['date'];
 $branch = $_SESSION['branch'];
 $name = $_SESSION['name'];
 $change = $_SESSION['change'];
@@ -47,13 +37,17 @@ $nanaco_count = $_SESSION['nanaco_count'];
 $nanaco_total = $_SESSION['nanaco_total'];
 $edy_count = $_SESSION['edy_count'];
 $edy_total = $_SESSION['edy_total'];
-$suica_count = $_SESSION['suica_count'];
-$suica_total = $_SESSION['suica_total'];
+$transport_ic_count = $_SESSION['transport_ic_count'];
+$transport_ic_total = $_SESSION['transport_ic_total'];
+$quick_pay_count = $_SESSION['quick_pay_count'];
+$quick_pay_total = $_SESSION['quick_pay_total'];
+$waon_count = $_SESSION['waon_count'];
+$waon_total = $_SESSION['waon_total'];
 $client_name = serialize($_SESSION['client_name']);
 $urikake_total = serialize($_SESSION['urikake_total']);
 $time_created = time();
 
-$query = "INSERT INTO ibaraki (branch,
+$query = "INSERT INTO okasato (branch,
     name, date, change1, earning,
     received_from, total_received, content_received,
     sent_to, total_sent, content_sent,
@@ -67,7 +61,9 @@ $query = "INSERT INTO ibaraki (branch,
     paypay_count, paypay_total,
     nanaco_count, nanaco_total,
     edy_count, edy_total,
-    suica_count, suica_total,
+    transport_ic_count, transport_ic_total,
+    quick_pay_count, quick_pay_total,
+    waon_count, waon_total,
     client_name, urikake_total,
     time_created
 ) VALUES (:branch,
@@ -84,7 +80,9 @@ $query = "INSERT INTO ibaraki (branch,
     :paypay_count, :paypay_total,
     :nanaco_count, :nanaco_total,
     :edy_count, :edy_total,
-    :suica_count, :suica_total,
+    :transport_ic_count, :transport_ic_total,
+    :quick_pay_count, :quick_pay_total,
+    :waon_count, :waon_total,
     :client_name, :urikake_total,
     :time_created)";
 
@@ -123,8 +121,12 @@ $statement->execute(array(
     ':nanaco_total' => $nanaco_total,
     ':edy_count' => $edy_count,
     ':edy_total' => $edy_total,
-    ':suica_count' => $suica_count,
-    ':suica_total' => $suica_total,
+    ':transport_ic_count' => $transport_ic_count,
+    ':transport_ic_total' => $transport_ic_total,
+    ':quick_pay_count' => $quick_pay_count,
+    ':quick_pay_total' => $quick_pay_total,
+    ':waon_count' => $waon_count,
+    ':waon_total' => $waon_total,
     ':client_name' => $client_name,
     ':urikake_total' => $urikake_total,
     ':time_created' => $time_created

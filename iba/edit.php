@@ -14,7 +14,7 @@
     }
 
     //当店舗と日付セッションを両方含んでいるデータがデータベースにない場合はトップページに
-    $stmt = $myPDO->prepare("SELECT * FROM ibaraki WHERE date = :date AND branch = :branch");
+    $stmt = $myPDO->prepare("SELECT * FROM okasato WHERE date = :date AND branch = :branch");
     $stmt->execute(array(
         ':date' => $_SESSION['date'],
         ':branch' => $_SESSION['branch']
@@ -83,8 +83,12 @@
         $_SESSION['nanaco_total'] = $record['nanaco_total'];
         $_SESSION['edy_count'] = $record['edy_count'];
         $_SESSION['edy_total'] = $record['edy_total'];
-        $_SESSION['suica_count'] = $record['suica_count'];
-        $_SESSION['suica_total'] = $record['suica_total'];
+        $_SESSION['transport_ic_count'] = $record['transport_ic_count'];
+        $_SESSION['transport_ic_total'] = $record['transport_ic_total'];
+        $_SESSION['quick_pay_count'] = $record['quick_pay_count'];
+        $_SESSION['quick_pay_total'] = $record['quick_pay_total'];
+        $_SESSION['waon_count'] = $record['waon_count'];
+        $_SESSION['waon_total'] = $record['waon_total'];
     }
 
 
@@ -208,12 +212,28 @@
             $_SESSION['edy_total'] = $_POST['edy_total'];
         }
 
-        if($_POST['suica_count']) {
-            $_SESSION['suica_count'] = $_POST['suica_count'];
+        if($_POST['transport_ic_count']) {
+            $_SESSION['transport_ic_count'] = $_POST['transport_ic_count'];
         }
 
-        if($_POST['suica_total']) {
-            $_SESSION['suica_total'] = $_POST['suica_total'];
+        if($_POST['transport_ic_total']) {
+            $_SESSION['transport_ic_total'] = $_POST['transport_ic_total'];
+        }
+
+        if($_POST['quick_pay_count']) {
+            $_SESSION['quick_pay_count'] = $_POST['quick_pay_count'];
+        }
+
+        if($_POST['quick_pay_total']) {
+            $_SESSION['quick_pay_total'] = $_SESSION['quick_pay_total'];
+        }
+
+        if($_POST['waon_count']){
+            $_SESSION['waon_count'] = $_POST['waon_count'];
+        }
+
+        if($_POST['waon_total']) {
+            $_SESSION['waon_total'] = $_POST['waon_total'];
         }
 
 
@@ -500,9 +520,21 @@
                 </tr>
 
                 <tr class="other-total">
-                    <td>suica</td>
-                    <td><?php echo $_SESSION['suica_count'];?>件</td>
-                    <td><?php echo $_SESSION['suica_total'];?>円</td>
+                    <td>交通IC</td>
+                    <td><?php echo $_SESSION['transport_ic_count'];?>件</td>
+                    <td><?php echo $_SESSION['transport_ic_total'];?>円</td>
+                </tr>
+
+                <tr class="other-total">
+                    <td>Quick Pay</td>
+                    <td><?php echo $_SESSION['quick_pay_count'];?>件</td>
+                    <td><?php echo $_SESSION['quick_pay_total'];?>円</td>
+                </tr>
+
+                <tr class="other-total">
+                    <td>WAON</td>
+                    <td><?php echo $_SESSION['waon_count'];?>件</td>
+                    <td><?php echo $_SESSION['waon_total'];?>円</td>
                 </tr>
             </table>
             <div class="edit-button-container">
@@ -733,12 +765,28 @@
                     <input type="number" name="edy_total" id="edy_total" value="<?php echo $_SESSION['edy_total'];?>">
                 </div>
                 <div class="field">
-                    <label for="suica_count">suica件数</label>
-                    <input type="number" name="suica_count" id="suica_count" value="<?php echo $_SESSION['suica_count'];?>">
+                    <label for="transport_ic_count">交通IC件数</label>
+                    <input type="number" name="transport_ic_count" id="transport_ic_count" value="<?php echo $_SESSION['transport_ic_count'];?>">
                 </div>
                 <div class="field">
-                    <label for="suica_total">suica金額</label>
-                    <input type="number" name="suica_total" id="suica_total" value="<?php echo $_SESSION['suica_total'];?>">
+                    <label for="transport_ic_total">交通IC金額</label>
+                    <input type="number" name="transport_ic_total" id="transport_ic_total" value="<?php echo $_SESSION['transport_ic_total'];?>">
+                </div>
+                <div class="field">
+                    <label for="quick_pay_count">Quick Pay件数</label>
+                    <input type="number" name="quick_pay_count" id="quick_pay_count" value="<?php echo $_SESSION['quick_pay_count'];?>">
+                </div>
+                <div class="field">
+                    <label for="quick_pay_total">Quick Pay金額</label>
+                    <input type="number" name="quick_pay_total" id="quick_pay_total" value="<?php echo $_SESSION['quick_pay_total'];?>">
+                </div>
+                <div class="field">
+                    <label for="waon_count">WAON件数</label>
+                    <input type="number" name="waon_count" id="waon_count" value="<?php echo $_SESSION['waon_count'];?>">
+                </div>
+                <div class="field">
+                    <label for="waon_total">WAON金額</label>
+                    <input type="number" name="waon_total" id="waon_total" value="<?php echo $_SESSION['waon_total'];?>">
                 </div>
                 <button class="ui button" type="submit" >編集を完了</button>
             </form>

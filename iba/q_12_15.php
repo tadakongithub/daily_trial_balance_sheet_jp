@@ -14,8 +14,12 @@
         $_SESSION['nanaco_total'] = $_POST['nanaco_total'];
         $_SESSION['edy_count'] = $_POST['edy_count'];
         $_SESSION['edy_total'] = $_POST['edy_total'];
-        $_SESSION['suica_count'] = $_POST['suica_count'];
-        $_SESSION['suica_total'] = $_POST['suica_total'];
+        $_SESSION['transport_ic_count'] = $_POST['transport_ic_count'];
+        $_SESSION['transport_ic_total'] = $_POST['transport_ic_total'];
+        $_SESSION['quick_pay_count'] = $_POST['quick_pay_count'];
+        $_SESSION['quick_pay_total'] = $_POST['quick_pay_total'];
+        $_SESSION['waon_count'] = $_POST['waon_count'];
+        $_SESSION['waon_total'] = $_POST['waon_total'];
         header('Location: q_16.php');
     }
 ?>
@@ -92,12 +96,30 @@
                 
 
                 <div class="field">
-                    <label for="suica_count">Suica件数</label>
-                    <input type="number" name="suica_count" value="<?php echo $_SESSION['suica_count'];?>" placeholder="取引なしは0" id="suica_count">
+                    <label for="transport_ic_count">交通IC件数</label>
+                    <input type="number" name="transport_ic_count" value="<?php echo $_SESSION['transport_ic_count'];?>" placeholder="取引なしは0">
                 </div>
                 <div class="field">
-                    <label for="suica_total">Suica金額</label>
-                    <input type="number" name="suica_total" value="<?php echo $_SESSION['suica_total'];?>" placeholder="取引なしは0" id="suica_total">
+                    <label for="transport_ic_total">交通IC金額</label>
+                    <input type="number" name="transport_ic_total" value="<?php echo $_SESSION['transport_ic_total'];?>" placeholder="取引なしは0" >
+                </div>
+
+                <div class="field">
+                    <label for="quick_pay_count">Quick Pay 件数</label>
+                    <input type="number" name="quick_pay_count" value="<?php echo $_SESSION['quick_pay_count'];?>" placeholder="取引なしは0">
+                </div>
+                <div class="field">
+                    <label for="quick_pay_total">Quick Pay 金額</label>
+                    <input type="number" name="quick_pay_total" value="<?php echo $_SESSION['quick_pay_total'];?>" placeholder="取引なしは0">
+                </div>
+
+                <div class="field">
+                    <label for="waon_count">WAON 件数</label>
+                    <input type="number" name="waon_count" value="<?php echo $_SESSION['waon_count'];?>" placeholder="取引なしは0">
+                </div>
+                <div class="field">
+                    <label for="waon_total">WAON 金額</label>
+                    <input type="number" name="waon_total" value="<?php echo $_SESSION['waon_total'];?>" placeholder="取引なしは0">
                 </div>
 
             </div>

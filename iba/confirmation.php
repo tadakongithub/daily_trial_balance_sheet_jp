@@ -7,46 +7,50 @@
     }
 
     //もし１つでも項目がなかったら、トップページに戻る
-    if(!isset($_SESSION['branch']) or
-        !isset($_SESSION['date']) or
-        !isset($_SESSION['name']) or
-        !isset($_SESSION['change']) or
-        !isset($_SESSION['earning']) or
-        !isset($_SESSION['received_from']) or
-        !isset($_SESSION['total_received']) or
-        !isset($_SESSION['content_received']) or
-        !isset($_SESSION['sent_to']) or
-        !isset($_SESSION['total_sent']) or
-        !isset($_SESSION['content_sent']) or
-        !isset($_SESSION['next_day_change']) or
-        !isset($_SESSION['jisen_total']) or
-        !isset($_SESSION['next_day_deposit']) or
-        !isset($_SESSION['prem_count']) or
-        !isset($_SESSION['prem_total']) or
-        !isset($_SESSION['for_selling_count']) or
-        !isset($_SESSION['for_selling_total']) or
-        !isset($_SESSION['thousand_count']) or
-        !isset($_SESSION['thousand_total']) or
-        !isset($_SESSION['five_count']) or
-        !isset($_SESSION['five_total']) or
-        !isset($_SESSION['two_count']) or
-        !isset($_SESSION['two_total']) or
-        !isset($_SESSION['dc_how_much']) or
-        !isset($_SESSION['jcb_how_much']) or
-        !isset($_SESSION['paypay_count']) or
-        !isset($_SESSION['paypay_total']) or
-        !isset($_SESSION['nanaco_count']) or
-        !isset($_SESSION['nanaco_total']) or
-        !isset($_SESSION['edy_count']) or
-        !isset($_SESSION['edy_total']) or
-        !isset($_SESSION['suica_count']) or
-        !isset($_SESSION['suica_total']) or
-        !isset($_SESSION['client_name']) or
-        !isset($_SESSION['urikake_total'])) {
+    // if(!isset($_SESSION['branch']) or
+    //     !isset($_SESSION['date']) or
+    //     !isset($_SESSION['name']) or
+    //     !isset($_SESSION['change']) or
+    //     !isset($_SESSION['earning']) or
+    //     !isset($_SESSION['received_from']) or
+    //     !isset($_SESSION['total_received']) or
+    //     !isset($_SESSION['content_received']) or
+    //     !isset($_SESSION['sent_to']) or
+    //     !isset($_SESSION['total_sent']) or
+    //     !isset($_SESSION['content_sent']) or
+    //     !isset($_SESSION['next_day_change']) or
+    //     !isset($_SESSION['jisen_total']) or
+    //     !isset($_SESSION['next_day_deposit']) or
+    //     !isset($_SESSION['prem_count']) or
+    //     !isset($_SESSION['prem_total']) or
+    //     !isset($_SESSION['for_selling_count']) or
+    //     !isset($_SESSION['for_selling_total']) or
+    //     !isset($_SESSION['thousand_count']) or
+    //     !isset($_SESSION['thousand_total']) or
+    //     !isset($_SESSION['five_count']) or
+    //     !isset($_SESSION['five_total']) or
+    //     !isset($_SESSION['two_count']) or
+    //     !isset($_SESSION['two_total']) or
+    //     !isset($_SESSION['dc_how_much']) or
+    //     !isset($_SESSION['jcb_how_much']) or
+    //     !isset($_SESSION['paypay_count']) or
+    //     !isset($_SESSION['paypay_total']) or
+    //     !isset($_SESSION['nanaco_count']) or
+    //     !isset($_SESSION['nanaco_total']) or
+    //     !isset($_SESSION['edy_count']) or
+    //     !isset($_SESSION['edy_total']) or
+    //     !isset($_SESSION['transport_ic_count']) or
+    //     !isset($_SESSION['transport_ic_total']) or
+    //     !isset($_SESSION['quick_pay_count']) or
+    //     !isset($_SESSION['quick_pay_total']) or
+    //     !isset($_SESSION['waon_count']) or
+    //     !isset($_SESSION['waon_total']) or
+    //     !isset($_SESSION['client_name']) or
+    //     !isset($_SESSION['urikake_total'])) {
 
-        header('Location: ../lackofdata.php');
+    //     header('Location: ../lackofdata.php');
 
-    };
+    // };
 
 
     $unixtime = strtotime($_SESSION['date']);
@@ -317,9 +321,21 @@
                 </tr>
 
                 <tr class="other-total">
-                    <td>suica</td>
-                    <td><?php echo $_SESSION['suica_count'];?>件</td>
-                    <td><?php echo $_SESSION['suica_total'];?>円</td>
+                    <td>交通IC</td>
+                    <td><?php echo $_SESSION['transport_ic_count'];?>件</td>
+                    <td><?php echo $_SESSION['transport_ic_total'];?>円</td>
+                </tr>
+
+                <tr class="other-total">
+                    <td>Quick Pay</td>
+                    <td><?php echo $_SESSION['quick_pay_count'];?>件</td>
+                    <td><?php echo $_SESSION['quick_pay_total'];?>円</td>
+                </tr>
+
+                <tr class="other-total">
+                    <td>WAON</td>
+                    <td><?php echo $_SESSION['waon_count'];?>件</td>
+                    <td><?php echo $_SESSION['waon_total'];?>円</td>
                 </tr>
             </table>
         </div>

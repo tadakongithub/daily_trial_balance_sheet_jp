@@ -36,7 +36,7 @@
         echo '<p>' . $message . '</p>';
     }
 ?>
-    <h1 class="ui header">LMJ</h1>
+    <h1 class="ui header">株式会社　丘里</h1>
         <form action="" method="post" class="ui form">
             <div class="field">
                 <label for="branch_name">店舗名</label>
