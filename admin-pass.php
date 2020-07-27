@@ -47,7 +47,7 @@
                     <input type="password" name="newpass" id="newpass" required>
                 </div>
 
-                <button class="ui button" type="submit">送信</button>
+                <button class="submit-btn" type="submit">送信</button>
             </form>
         </div>
 

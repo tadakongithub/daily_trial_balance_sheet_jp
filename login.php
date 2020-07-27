@@ -52,7 +52,7 @@
             </div>
             <input type="hidden" name="login" value="login">
 
-            <button type="submit" class="ui button">ログイン</button>
+            <button type="submit" class="submit-btn">ログイン</button>
            
         </form>
 </div>

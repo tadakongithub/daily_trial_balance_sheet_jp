@@ -76,22 +76,22 @@
         <div>
             <table>
                 <tr class="row-1">
-                    <td>釣り銭</td>
-                    <td><?php echo $_SESSION['change'];?></td>
-                    <td>内訳</td>
+                    <td class="item_name">釣り銭</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['change']);?>円</td>
+                    <td class="item_name">内訳</td>
                 </tr>
 
                 <tr class="row-2">
-                    <td>現金売上</td>
-                    <td><?php echo $_SESSION['earning'];?></td>
-                    <td>購入取引先名</td>
-                    <td>明細</td>
+                    <td class="item_name">現金売上</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['earning']);?>円</td>
+                    <td class="item_name">購入取引先名</td>
+                    <td class="item_name">明細</td>
                 </tr>
 
                 <?php for($i = 0; $i < count($_SESSION['received_from']); $i++):?>
                     <tr class="row-2">
-                        <td>入金</td>
-                        <td><?php echo $_SESSION['total_received'][$i];?></td>
+                        <td class="item_name">入金</td>
+                        <td class="number_cell"><?php echo number_format($_SESSION['total_received'][$i]);?>円</td>
                         <td><?php echo $_SESSION['received_from'][$i];?></td>
                         <td><?php echo $_SESSION['content_received'][$i];?></td>
                     </tr>
@@ -102,7 +102,7 @@
                         $num_of_blank_received_rows = 5 - count($_SESSION['received_from']);
                         for($i = 0; $i < $num_of_blank_received_rows; $i++) { ?>
                             <tr class="row-2">
-                                <td>入金</td>
+                                <td class="item_name">入金</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -120,8 +120,8 @@
                             echo "row-2";
                         };
                     ?>">
-                        <td>出金</td>
-                        <td><?php echo $_SESSION['total_sent'][$i];?></td>
+                        <td class="item_name">出金</td>
+                        <td class="number_cell"><?php echo number_format($_SESSION['total_sent'][$i]);?>円</td>
                         <td><?php echo $_SESSION['sent_to'][$i];?></td>
                         <td><?php echo $_SESSION['content_sent'][$i];?></td>
                     </tr>
@@ -132,7 +132,7 @@
                         $num_of_blank_sent_to = 10 - count($_SESSION['sent_to']);
                         for($i = 0; $i < $num_of_blank_sent_to; $i++) { ?>
                             <tr class="row-2">
-                                <td>出金</td>
+                                <td class="item_name">出金</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -143,8 +143,8 @@
                 ?>
 
                 <tr class="row-2">
-                    <td>支払い計</td>
-                    <td><?php echo array_sum($_SESSION['total_sent']);?></td>
+                    <td class="item_name">支払い計</td>
+                    <td class="number_cell"><?php echo number_format(array_sum($_SESSION['total_sent']));?>円</td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -155,8 +155,8 @@
                 ?>
 
                 <tr class="row-2">
-                    <td>レジ残計</td>
-                    <td><?php echo $reji_zankei;?></td>
+                    <td class="item_name">レジ残計</td>
+                    <td class="number_cell"><?php echo number_format($reji_zankei);?>円</td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -166,29 +166,29 @@
                 ?>
 
                 <tr class="row-2">
-                    <td>現金過不足</td>
-                    <td><?php echo $kabusoku;?></td>
+                    <td class="item_name">現金過不足</td>
+                    <td class="number_cell"><?php echo number_format($kabusoku);?>円</td>
                     <td></td>
                     <td></td>
                 </tr>
 
                 <tr class="row-2">
-                    <td>実残合計</td>
-                    <td><?php echo $_SESSION['jisen_total'];?></td>
+                    <td class="item_name">実残合計</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['jisen_total']);?>円</td>
                     <td></td>
                     <td></td>
                 </tr>
 
                 <tr class="row-2">
-                    <td>翌日つり銭</td>
-                    <td><?php echo $_SESSION['next_day_change'];?></td>
+                    <td class="item_name">翌日つり銭</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['next_day_change']);?>円</td>
                     <td></td>
                     <td></td>
                 </tr>
 
                 <tr class="row-2">
-                    <td>翌日預入</td>
-                    <td><?php echo $_SESSION['next_day_deposit'];?></td>
+                    <td class="item_name">翌日預入</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['next_day_deposit']);?>円</td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -205,45 +205,45 @@
 
                 <tr class="table-2-row-1">
                     <td></td>
-                    <td>食事券計</td>
-                    <td><?php echo $shokuji;?>円</td>
+                    <td class="item_name">食事券計</td>
+                    <td class="number_cell"><?php echo number_format($shokuji);?>円</td>
                 </tr>
 
                 <tr class="table-2-row-2">
                     <td></td>
-                    <td>プレミアム食事券</td>
-                    <td>販売用回収</td>
-                    <td>サービス用回収</td>
+                    <td class="item_name">プレミアム食事券</td>
+                    <td class="item_name">販売用回収</td>
+                    <td class="item_name">サービス用回収</td>
                 </tr>
 
                 <tr class="table-2-row-3">
-                    <td>千円券</td>
+                    <td class="item_name">千円券</td>
                     <td><?php echo $_SESSION['prem_count'];?>枚</td>
-                    <td><?php echo $_SESSION['prem_total'];?>円</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['prem_total']);?>円</td>
                     <td><?php echo $_SESSION['for_selling_count'];?>枚</td>
-                    <td><?php echo $_SESSION['for_selling_total'];?>円</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['for_selling_total']);?>円</td>
                     <td><?php echo $_SESSION['thousand_count'];?>枚</td>
-                    <td><?php echo $_SESSION['thousand_total'];?>円</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['thousand_total']);?>円</td>
                 </tr>
 
                 <tr class="table-2-row-4">
-                    <td>500円券</td>
+                    <td class="item_name">500円券</td>
                     <td class="null"></td>
                     <td class="null"></td>
                     <td class="null"></td>
                     <td class="null"></td>
                     <td><?php echo $_SESSION['five_count'];?>枚</td>
-                    <td><?php echo $_SESSION['five_total'];?>円</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['five_total']);?>円</td>
                 </tr>
 
                 <tr class="table-2-row-5">
-                    <td>200円券</td>
+                    <td class="item_name">200円券</td>
                     <td class="null"></td>
                     <td class="null"></td>
                     <td class="null"></td>
                     <td class="null"></td>
                     <td><?php echo $_SESSION['two_count'];?>枚</td>
-                    <td><?php echo $_SESSION['two_total'];?>円</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['two_total']);?>円</td>
                 </tr>
 
             </table>
@@ -251,91 +251,90 @@
             <table>
                 <div class="table-title">売掛金</div>
 
-                
+                    <?php if(count($_SESSION['client_name']) === 0):?>
+                        <tr><td class="no_client">データなし</td></tr>
+                    <?php else:?>
                     <?php for($i = 0; $i < count($_SESSION['client_name']); $i++):?>
                         <tr class="client-row">
                             <td><?php echo $_SESSION['client_name'][$i];?>様</td>
-                            <td><?php echo $_SESSION['urikake_total'][$i];?>円</td>
+                            <td class="number_cell"><?php echo number_format($_SESSION['urikake_total'][$i]);?>円</td>
                         </tr>
                     <?php endfor;?>
+                    <?php endif ;?>
                 
             </table>
 
+            <div class="table-title">その他</div>
+
             <table>
-                <div class="table-title">DC売上内訳</div>
+                <tr class="other-total">
+                    <th>種別</th>
+                    <th>件数</th>
+                    <th>金額</th>
+                </tr>
 
+                <?php for($i = 0; $i < count($_SESSION['dc_how_much']); $i++):?>
+                    <tr class="other-total">
+                        <td>DC</td>
+                        <td>1件</td>
+                        <td class="number_cell"><?php echo number_format($_SESSION['dc_how_much'][$i]);?>円</td>
+                    </tr>
+                <?php endfor;?>
 
-                    <?php for($i = 0; $i < count($_SESSION['dc_how_much']); $i++):?>
-                        <tr class="dc-each-row">
-                        <td style="text-align: center"><?php echo $_SESSION['dc_how_much'][$i];?>円</td>
-                        </tr>
-                    <?php endfor;?>
-
-
-                <tr class="dc-total">
-                    <td>DC売上合計</td>
+                <tr class="other-total sum">
+                    <td>DC合計</td>
                     <td><?php echo count($_SESSION['dc_how_much']);?>件</td>
-                    <td><?php echo array_sum($_SESSION['dc_how_much']);?>円</td>
+                    <td class="number_cell"><?php echo number_format(array_sum($_SESSION['dc_how_much']));?>円</td>
                 </tr>
-            </table>
 
-            <table>
-                <div class="table-title">JCB売上内訳</div>
+                <?php for($i = 0; $i < count($_SESSION['jcb_how_much']); $i++):?>
+                    <tr class="other-total">
+                        <td>JCB</td>
+                        <td>1件</td>
+                        <td class="number_cell"><?php echo number_format($_SESSION['jcb_how_much'][$i]);?>円</td>
+                    </tr>
+                <?php endfor;?>
 
-
-                    <?php for($i = 0; $i < count($_SESSION['jcb_how_much']); $i++):?>
-                        <tr class="dc-each-row">
-                        <td style="text-align: center"><?php echo $_SESSION['jcb_how_much'][$i];?>円</td>
-                        </tr>
-                    <?php endfor;?>
-
-
-                <tr class="dc-total">
-                    <td>JCB売上合計</td>
+                <tr class="other-total sum">
+                    <td>JCB合計</td>
                     <td><?php echo count($_SESSION['jcb_how_much']);?>件</td>
-                    <td><?php echo array_sum($_SESSION['jcb_how_much']);?>円</td>
+                    <td class="number_cell"><?php echo number_format(array_sum($_SESSION['jcb_how_much']));?>円</td>
                 </tr>
-            </table>
 
-            <table>
-                <div class="table-title">PayPay売上合計</div>
-                <tr class="paypay">
+                <tr class="other-total sum">
+                    <td>PayPay</td>
                     <td><?php echo $_SESSION['paypay_count'];?>件</td>
-                    <td><?php echo $_SESSION['paypay_total'];?>円</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['paypay_total']);?>円</td>
                 </tr>
-            </table>
 
-            <table>
-                <div class="table-title">その他</div>
-
-                <tr class="other-total">
-                    <td>nanaco</td>
+                <tr class="other-total sum">
+                    <td class="item_name">nanaco</td>
                     <td><?php echo $_SESSION['nanaco_count'];?>件</td>
-                    <td><?php echo $_SESSION['nanaco_total'];?>円</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['nanaco_total']);?>円</td>
                 </tr>
 
-                <tr class="other-total">
-                    <td>edy</td>
+                <tr class="other-total sum">
+                    <td class="item_name">Edy</td>
                     <td><?php echo $_SESSION['edy_count'];?>件</td>
-                    <td><?php echo $_SESSION['edy_total'];?>円</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['edy_total']);?>円</td>
                 </tr>
 
-                <tr class="other-total">
-                    <td>交通IC</td>
+                <tr class="other-total sum">
+                    <td class="item_name">交通IC</td>
                     <td><?php echo $_SESSION['transport_ic_count'];?>件</td>
-                    <td><?php echo $_SESSION['transport_ic_total'];?>円</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['transport_ic_total']);?>円</td>
                 </tr>
 
-                <tr class="other-total">
-                    <td>Quick Pay</td>
+                <tr class="other-total sum">
+                    <td class="item_name">Quick Pay</td>
                     <td><?php echo $_SESSION['quick_pay_count'];?>件</td>
-                    <td><?php echo $_SESSION['quick_pay_total'];?>円</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['quick_pay_total']);?>円</td>
                 </tr>
 
-                <tr class="other-total">
-                    <td>WAON</td>
+                <tr class="other-total sum">
+                    <td class="item_name">WAON</td>
                     <td><?php echo $_SESSION['waon_count'];?>件</td>
-                    <td><?php echo $_SESSION['waon_total'];?>円</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['waon_total']);?>円</td>
                 </tr>
             </table>
         </div>

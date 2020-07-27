@@ -11,7 +11,6 @@
         $_SESSION['earning'] = $_POST['earning'];
         header('Location: q_4.php');
     }
-
 ?>
 <html>
 <head>
@@ -19,7 +18,7 @@
 </head>
 <body>
 
-    <div class="q-container">
+    <div class="q-container-add">
         <h1 class="ui header"><?php echo $_SESSION['branch'];?>　日計表</h1>
         <form action="" method="post" class="ui form">
             <div class="each-field field">

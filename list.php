@@ -40,7 +40,7 @@ while($result = $results->fetch()) {
     <div class="home-container">
         <form action="download.php" method="post" class="ui form">
             <div class="field">
-                <label for="branch">茨城店</label>
+                <label for="branch">店舗を選ぶ</label>
                 <select name="branch" id="branch" class="ui select dropdown">
                     <?php foreach($myPDO->query('SELECT * FROM branch_list') as $row):?>
                         <option value="<?php echo $row['name'];?>"><?php echo $row['name'];?></option>
@@ -49,14 +49,15 @@ while($result = $results->fetch()) {
             </div>
                 
             <div class="field">
-                <select name="yearMonth" class="ui select dropdown">
+                <label for="yearMonth">月を選ぶ</label>
+                <select name="yearMonth" id="yearMonth" class="ui select dropdown">
                     <?php foreach($yearMonthArray as $yearMonth):?>
                         <option value="<?php echo $yearMonth;?>"><?php echo $yearMonth;?></option>
                     <?php endforeach;?>
                 </select>
             </div>
                    
-            <button class="ui button" type="submit">送信</button>
+            <button class="submit-btn" type="submit">ダウンロード開始</button>
             
         </form>
     </div>               |

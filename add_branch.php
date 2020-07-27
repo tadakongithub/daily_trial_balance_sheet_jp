@@ -33,15 +33,15 @@
             <form action="" method="post" class="ui form">
                 <div class="field">
                     <label for="branch_name">新しい店舗名</label>
-                    <input type="text" name="branch_name" id="branch_name">
+                    <input type="text" name="branch_name" id="branch_name" required>
                 </div>
 
                 <div class="field">
                     <label for="newpass">パスワードを設定</label>
-                    <input type="password" name="newpass" id="newpass">
+                    <input type="password" name="newpass" id="newpass"  required>
                 </div>
 
-                <button class="ui button" type="submit">送信</button>
+                <button class="submit-btn" type="submit">送信</button>
             </form>
         </div>
     </body>

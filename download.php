@@ -5,14 +5,14 @@ require 'db.php';
 
 if($_POST) {
     $yearMonth = $_POST['yearMonth'];
-    $statement = $myPDO->prepare('SELECT * FROM ibaraki WHERE branch = :branch AND date like :yearMonth' . '"%"');
+    $statement = $myPDO->prepare('SELECT * FROM okasato WHERE branch = :branch AND date like :yearMonth' . '"%"');
     $statement->execute(array(
         ':branch' => $_POST['branch'],
         ':yearMonth' => $_POST['yearMonth']
     ));
     $matchedArray = $statement->fetchAll();
     if(count($matchedArray) === 0) {
-        echo "選択した月のデータが見つかりませんでした。";
+        echo '<p style="font-size: 3rem;">選択した月のデータが見つかりませんでした。</p>';
         return;
     }
 }

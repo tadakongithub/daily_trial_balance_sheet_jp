@@ -24,25 +24,28 @@
             <h3 class="ui header">（消耗品購入・食材仕入・お手伝いスタッフの人件費など）</h3>
 
             <div class="input_fields_wrapper">
+                <?php for($i = 0; $i < count($_SESSION['sent_to']); $i++):?>
                 <div class="each-sent">
+                    <div class="icon-container">
+                        <image class="remove_field" src="../img/close.png" alt="削除">
+                    </div>
                     <div class="each-field field">
                         <label for="sent_to">購入先・スタッフ名など
                             <br>※注意※　×シェル→〇関東礦油&nbsp;&nbsp;ブランド名ではなく、会社名を記載してください。</label>
-                        <input type="text" name="sent_to[]" id="sent_to" value="<?php echo $_SESSION['sent_to'][0];?>">
+                        <input type="text" name="sent_to[]" id="sent_to" value="<?php echo $_SESSION['sent_to'][$i];?>" required>
                     </div>
                     
                     <div class="each-field field">
                         <label for="total_sent">出金額</label>
-                        <input type="number" name="total_sent[]" id="total_sent"
-                        value="<?php echo $_SESSION['total_sent'][0];?>" >
+                        <input type="number" name="total_sent[]" id="total_sent"　value="<?php echo $_SESSION['total_sent'][$i];?>" required>
                     </div>
                     
                     <div class="each-field field">
                         <label for="content_sent">出金の内容</label>
-                        <input type="text" name="content_sent[]" id="content_sent" 
-                        value="<?php echo $_SESSION['content_sent'][0];?>" >
+                        <input type="text" name="content_sent[]" id="content_sent" value="<?php echo $_SESSION['content_sent'][$i];?>" required>
                     </div> 
                 </div>
+                <?php endfor;?>
             </div>
 
             <div class="add-container">
@@ -69,15 +72,15 @@
                     '</div>' +
                     '<div class="each-field field">' +
                     '<label for="sent_to">購入先・スタッフ名など<br>※注意※　×シェル→〇関東礦油&nbsp;&nbsp;ブランド名ではなく、会社名を記載してください。</label>' +
-                    '<input type="text" name="sent_to[]" id="sent_to" >' +
+                    '<input type="text" name="sent_to[]" id="sent_to" required>' +
                     '</div>' +
                     '<div class="each-field field">' +
                     '<label for="total_sent">出金額</label>' +
-                    '<input type="number" name="total_sent[]" id="total_sent">' +
+                    '<input type="number" name="total_sent[]" id="total_sent" required>' +
                     '</div>' +
                     '<div class="each-field field">' +
                     '<label for="content_sent">出金の内容</label>' +
-                    '<input type="text" name="content_sent[]" id="content_sent" >' +
+                    '<input type="text" name="content_sent[]" id="content_sent" required>' +
                     '</div>' +
                     '</div>'
                 );

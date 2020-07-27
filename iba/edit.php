@@ -44,6 +44,8 @@
     
 
         //表示する項目のデータを変数に入れる
+        if(!$_POST['from_edit_form']) {
+
         $_SESSION['name'] = $record['name'];
 
         $unixtime = strtotime($_SESSION['date']);
@@ -89,8 +91,9 @@
         $_SESSION['quick_pay_total'] = $record['quick_pay_total'];
         $_SESSION['waon_count'] = $record['waon_count'];
         $_SESSION['waon_total'] = $record['waon_total'];
-    }
 
+        }
+    }
 
 
         if($_POST['name']) {
@@ -262,22 +265,22 @@
 
             <table>
                 <tr class="row-1">
-                    <td>釣り銭</td>
-                    <td><?php echo $_SESSION['change'];?></td>
-                    <td>内訳</td>
+                    <td class="item_name">釣り銭</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['change']);?>円</td>
+                    <td class="item_name">内訳</td>
                 </tr>
 
                 <tr class="row-2">
-                    <td>現金売上</td>
-                    <td><?php echo $_SESSION['earning'];?></td>
-                    <td>購入取引先名</td>
-                    <td>明細</td>
+                    <td class="item_name">現金売上</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['earning']);?>円</td>
+                    <td class="item_name">購入取引先名</td>
+                    <td class="item_name">明細</td>
                 </tr>
 
                 <?php for($i = 0; $i < count($_SESSION['received_from']); $i++):?>
                     <tr class="row-2">
-                        <td>入金</td>
-                        <td><?php echo $_SESSION['total_received'][$i];?></td>
+                        <td class="item_name">入金</td>
+                        <td class="number_cell"><?php echo number_format($_SESSION['total_received'][$i]);?>円</td>
                         <td><?php echo $_SESSION['received_from'][$i];?></td>
                         <td><?php echo $_SESSION['content_received'][$i];?></td>
                     </tr>
@@ -288,7 +291,7 @@
                         $num_of_blank_received_rows = 5 - count($_SESSION['received_from']);
                         for($i = 0; $i < $num_of_blank_received_rows; $i++) { ?>
                             <tr class="row-2">
-                                <td>入金</td>
+                                <td class="item_name">入金</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -306,8 +309,8 @@
                             echo "row-2";
                         };
                     ?>">
-                        <td>出金</td>
-                        <td><?php echo $_SESSION['total_sent'][$i];?></td>
+                        <td class="item_name">出金</td>
+                        <td class="number_cell"><?php echo number_format($_SESSION['total_sent'][$i]);?>円</td>
                         <td><?php echo $_SESSION['sent_to'][$i];?></td>
                         <td><?php echo $_SESSION['content_sent'][$i];?></td>
                     </tr>
@@ -318,7 +321,7 @@
                         $num_of_blank_sent_to = 10 - count($_SESSION['sent_to']);
                         for($i = 0; $i < $num_of_blank_sent_to; $i++) { ?>
                             <tr class="row-2">
-                                <td>出金</td>
+                                <td class="item_name">出金</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -329,8 +332,8 @@
                 ?>
 
                 <tr class="row-2">
-                    <td>支払い計</td>
-                    <td><?php echo array_sum($_SESSION['total_sent']);?></td>
+                    <td class="item_name">支払い計</td>
+                    <td class="number_cell"><?php echo number_format(array_sum($_SESSION['total_sent']));?>円</td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -341,8 +344,8 @@
                 ?>
 
                 <tr class="row-2">
-                    <td>レジ残計</td>
-                    <td><?php echo $reji_zankei;?></td>
+                    <td class="item_name">レジ残計</td>
+                    <td class="number_cell"><?php echo number_format($reji_zankei);?>円</td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -352,35 +355,35 @@
                 ?>
 
                 <tr class="row-2">
-                    <td>現金過不足</td>
-                    <td><?php echo $kabusoku;?></td>
+                    <td class="item_name">現金過不足</td>
+                    <td class="number_cell"><?php echo number_format($kabusoku);?>円</td>
                     <td></td>
                     <td></td>
                 </tr>
 
                 <tr class="row-2">
-                    <td>実残合計</td>
-                    <td><?php echo $_SESSION['jisen_total'];?></td>
+                    <td class="item_name">実残合計</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['jisen_total']);?>円</td>
                     <td></td>
                     <td></td>
                 </tr>
 
                 <tr class="row-2">
-                    <td>翌日つり銭</td>
-                    <td><?php echo $_SESSION['next_day_change'];?></td>
+                    <td class="item_name">翌日つり銭</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['next_day_change']);?>円</td>
                     <td></td>
                     <td></td>
                 </tr>
 
                 <tr class="row-2">
-                    <td>翌日預入</td>
-                    <td><?php echo $_SESSION['next_day_deposit'];?></td>
+                    <td class="item_name">翌日預入</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['next_day_deposit']);?>円</td>
                     <td></td>
                     <td></td>
                 </tr>
             </table>
             <div class="edit-button-container">
-                <button class="edit firstTable" id="edit-section-btn">ここまでを編集</button>
+                <button class="edit firstTable" id="edit-section-btn">ここまで編集</button>
             </div>
 
 
@@ -392,63 +395,66 @@
 
                 <tr class="table-2-row-1">
                     <td></td>
-                    <td>食事券計</td>
-                    <td><?php echo $shokuji;?>円</td>
+                    <td class="item_name">食事券計</td>
+                    <td class="number_cell"><?php echo number_format($shokuji);?>円</td>
                 </tr>
 
                 <tr class="table-2-row-2">
                     <td></td>
-                    <td>プレミアム食事券</td>
-                    <td>販売用回収</td>
-                    <td>サービス用回収</td>
+                    <td class="item_name">プレミアム食事券</td>
+                    <td class="item_name">販売用回収</td>
+                    <td class="item_name">サービス用回収</td>
                 </tr>
 
                 <tr class="table-2-row-3">
-                    <td>千円券</td>
+                    <td class="item_name">千円券</td>
                     <td><?php echo $_SESSION['prem_count'];?>枚</td>
-                    <td><?php echo $_SESSION['prem_total'];?>円</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['prem_total']);?>円</td>
                     <td><?php echo $_SESSION['for_selling_count'];?>枚</td>
-                    <td><?php echo $_SESSION['for_selling_total'];?>円</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['for_selling_total']);?>円</td>
                     <td><?php echo $_SESSION['thousand_count'];?>枚</td>
-                    <td><?php echo $_SESSION['thousand_total'];?>円</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['thousand_total']);?>円</td>
                 </tr>
 
                 <tr class="table-2-row-4">
-                    <td>500円券</td>
+                    <td class="item_name">500円券</td>
                     <td class="null"></td>
                     <td class="null"></td>
                     <td class="null"></td>
                     <td class="null"></td>
                     <td><?php echo $_SESSION['five_count'];?>枚</td>
-                    <td><?php echo $_SESSION['five_total'];?>円</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['five_total']);?>円</td>
                 </tr>
 
                 <tr class="table-2-row-5">
-                    <td>200円券</td>
+                    <td class="item_name">200円券</td>
                     <td class="null"></td>
                     <td class="null"></td>
                     <td class="null"></td>
                     <td class="null"></td>
                     <td><?php echo $_SESSION['two_count'];?>枚</td>
-                    <td><?php echo $_SESSION['two_total'];?>円</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['two_total']);?>円</td>
                 </tr>
 
             </table>
             <div class="edit-button-container">
-            <button class="edit secondTable" id="edit-section-btn">ここまでを編集</button>
+            <button class="edit secondTable" id="edit-section-btn">ここまで編集</button>
             </div>
 
 
             <table>
                 <div class="table-title">売掛金</div>
 
-                
-                <?php for($i = 0; $i < count($_SESSION['client_name']); $i++):?>
-                    <tr class="client-row">
-                        <td><?php echo $_SESSION['client_name'][$i];?>様</td>
-                        <td><?php echo $_SESSION['urikake_total'][$i];?>円</td>
-                    </tr>
-                <?php endfor;?>
+                <?php if(count($_SESSION['client_name']) === 0):?>
+                    <tr><td class="no_client">データなし</td></tr>
+                <?php else:?>
+                    <?php for($i = 0; $i < count($_SESSION['client_name']); $i++):?>
+                        <tr class="client-row">
+                            <td><?php echo $_SESSION['client_name'][$i];?>様</td>
+                            <td class="number_cell"><?php echo number_format($_SESSION['urikake_total'][$i]);?>円</td>
+                        </tr>
+                    <?php endfor;?>
+                <?php endif ;?>
                 
             </table>
             <div class="edit-button-container">
@@ -457,84 +463,74 @@
 
 
             <table>
-                <div class="table-title">DC売上内訳</div>
+            <tr class="other-total">
+                    <th>種別</th>
+                    <th>件数</th>
+                    <th>金額</th>
+                </tr>
 
+                <?php for($i = 0; $i < count($_SESSION['dc_how_much']); $i++):?>
+                    <tr class="other-total">
+                        <td>DC</td>
+                        <td>1件</td>
+                        <td class="number_cell"><?php echo number_format($_SESSION['dc_how_much'][$i]);?>円</td>
+                    </tr>
+                <?php endfor;?>
 
-                    <?php for($i = 0; $i < count($_SESSION['dc_how_much']); $i++):?>
-                      <tr class="dc-each-row">
-                        <td style="text-align: center"><?php echo $_SESSION['dc_how_much'][$i];?>円</td>
-                          </tr>
-                    <?php endfor;?>
-
-
-                <tr class="dc-total">
-                    <td>DC売上合計</td>
+                <tr class="other-total sum">
+                    <td>DC合計</td>
                     <td><?php echo count($_SESSION['dc_how_much']);?>件</td>
-                    <td><?php echo array_sum($_SESSION['dc_how_much']);?>円</td>
+                    <td class="number_cell"><?php echo number_format(array_sum($_SESSION['dc_how_much']));?>円</td>
                 </tr>
-            </table>
 
-            <table>
-                <div class="table-title">JCB売上内訳</div>
+                <?php for($i = 0; $i < count($_SESSION['jcb_how_much']); $i++):?>
+                    <tr class="other-total">
+                        <td>JCB</td>
+                        <td>1件</td>
+                        <td class="number_cell"><?php echo number_format($_SESSION['jcb_how_much'][$i]);?>円</td>
+                    </tr>
+                <?php endfor;?>
 
-
-                    <?php for($i = 0; $i < count($_SESSION['jcb_how_much']); $i++):?>
-                        <tr class="dc-each-row">
-                        <td style="text-align: center"><?php echo $_SESSION['jcb_how_much'][$i];?>円</td>
-                          </tr>
-                    <?php endfor;?>
-
-
-                <tr class="dc-total">
-                    <td>JCB売上合計</td>
+                <tr class="other-total sum">
+                    <td>JCB合計</td>
                     <td><?php echo count($_SESSION['jcb_how_much']);?>件</td>
-                    <td><?php echo array_sum($_SESSION['jcb_how_much']);?>円</td>
+                    <td class="number_cell"><?php echo number_format(array_sum($_SESSION['jcb_how_much']));?>円</td>
                 </tr>
-            </table>
 
-            <table>
-                <div class="table-title">PayPay売上合計</div>
-                <tr class="paypay">
+                <tr class="other-total sum">
+                    <td>PayPay</td>
                     <td><?php echo $_SESSION['paypay_count'];?>件</td>
-                    <td><?php echo $_SESSION['paypay_total'];?>円</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['paypay_total']);?>円</td>
                 </tr>
-            </table>
-            <div class="edit-button-container">
-            <button class="edit fourthTable" id="edit-section-btn">ここまで編集</button>
-            </div>
 
-
-            <table>
-                <div class="table-title">その他</div>
-
-                <tr class="other-total">
-                    <td>nanaco</td>
+                <tr class="other-total sum">
+                    <td class="item_name">nanaco</td>
                     <td><?php echo $_SESSION['nanaco_count'];?>件</td>
-                    <td><?php echo $_SESSION['nanaco_total'];?>円</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['nanaco_total']);?>円</td>
                 </tr>
 
-                <tr class="other-total">
-                    <td>edy</td>
+                <tr class="other-total sum">
+                    <td class="item_name">edy</td>
                     <td><?php echo $_SESSION['edy_count'];?>件</td>
-                    <td><?php echo $_SESSION['edy_total'];?>円</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['edy_total']);?>円</td>
                 </tr>
 
-                <tr class="other-total">
-                    <td>交通IC</td>
+                <tr class="other-total sum">
+                    <td class="item_name">交通IC</td>
                     <td><?php echo $_SESSION['transport_ic_count'];?>件</td>
-                    <td><?php echo $_SESSION['transport_ic_total'];?>円</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['transport_ic_total']);?>円</td>
                 </tr>
 
-                <tr class="other-total">
-                    <td>Quick Pay</td>
+                <tr class="other-total sum">
+                    <td class="item_name">Quick Pay</td>
                     <td><?php echo $_SESSION['quick_pay_count'];?>件</td>
-                    <td><?php echo $_SESSION['quick_pay_total'];?>円</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['quick_pay_total']);?>円</td>
                 </tr>
 
-                <tr class="other-total">
-                    <td>WAON</td>
+                <tr class="other-total sum">
+                    <td class="item_name">WAON</td>
                     <td><?php echo $_SESSION['waon_count'];?>件</td>
-                    <td><?php echo $_SESSION['waon_total'];?>円</td>
+                    <td class="number_cell"><?php echo number_format($_SESSION['waon_total']);?>円</td>
                 </tr>
             </table>
             <div class="edit-button-container">
@@ -560,8 +556,9 @@
         <div class="content">
             <form class="ui form" action="" method="post">
                 <div class="field">
-                    <input type="text" name="name" value="<?php echo $_SESSION['name'];?>">
+                    <input type="text" name="name" value="<?php echo $_SESSION['name'];?>" required>
                 </div>
+                <input type="hidden" value=<?php echo true;?> name="from_edit_form">
                 <button class="ui button" type="submit" >編集を完了</button>
             </form>
         </div>
@@ -575,60 +572,72 @@
         </div>
         <div class="content">
             <form class="ui form" action="" method="post">
-                <div class="field">
-                    <label for="change">釣り銭</label>
-                    <input type="number" name="change" id="change" value="<?php echo $_SESSION['change'];?>">
+                <div class="edit_section">
+                    <div class="field">
+                        <label for="change">釣り銭</label>
+                        <input type="number" name="change" id="change" value="<?php echo $_SESSION['change'];?>" required>
+                    </div>
+                    <div class="field">
+                        <label for="earning">現金売上</label>
+                        <input type="number" name="earning" id="earning" value="<?php echo $_SESSION['earning'];?>" required>
+                    </div>
                 </div>
-                <div class="field">
-                    <label for="earning">現金売上</label>
-                    <input type="number" name="earning" id="earning" value="<?php echo $_SESSION['earning'];?>">
-                </div>
-                <div class="received_form_container">
+                
+                <div class="received_form_container edit_section">
                     <?php for($i = 0; $i < count($_SESSION['received_from']); $i++):?>
-                        <div class="field">
-                            <label for="total_received">入金額</label>
-                            <input type="number" id="total_received" name="total_received[]" value="<?php echo $_SESSION['total_received'][$i];?>">
-                        </div>
-                        <div class="field">
-                            <label for="received_from">入金相手</label>
-                            <input type="text" id="received_from" name="received_from[]" value="<?php echo $_SESSION['received_from'][$i];?>">
-                        </div>
-                        <div class="field">
-                            <label for="content_received">入金内容</label>
-                            <input type="text" id="content_received" name="content_received[]" value="<?php echo $_SESSION['content_received'][$i];?>">
+                        <div class="each_section">
+                            <div class="field">
+                                <label for="total_received">入金額</label>
+                                <input type="number" id="total_received" name="total_received[]" value="<?php echo $_SESSION['total_received'][$i];?>" required>
+                            </div>
+                            <div class="field">
+                                <label for="received_from">入金相手</label>
+                                <input type="text" id="received_from" name="received_from[]" value="<?php echo $_SESSION['received_from'][$i];?>" required>
+                            </div>
+                            <div class="field">
+                                <label for="content_received">入金内容</label>
+                                <input type="text" id="content_received" name="content_received[]" value="<?php echo $_SESSION['content_received'][$i];?>" required>
+                            </div>
                         </div>
                     <?php endfor ;?>
                 </div>
                 <div><button class="add-received">入金を追加</button></div>
-                <div class="sent-form-container">
+                <div class="sent-form-container edit_section">
                     <?php for($i = 0; $i < count($_SESSION['sent_to']); $i++):?>
-                        <div class="field">
-                            <label for="total_sent">出金額</label>
-                            <input type="number" id="total_sent" name="total_sent[]" value="<?php echo $_SESSION['total_sent'][$i];?>">
-                        </div>
-                        <div class="field">
-                            <label for="sent_to">出金先</label>
-                            <input type="text" id="sent_to" name="sent_to[]" value="<?php echo $_SESSION['sent_to'][$i];?>">
-                        </div>
-                        <div class="field">
-                            <label for="content_sent">出金内容</label>
-                            <input type="text" id="content_sent" name="content_sent[]" value="<?php echo $_SESSION['content_sent'][$i];?>">
+                        <div class="each_section">
+                            <div class="field">
+                                <label for="total_sent">出金額</label>
+                                <input type="number" id="total_sent" name="total_sent[]" value="<?php echo $_SESSION['total_sent'][$i];?>" required>
+                            </div>
+                            <div class="field">
+                                <label for="sent-to">出金先</label>
+                                <input type="text" id="sent_to" name="sent_to[]" value="<?php echo $_SESSION['sent_to'][$i];?>" required>
+                            </div>
+                            <div class="field">
+                                <label for="content_sent">出金内容</label>
+                                <input type="text" id="content_sent" name="content_sent[]" value="<?php echo $_SESSION['content_sent'][$i];?>" required>
+                            </div>
                         </div>
                     <?php endfor ;?>
                 </div>
                 <div><button class="add-sent">出金を追加</button></div>
-                <div class="field">
-                    <label for="next_day_change">翌日つり銭</label>
-                    <input type="number" id="next_day_change" name="next_day_change" value="<?php echo $_SESSION['next_day_change'];?>">
-                </div>
-                <div class="field">
-                    <label for="jisen_total">実践合計</label>
-                    <input type="number" id="jisen_total" name="jisen_total" value="<?php echo $_SESSION['jisen_total'];?>">
-                </div>
-                <div class="field">
-                    <label for="next_day_deposit">翌日預入</label>
-                    <input type="number" id="next_day_deposit" name="next_day_deposit" value="<?php echo $_SESSION['next_day_deposit'];?>">
-                </div>
+                <div class="edit_section">
+                    <div class="field">
+                        <label for="next_day_change">翌日つり銭</label>
+                        <input type="number" id="next_day_change" name="next_day_change" value="<?php echo $_SESSION['next_day_change'];?>" required>
+                    </div>
+                    <div class="field">
+                        <label for="jisen_total">実践合計</label>
+                        <input type="number" id="jisen_total" name="jisen_total" value="<?php echo $_SESSION['jisen_total'];?>" required>
+                    </div>
+                    <div class="field">
+                        <label for="next_day_deposit">翌日預入</label>
+                        <input type="number" id="next_day_deposit" name="next_day_deposit" value="<?php echo $_SESSION['next_day_deposit'];?>" required>
+                    </div>
+                    </div>
+
+                    <input type="hidden" value=<?php echo true;?> name="from_edit_form">
+                
                 <button class="ui button" type="submit" >編集を完了</button>
             </form>
         </div>
@@ -642,34 +651,41 @@
         </div>
         <div class="content">
             <form class="ui form" action="" method="post">
-                <div class="field">
-                    <label for="prem_count">プレミアム枚数</label>
-                    <input type="number" name="prem_count" value="<?php echo $_SESSION['prem_count'];?>">
+                <div class="edit_section">
+                    <div class="field">
+                        <label for="prem_count">プレミアム枚数</label>
+                        <input type="number" name="prem_count" value="<?php echo $_SESSION['prem_count'];?>" required>
+                    </div>
+                    <div class="field">
+                        <label for="prem_total">プレミアム金額</label>
+                        <input type="number" name="prem_total" value="<?php echo $_SESSION['prem_total'];?>" required>
+                    </div>
                 </div>
-                <div class="field">
-                    <label for="prem_total">プレミアム金額</label>
-                    <input type="number" name="prem_total" value="<?php echo $_SESSION['prem_total'];?>">
+                <div class="edit_section">
+                    <div class="field">
+                        <label for="for_selling_count">販売用枚数</label>
+                        <input type="number" name="for_selling_count" value="<?php echo $_SESSION['for_selling_count'];?>" required>
+                    </div>
+                    <div class="field">
+                        <label for="for_selling_total">販売用金額</label>
+                        <input type="number" name="for_selling_total" value="<?php echo $_SESSION['for_selling_total'];?>" required>
+                    </div>
                 </div>
-                <div class="field">
-                    <label for="for_selling_count">販売用枚数</label>
-                    <input type="number" name="for_selling_count" value="<?php echo $_SESSION['for_selling_count'];?>">
+                <div class="edit_section">
+                    <div class="field">
+                        <label for="thousand_count">サービス千円枚数</label>
+                        <input type="number" name="thousand_count" value="<?php echo $_SESSION['thousand_count'];?>" required>
+                    </div>
+                    <div class="field">
+                        <label for="five_count">サービス500円枚数</label>
+                        <input type="number" name="five_count" value="<?php echo $_SESSION['five_count'];?>" required>
+                    </div>
+                    <div class="field">
+                        <label for="two_count">サービス200円枚数</label>
+                        <input type="number" name="two_count" value="<?php echo $_SESSION['two_count'];?>" required>
+                    </div>
                 </div>
-                <div class="field">
-                    <label for="for_selling_total">販売用金額</label>
-                    <input type="number" name="for_selling_total" value="<?php echo $_SESSION['for_selling_total'];?>">
-                </div>
-                <div class="field">
-                    <label for="thousand_count">サービス千円枚数</label>
-                    <input type="number" name="thousand_count" value="<?php echo $_SESSION['thousand_count'];?>">
-                </div>
-                <div class="field">
-                    <label for="five_count">サービス500円枚数</label>
-                    <input type="number" name="five_count" value="<?php echo $_SESSION['five_count'];?>">
-                </div>
-                <div class="field">
-                    <label for="two_count">サービス200円枚数</label>
-                    <input type="number" name="two_count" value="<?php echo $_SESSION['two_count'];?>">
-                </div>
+                <input type="hidden" value=<?php echo true;?> name="from_edit_form">
                 <button class="ui button" type="submit" >編集を完了</button>
             </form>
         </div>
@@ -685,60 +701,26 @@
             <form class="ui form" action="" method="post">
                 <div class="client_form_container">
                     <?php for($i = 0; $i < count($_SESSION['client_name']); $i++):?>
-                        <div class="field">
-                            <label for="client_name">お客様</label>
-                            <input type="text" name="client_name[]" id="client_name" value="<?php echo $_SESSION['client_name'][$i];?>">
-                        </div>
-                        <div class="field">
-                            <label for="urikake_total">金額</label>
-                            <input type="number" name="urikake_total[]" id="urikake_total" value="<?php echo $_SESSION['urikake_total'][$i];?>">
+                        <div class="each_section">
+                            <div class="field">
+                                <label for="client_name">お客様</label>
+                                <input type="text" name="client_name[]" id="client_name" value="<?php echo $_SESSION['client_name'][$i];?>" required>
+                            </div>
+                            <div class="field">
+                                <label for="urikake_total">金額</label>
+                                <input type="number" name="urikake_total[]" id="urikake_total" value="<?php echo $_SESSION['urikake_total'][$i];?>" required>
+                            </div>
                         </div>
                     <?php endfor ;?>
                 </div>
                 <div><button  class="add_client">追加</button></div>
+                <input type="hidden" value=<?php echo true;?> name="from_edit_form">
                 <button class="ui button" type="submit" >編集を完了</button>
             </form>
         </div>
     </div>
 
-    <!-- modal for fourthTable -->
-    <div class="ui modal fourthTable">
-        <i id="close_edit" class="massive close icon"></i>
-        <div class="header">
-            DC, JCB, PAYPAY
-        </div>
-        <div class="content">
-            <form class="ui form" action="" method="post">
-                <div class="dc_form_container">
-                    <?php for($i = 0; $i < count($_SESSION['dc_how_much']); $i++):?>
-                        <div class="field">
-                            <label for="dc_how_much">DC</label>
-                            <input type="number" name="dc_how_much[]" value="<?php echo $_SESSION['dc_how_much'][$i];?>">
-                        </div>
-                    <?php endfor;?>
-                </div>
-                <div><button  class="edit_add_dc">DCを追加</button></div>
-                <div class="jcb_form_container">
-                    <?php for($i = 0; $i < count($_SESSION['jcb_how_much']); $i++):?>
-                        <div class="field">
-                            <label for="jcb_how_much">JCB</label>
-                            <input type="number" name="jcb_how_much[]" value="<?php echo $_SESSION['jcb_how_much'][$i];?>">
-                        </div>
-                    <?php endfor;?>
-                </div>
-                <div><button class="edit_add_jcb">JCBを追加</button></div>
-                <div class="field">
-                    <label for="paypay_count">PAYPAY件数</label>
-                    <input type="number" id="paypay_count" name="paypay_count" value="<?php echo $_SESSION['paypay_count'];?>">
-                </div>
-                <div class="field">
-                    <label for="paypay_total">PAYPAY合計額</label>
-                    <input type="number" id="paypay_total" name="paypay_total" value="<?php echo $_SESSION['paypay_total'];?>">
-                </div>
-                <button class="ui button" type="submit" >編集を完了</button>
-            </form>
-        </div>
-    </div>
+    
 
     <!-- modal for fifthTable -->
     <div class="ui modal fifthTable">
@@ -748,46 +730,87 @@
         </div>
         <div class="content">
             <form class="ui form" action="" method="post">
-                <div class="field">
-                    <label for="nanaco_count">nanaco件数</label>
-                    <input type="number" name="nanaco_count" id="nanaco_count" value="<?php echo $_SESSION['nanaco_count'];?>">
+                <div class="dc_form_container edit_section">
+                    <?php for($i = 0; $i < count($_SESSION['dc_how_much']); $i++):?>
+                        <div class="field">
+                            <label for="dc_how_much">DC</label>
+                            <input type="number" name="dc_how_much[]" value="<?php echo $_SESSION['dc_how_much'][$i];?>" required>
+                        </div>
+                    <?php endfor;?>
                 </div>
-                <div class="field">
-                    <label for="nanaco_total">nanaco金額</label>
-                    <input type="number" name="nanaco_total" id="nanaco_total" value="<?php echo $_SESSION['nanaco_total'];?>">
+                <div><button class="edit_add_dc">DCを追加</button></div>
+                <div class="jcb_form_container edit_section">
+                    <?php for($i = 0; $i < count($_SESSION['jcb_how_much']); $i++):?>
+                        <div class="field">
+                            <label for="jcb_how_much">JCB</label>
+                            <input type="number" name="jcb_how_much[]" value="<?php echo $_SESSION['jcb_how_much'][$i];?>" required>
+                        </div>
+                    <?php endfor;?>
                 </div>
-                <div class="field">
-                    <label for="edy_count">edy件数</label>
-                    <input type="number" name="edy_count" id="edy_count" value="<?php echo $_SESSION['edy_count'];?>">
+                <div><button class="edit_add_jcb">JCBを追加</button></div>
+                <div class="edit_section">
+                    <div class="field">
+                        <label for="paypay_count">PAYPAY件数</label>
+                        <input type="number" id="paypay_count" name="paypay_count" value="<?php echo $_SESSION['paypay_count'];?>" required>
+                    </div>
+                    <div class="field">
+                        <label for="paypay_total">PAYPAY合計額</label>
+                        <input type="number" id="paypay_total" name="paypay_total" value="<?php echo $_SESSION['paypay_total'];?>" required>
+                    </div>
                 </div>
-                <div class="field">
-                    <label for="edy_total">edy金額</label>
-                    <input type="number" name="edy_total" id="edy_total" value="<?php echo $_SESSION['edy_total'];?>">
+                <div class="edit_section">
+                    <div class="field">
+                        <label for="nanaco_count">nanaco件数</label>
+                        <input type="number" name="nanaco_count" id="nanaco_count" value="<?php echo $_SESSION['nanaco_count'];?>" required>
+                    </div>
+                    <div class="field">
+                        <label for="nanaco_total">nanaco金額</label>
+                        <input type="number" name="nanaco_total" id="nanaco_total" value="<?php echo $_SESSION['nanaco_total'];?>" required>
+                    </div>
                 </div>
-                <div class="field">
-                    <label for="transport_ic_count">交通IC件数</label>
-                    <input type="number" name="transport_ic_count" id="transport_ic_count" value="<?php echo $_SESSION['transport_ic_count'];?>">
+                <div class="edit_section">
+                    <div class="field">
+                        <label for="edy_count">edy件数</label>
+                        <input type="number" name="edy_count" id="edy_count" value="<?php echo $_SESSION['edy_count'];?>" required>
+                    </div>
+                    <div class="field">
+                        <label for="edy_total">edy金額</label>
+                        <input type="number" name="edy_total" id="edy_total" value="<?php echo $_SESSION['edy_total'];?>" required>
+                    </div>
                 </div>
-                <div class="field">
-                    <label for="transport_ic_total">交通IC金額</label>
-                    <input type="number" name="transport_ic_total" id="transport_ic_total" value="<?php echo $_SESSION['transport_ic_total'];?>">
+                <div class="edit_section">
+                    <div class="field">
+                        <label for="transport_ic_count">交通IC件数</label>
+                        <input type="number" name="transport_ic_count" id="transport_ic_count" value="<?php echo $_SESSION['transport_ic_count'];?>" required>
+                    </div>
+                    <div class="field">
+                        <label for="transport_ic_total">交通IC金額</label>
+                        <input type="number" name="transport_ic_total" id="transport_ic_total" value="<?php echo $_SESSION['transport_ic_total'];?>" required>
+                    </div>
                 </div>
-                <div class="field">
-                    <label for="quick_pay_count">Quick Pay件数</label>
-                    <input type="number" name="quick_pay_count" id="quick_pay_count" value="<?php echo $_SESSION['quick_pay_count'];?>">
+                <div class="edit_section">
+                    <div class="field">
+                        <label for="quick_pay_count">Quick Pay件数</label>
+                        <input type="number" name="quick_pay_count" id="quick_pay_count" value="<?php echo $_SESSION['quick_pay_count'];?>" required>
+                    </div>
+                    <div class="field">
+                        <label for="quick_pay_total">Quick Pay金額</label>
+                        <input type="number" name="quick_pay_total" id="quick_pay_total" value="<?php echo $_SESSION['quick_pay_total'];?>" required>
+                    </div>
                 </div>
-                <div class="field">
-                    <label for="quick_pay_total">Quick Pay金額</label>
-                    <input type="number" name="quick_pay_total" id="quick_pay_total" value="<?php echo $_SESSION['quick_pay_total'];?>">
+                <div class="edit_section">
+                    <div class="field">
+                        <label for="waon_count">WAON件数</label>
+                        <input type="number" name="waon_count" id="waon_count" value="<?php echo $_SESSION['waon_count'];?>" required>
+                    </div>
+                    <div class="field">
+                        <label for="waon_total">WAON金額</label>
+                        <input type="number" name="waon_total" id="waon_total" value="<?php echo $_SESSION['waon_total'];?>" required>
+                    </div>
                 </div>
-                <div class="field">
-                    <label for="waon_count">WAON件数</label>
-                    <input type="number" name="waon_count" id="waon_count" value="<?php echo $_SESSION['waon_count'];?>">
-                </div>
-                <div class="field">
-                    <label for="waon_total">WAON金額</label>
-                    <input type="number" name="waon_total" id="waon_total" value="<?php echo $_SESSION['waon_total'];?>">
-                </div>
+
+                <input type="hidden" value=<?php echo true;?> name="from_edit_form">
+                
                 <button class="ui button" type="submit" >編集を完了</button>
             </form>
         </div>
@@ -823,19 +846,27 @@
             $(add_received).on('click', function(e){
                 e.preventDefault();
                 $(received_form_container).append(
-                    '<div class="field">' +
+                    '<div class="each_section">' +
+                        '<div class="field">' +
                             '<label for="total_received">入金額</label>' +
-                            '<input type="number" id="total_received" name="total_received[]">' +
+                            '<input type="number" id="total_received" name="total_received[]" required>' +
                         '</div>' +
                         '<div class="field">' +
                             '<label for="received_from">出金先</label>' +
-                            '<input type="text" id="received_from" name="received_from[]">' +
+                            '<input type="text" id="received_from" name="received_from[]" required>' +
                         '</div>' +
                         '<div class="field">' +
                             '<label for="content_received">出金内容</label>' +
-                            '<input type="text" id="content_received" name="content_received[]">' +
-                        '</div>'
-                )
+                            '<input type="text" id="content_received" name="content_received[]" required>' +
+                        '</div>'+
+                        '<img class="delete_received" src="https://img.icons8.com/ios-glyphs/24/000000/multiply.png"/>' +
+                    '</div>'
+                );
+            });
+
+            $(received_form_container).on('click', '.delete_received', function(e){
+                e.preventDefault();
+                $(this).parent('.each_section').remove();
             });
 
             var add_sent = $(".add-sent");
@@ -843,19 +874,27 @@
             $(add_sent).on('click', function(e){
                 e.preventDefault();
                 $(sent_form_container).append(
-                    '<div class="field">' +
-                            '<label for="total_sent">出金額</label>' +
-                            '<input type="number" id="total_sent" name="total_sent[]">' +
-                        '</div>' +
-                        '<div class="field">' +
-                            '<label for="sent_to">出金先</label>' +
-                            '<input type="text" id="sent_to" name="sent_to[]">' +
-                        '</div>' +
-                        '<div class="field">' +
-                            '<label for="content_sent">出金内容</label>' +
-                            '<input type="text" id="content_sent" name="content_sent[]">' +
-                        '</div>'
-                )
+                    '<div class="each_section">' +
+                            '<div class="field">' +
+                                '<label for="total_sent">出金額</label>' +
+                                '<input type="number" id="total_sent" name="total_sent[]" required>' +
+                            '</div>' +
+                            '<div class="field">' +
+                                '<label for="sent-to">出金先</label>' +
+                                '<input type="text" id="sent_to" name="sent_to[]" required>' +
+                            '</div>' +
+                            '<div class="field">' +
+                                '<label for="content_sent">出金内容</label>' +
+                                '<input type="text" id="content_sent" name="content_sent[]" required>' +
+                            '</div>' +
+                            '<img class="delete_sent" src="https://img.icons8.com/ios-glyphs/24/000000/multiply.png"/>' +
+                    '</div>' 
+                );
+            });
+
+            $(sent_form_container).on('click', '.delete_sent', function(e){
+                e.preventDefault();
+                $(this).parent('.each_section').remove();
             });
 
             var add_client = $(".add_client");
@@ -863,16 +902,24 @@
             $(add_client).on('click', function(e) {
                 e.preventDefault();
                 $(client_form_container).append(
-                    '<div class="field">' +
+                    '<div class="each_section">' +
+                        '<div class="field">' +
                             '<label for="client_name">お客様</label>' +
-                            '<input type="text" name="client_name[]" id="client_name">' +
+                            '<input type="text" name="client_name[]" id="client_name" required>' +
                         '</div>' +
                         '<div class="field">' +
                            '<label for="urikake_total">金額</label>' +
-                            '<input type="number" name="urikake_total[]" id="urikake_total">' +
-                        '</div>'
-                )
+                            '<input type="number" name="urikake_total[]" id="urikake_total" required>' +
+                        '</div>'  +
+                        '<img class="delete_client" src="https://img.icons8.com/ios-glyphs/24/000000/multiply.png"/>' +
+                    '</div>'
+                );
             });
+
+            $(client_form_container).on('click', '.delete_client', function(e){
+                e.preventDefault();
+                $(this).parent('.each_section').remove();
+            })
 
             var add_dc = $('.edit_add_dc');
             var dc_form_container = $('.dc_form_container');
@@ -880,10 +927,16 @@
                 e.preventDefault();
                 $(dc_form_container).append(
                     '<div class="field">' +
-                            '<label for="dc_how_much">DC</label>' +
-                            '<input type="number" name="dc_how_much[]"ssssss>' +
-                        '</div>'
+                        '<label for="dc_how_much">DC</label>' +
+                        '<img class="delete_dc" src="https://img.icons8.com/ios-glyphs/30/000000/multiply.png"/>' +
+                        '<input type="number" name="dc_how_much[]" required>' +
+                    '</div>'
                 );
+            });
+
+            $(dc_form_container).on('click', '.delete_dc', function(e){
+                e.preventDefault();
+                $(this).parent('.field').remove();
             });
 
             var add_jcb = $('.edit_add_jcb');
@@ -893,10 +946,18 @@
                 $(jcb_form_container).append(
                     '<div class="field">' +
                             '<label for="jcb_how_much">JCB</label>' +
-                            '<input type="number" name="jcb_how_much[]"ssssss>' +
+                            '<img class="delete_jcb" src="https://img.icons8.com/ios-glyphs/30/000000/multiply.png"/>' +
+                            '<input type="number" name="jcb_how_much[]" required>' +
                         '</div>'
-                )
-            })
+                );
+            });
+
+            $(jcb_form_container).on('click', '.delete_jcb', function(e){
+                e.preventDefault();
+                $(this).parent('.field').remove();
+            });
+
+
         });
 
         

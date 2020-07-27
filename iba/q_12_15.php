@@ -34,11 +34,16 @@
             <div class="dc_container each-card">
                 <h2 class="ui header">12. DCカード金額（1取引ごと）</h2>
 
+                <?php for($i = 0; $i < count($_SESSION['dc_how_much']); $i++):?>
                 <div class="field">
+                    <div class="icon-container">
+                        <img class="remove_dc" src="../img/close.png" alt="削除">
+                    </div>
                     <label for="dc_how_much">金額</label>
                     <input type="number" name="dc_how_much[]" id="dc_how_much" 
-                    value="<?php echo $_SESSION['dc_how_much'][0];?>" placeholder="取引なしは0" required>
+                    value="<?php echo $_SESSION['dc_how_much'][$i];?>" placeholder="取引なしは0" required>
                 </div>
+                <?php endfor ;?>
             </div>
             <div class="add-container">
                 <img class="add_button add_dc" src="../img/plus.png" alt="追加">
@@ -47,11 +52,16 @@
             <div class="jcb_container each-card">
                 <h2 class="ui header">13. JCBカード金額（1取引ごと）</h2>
 
+                <?php for($i = 0; $i < count($_SESSION['jcb_how_much']); $i++):?>
                 <div class="field">
+                    <div class="icon-container">
+                        <img class="remove_jcb" src="../img/close.png" alt="削除">
+                    </div>
                     <label for="jcb_how_much">金額</label>
                     <input type="number" name="jcb_how_much[]" id="jcb_how_much"
-                    value="<?php echo $_SESSION['jcb_how_much'][0];?>" placeholder="取引なしは0" required>
+                    value="<?php echo $_SESSION['jcb_how_much'][$i];?>" placeholder="取引なしは0" required>
                 </div>
+                <?php endfor ;?>
             </div>
             <div class="add-container">
             <img class="add_button add_jcb" src="../img/plus.png" alt="追加">
@@ -63,12 +73,12 @@
                 <div class="field">
                     <label for="paypay_count">件数</label>
                     <input type="number" name="paypay_count" placeholder="取引なしは0" 
-                    value="<?php echo $_SESSION['paypay_count'];?>" id="paypay_count">
+                    value="<?php echo $_SESSION['paypay_count'];?>" id="paypay_count" required>
                 </div>
                 <div class="field">
                     <label for="paypay_total">総額</label>
                     <input type="number" name="paypay_total" placeholder="取引なしは0"
-                    value="<?php echo $_SESSION['paypay_total'];?>" id="paypay_total">
+                    value="<?php echo $_SESSION['paypay_total'];?>" id="paypay_total" required>
                 </div>
             </div>
 
@@ -77,49 +87,49 @@
 
                 <div class="field">
                     <label for="nanaco_count">nanaco件数</label>
-                    <input type="number" name="nanaco_count" value="<?php echo $_SESSION['nanaco_count'];?>" placeholder="取引なしは0" id="nanaco_count">
+                    <input type="number" name="nanaco_count" value="<?php echo $_SESSION['nanaco_count'];?>" placeholder="取引なしは0" id="nanaco_count" required>
                 </div>
                 <div class="field">
                     <label for="nanaco_total">nanaco金額</label>
-                    <input type="number" name="nanaco_total" value="<?php echo $_SESSION['nanaco_total'];?>" placeholder="取引なしは0" id="nanaco_total">
+                    <input type="number" name="nanaco_total" value="<?php echo $_SESSION['nanaco_total'];?>" placeholder="取引なしは0" id="nanaco_total" required>
                 </div>
 
 
                 <div class="field">
                     <label for="edy_count">Edy件数</label>
-                    <input type="number" name="edy_count" value="<?php echo $_SESSION['edy_count'];?>" placeholder="取引なしは0" id="edy_count">
+                    <input type="number" name="edy_count" value="<?php echo $_SESSION['edy_count'];?>" placeholder="取引なしは0" id="edy_count" required>
                 </div>
                 <div class="field">
                     <label for="edy_total">Edy金額</label>
-                    <input type="number" name="edy_total" value="<?php echo $_SESSION['edy_total'];?>" placeholder="取引なしは0" id="edy_total">
+                    <input type="number" name="edy_total" value="<?php echo $_SESSION['edy_total'];?>" placeholder="取引なしは0" id="edy_total" required>
                 </div>
                 
 
                 <div class="field">
                     <label for="transport_ic_count">交通IC件数</label>
-                    <input type="number" name="transport_ic_count" value="<?php echo $_SESSION['transport_ic_count'];?>" placeholder="取引なしは0">
+                    <input type="number" name="transport_ic_count" value="<?php echo $_SESSION['transport_ic_count'];?>" placeholder="取引なしは0" required>
                 </div>
                 <div class="field">
                     <label for="transport_ic_total">交通IC金額</label>
-                    <input type="number" name="transport_ic_total" value="<?php echo $_SESSION['transport_ic_total'];?>" placeholder="取引なしは0" >
+                    <input type="number" name="transport_ic_total" value="<?php echo $_SESSION['transport_ic_total'];?>" placeholder="取引なしは0" required>
                 </div>
 
                 <div class="field">
                     <label for="quick_pay_count">Quick Pay 件数</label>
-                    <input type="number" name="quick_pay_count" value="<?php echo $_SESSION['quick_pay_count'];?>" placeholder="取引なしは0">
+                    <input type="number" name="quick_pay_count" value="<?php echo $_SESSION['quick_pay_count'];?>" placeholder="取引なしは0" required>
                 </div>
                 <div class="field">
                     <label for="quick_pay_total">Quick Pay 金額</label>
-                    <input type="number" name="quick_pay_total" value="<?php echo $_SESSION['quick_pay_total'];?>" placeholder="取引なしは0">
+                    <input type="number" name="quick_pay_total" value="<?php echo $_SESSION['quick_pay_total'];?>" placeholder="取引なしは0" required>
                 </div>
 
                 <div class="field">
                     <label for="waon_count">WAON 件数</label>
-                    <input type="number" name="waon_count" value="<?php echo $_SESSION['waon_count'];?>" placeholder="取引なしは0">
+                    <input type="number" name="waon_count" value="<?php echo $_SESSION['waon_count'];?>" placeholder="取引なしは0" required>
                 </div>
                 <div class="field">
                     <label for="waon_total">WAON 金額</label>
-                    <input type="number" name="waon_total" value="<?php echo $_SESSION['waon_total'];?>" placeholder="取引なしは0">
+                    <input type="number" name="waon_total" value="<?php echo $_SESSION['waon_total'];?>" placeholder="取引なしは0" required>
                 </div>
 
             </div>

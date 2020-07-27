@@ -6,7 +6,7 @@
     }
     
 
-    if($_SESSION['previousURI'] === '/lmj/iba/edit.php') {
+    if($_SESSION['previousURI'] === '/lmj_okasato/iba/edit.php') {
         foreach($_SESSION as $key => $val){
             if ($key !== 'branch' && $key !== 'logged_in'){
                 unset($_SESSION[$key]);
@@ -53,7 +53,7 @@
                 <input type="date" name="date" id="date" value="<?php echo $_SESSION['date'];?>" required>
             </div>
             <input type="hidden" name="dateForm" value="dateForm">
-            <button class="ui button" type="submit">次へ</button>
+            <button type="submit">次へ</button>
         </form>
     </div>
 </body>

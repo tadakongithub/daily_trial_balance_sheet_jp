@@ -26,18 +26,23 @@ if($_POST['q_16']) {
             <h2 class="ui header">16. 売掛金</h2>
 
             <div class="client-container">
+                <?php for($i = 0; $i < count($_SESSION['client_name']); $i++): ?>
                 <div class="each-client">
+                    <div class="icon-container">
+                        <img class="remove_field" src="../img/close.png" alt="削除">
+                    </div>
                     <div class="each-field field">
                         <label for="client_name">お客様</label>
                         <input type="text" name="client_name[]" id="client_name"
-                        value="<?php echo $_SESSION['client_name'][0];?>">
+                        value="<?php echo $_SESSION['client_name'][$i];?>" required>
                     </div>
                     <div class="each-field field">
                         <label for="urikake_total">金額</label>
                         <input type="number" name="urikake_total[]" id="urikake_total"
-                        value="<?php echo $_SESSION['urikake_total'][0];?>">
+                        value="<?php echo $_SESSION['urikake_total'][$i];?>" required>
                     </div>
                 </div>
+                <?php endfor ;?>
             </div>
             
 
@@ -64,11 +69,11 @@ if($_POST['q_16']) {
                     '</div>' +
                     '<div class="each-field field">' +
                     '<label for="client_name">お客様</label>' +
-                    '<input type="text" name="client_name[]" id="client_name">' +
+                    '<input type="text" name="client_name[]" id="client_name" required>' +
                     '</div>'+
                     '<div class="each-field field">'+
                     '<label for="urikake_total">金額</label>' +
-                    '<input type="number" name="urikake_total[]" id="urikake_total">' +
+                    '<input type="number" name="urikake_total[]" id="urikake_total" required>' +
                     '</div>' +
                     '</div>');
                 });
@@ -77,6 +82,7 @@ if($_POST['q_16']) {
                     e.preventDefault();
                     $(this).parent('div').parent('div').remove();
                 });
+
             });
         </script>
     </body>
