@@ -5,7 +5,7 @@
         header('Location: ../index.php');
     }
 
-    if($_POST['q_12_15']) {
+    if($_POST['next'] || $_POST['back']) {
         $_SESSION['dc_how_much'] = $_POST['dc_how_much'];
         $_SESSION['jcb_how_much'] = $_POST['jcb_how_much'];
         $_SESSION['paypay_count'] = $_POST['paypay_count'];
@@ -20,7 +20,11 @@
         $_SESSION['quick_pay_total'] = $_POST['quick_pay_total'];
         $_SESSION['waon_count'] = $_POST['waon_count'];
         $_SESSION['waon_total'] = $_POST['waon_total'];
-        header('Location: q_16.php');
+        if($_POST['next']){
+            header('Location: q_16.php');
+        } else if($_POST['back']){
+            header('Location: q_9_11.php');
+        }
     }
 ?>
 <html>
@@ -134,8 +138,7 @@
 
             </div>
 
-            <input type="hidden" name="q_12_15" value="q_12_15">
-            <button type="submit" class="ui button">次へ</button>
+            <?php require 'backnext.php'; ?>
         </form>
     </div>
 

@@ -340,6 +340,7 @@
         </div>
 
         <div class="submit-container">
+            <a href="q_16.php">戻る</a>
             <a id="send-btn" class="send-data" href="submit.php">送信</a>
         </div>
     </div>

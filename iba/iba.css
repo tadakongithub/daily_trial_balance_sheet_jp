@@ -390,6 +390,21 @@ form.ui.form button[type=submit]{
     right: 0;
 }
 
+.back_next_container{
+    position: relative;
+    width: 100%;
+}
+
+.back_button{
+    position: absolute;
+    left: 0;
+}
+
+.next_button{
+    position: absolute;
+    right: 0;
+}
+
 @media only screen and (max-width: 500px) {
     .edit_section, .each_section{
         border: 1px solid #e4e4e4;

@@ -5,7 +5,7 @@
         header('Location: ../index.php');
     }
 
-    if($_POST['q_9_11']) {
+    if($_POST['next'] || $_POST['back']) {
         $_SESSION['prem_count'] = $_POST['prem_count'];
         $_SESSION['prem_total'] = $_POST['prem_total'];
         $_SESSION['for_selling_count'] = $_POST['for_selling_count'];
@@ -16,7 +16,11 @@
         $_SESSION['five_total'] = 500 * $_POST['five_count'];
         $_SESSION['two_count'] = $_POST['two_count'];
         $_SESSION['two_total'] = 200 * $_POST['two_count'];
-        header('Location: q_12_15.php');
+        if($_POST['next']){
+            header('Location: q_12_15.php');
+        } else if($_POST['back']){
+            header('Location: q_6_7_8.php');
+        }
     }
 ?>
 <html>
@@ -80,8 +84,8 @@
                 </div>       
             </div>
 
-            <input type="hidden" name="q_9_11" value="q_9_11">
-            <button type="submit" class="ui button">次へ</button>
+        
+            <?php require 'backnext.php'; ?>
         </form>
     </div>
 

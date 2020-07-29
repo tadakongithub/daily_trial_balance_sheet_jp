@@ -5,11 +5,15 @@
         header('Location: ../index.php');
     }
 
-    if($_POST['q_6_7_8']) {
+    if($_POST['next'] || $_POST['back']) {
         $_SESSION['next_day_change'] = $_POST['next_day_change'];
         $_SESSION['jisen_total'] = $_POST['jisen_total'];
         $_SESSION['next_day_deposit'] = $_POST['next_day_deposit'];
-        header('Location: q_9_11.php');
+        if($_POST['next']){
+            header('Location: q_9_11.php');
+        } else if($_POST['back']){
+            header('Location: q_5.php');
+        }
     }
 ?>
 <html>
@@ -38,8 +42,7 @@
                 value="<?php echo $_SESSION['next_day_deposit']; ?>" required>
             </div>
 
-            <input type="hidden" name="q_6_7_8" value="q_6_7_8">
-            <button type="submit" class="ui button">次へ</button>
+            <?php require 'backnext.php'; ?>
         </form>
     </div>
 </body>

@@ -5,11 +5,15 @@
         header('Location: ../index.php');
     }
 
-    if($_POST['q_5']) {
+    if($_POST['next'] || $_POST['back']) {
         $_SESSION['sent_to'] = $_POST['sent_to'];
         $_SESSION['total_sent'] = $_POST['total_sent'];
         $_SESSION['content_sent'] = $_POST['content_sent'];
-        header('Location: q_6_7_8.php');
+        if($_POST['next']){
+            header('Location: q_6_7_8.php');
+        } else if($_POST['back']){
+            header('Location: q_4.php');
+        }
     }
 ?>
 <html>
@@ -37,7 +41,7 @@
                     
                     <div class="each-field field">
                         <label for="total_sent">出金額</label>
-                        <input type="number" name="total_sent[]" id="total_sent"　value="<?php echo $_SESSION['total_sent'][$i];?>" required>
+                        <input type="number" name="total_sent[]" id="total_sent" value="<?php echo $_SESSION['total_sent'][$i];?>" required>
                     </div>
                     
                     <div class="each-field field">
@@ -51,10 +55,8 @@
             <div class="add-container">
                 <img class="add_button" src="../img/plus.png" alt="追加">
             </div>
-            <input type="hidden" name="q_5" value="q_5">
-            <div class="submit-container">
-            <button type="submit" class="ui button">次へ</button>
-            </div>
+            
+            <?php require 'backnext.php';?>
     </form>
 
     

@@ -5,11 +5,15 @@
         header('Location: ../index.php');
     } 
 
-    if($_POST["q_1_3"]) {
+    if($_POST['next'] || $_POST['back']) {
         $_SESSION['name'] = $_POST['name'];
         $_SESSION['change'] = $_POST['change'];
         $_SESSION['earning'] = $_POST['earning'];
-        header('Location: q_4.php');
+        if($_POST['next']){
+            header('Location: q_4.php');
+        } else if($_POST['back']){
+            header('Location: date.php');
+        }
     }
 ?>
 <html>
@@ -35,9 +39,7 @@
                 <label for="earning">3. 現金売り上げ</label>
                 <input type="number" name="earning" id="earning" value="<?php echo $_SESSION['earning'];?>" required>
             </div>
-            <input type="hidden" name="q_1_3" value="q_1_3">
-
-            <button type="submit" class="ui button">次へ</button>
+            <?php require 'backnext.php';?>
         </form>
     </div>
 </body>

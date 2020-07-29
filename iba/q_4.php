@@ -5,11 +5,15 @@
         header('Location: ../index.php');
     }
 
-    if($_POST['q_4']) {
+    if($_POST['next'] || $_POST['back']) {
         $_SESSION['received_from'] = $_POST['received_from'];
         $_SESSION['total_received'] = $_POST['total_received'];
         $_SESSION['content_received'] = $_POST['content_received'];
-        header('Location: q_5.php');
+        if($_POST['next']){
+            header('Location: q_5.php');
+        } else if($_POST['back']){
+            header('Location: q_1_3.php');
+        }
     }
 ?>
 <html>
@@ -56,10 +60,7 @@
             <div class="add-container">
                 <img class="add_button" src="../img/plus.png" alt="追加">
             </div>
-            <input type="hidden" name="q_4" value="q_4">
-            <div class="submit-container">
-            <button type="submit" class="ui button">次へ</button>
-            </div>
+            <?php require 'backnext.php';?>
         </form>
     </div>
 

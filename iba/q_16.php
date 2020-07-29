@@ -6,10 +6,16 @@ if($_SESSION['logged_in'] !== 'logged_in') {
     header('Location: ../index.php');
 }
 
-if($_POST['q_16']) {
+if($_POST['next']) {
     $_SESSION['client_name'] = $_POST['client_name'];
     $_SESSION['urikake_total'] = $_POST['urikake_total'];
     header('Location: confirmation.php');
+}
+
+if($_POST['back']) {
+    $_SESSION['client_name'] = $_POST['client_name'];
+    $_SESSION['urikake_total'] = $_POST['urikake_total'];
+    header('Location: q_12_15.php');
 }
 
 ?>
@@ -21,7 +27,7 @@ if($_POST['q_16']) {
 </head>
 <body>
     <div class="q-container-add">
-        <h1 class="ui header"><?php echo $_SESSION['branch'];?>　日計表</h1> 
+        <h1 class="ui header"><?php echo $_SESSION['branch'];?>　日計表</h1>
         <form action="" method="post" class="ui form">
             <h2 class="ui header">16. 売掛金</h2>
 
@@ -49,9 +55,10 @@ if($_POST['q_16']) {
             <div class="add-container">
                 <img class="add_button" src="../img/plus.png" alt="追加">
             </div>
-            <input type="hidden" name="q_16" value="q_16">
+            <!-- <input type="hidden" name="q_16" value="q_16"> -->
             <div class="submit-container">
-            <button type="submit" class="ui button">確認画面へ</button>
+            <input type="submit" name="back" value="戻る" />
+            <input type="submit" name="next" value="確認画面へ" />
             </div>
         </form>
     </div> 
