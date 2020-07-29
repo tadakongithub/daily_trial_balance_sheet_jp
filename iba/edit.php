@@ -13,6 +13,7 @@
         header('Location: ../index.php');
     }
 
+
     //当店舗と日付セッションを両方含んでいるデータがデータベースにない場合はトップページに
     $stmt = $myPDO->prepare("SELECT * FROM okasato WHERE date = :date AND branch = :branch");
     $stmt->execute(array(
@@ -108,27 +109,27 @@
             $_SESSION['earning'] = $_POST['earning'];
         }
 
-        if($_POST['received_from']){
+        if($_POST['received_from'] || $_POST['first_modal']){
             $_SESSION['received_from'] = $_POST['received_from'];
         }
 
-        if($_POST['total_received']) {
+        if($_POST['total_received'] || $_POST['first_modal']) {
             $_SESSION['total_received'] = $_POST['total_received'];
         }
 
-        if($_POST['content_received']) {
+        if($_POST['content_received'] || $_POST['first_modal']) {
             $_SESSION['content_received'] = $_POST['content_received'];
         }
 
-        if($_POST['sent_to']){
+        if($_POST['sent_to']  || $_POST['first_modal']){
             $_SESSION['sent_to'] = $_POST['sent_to'];
         }
 
-        if($_POST['total_sent']) {
+        if($_POST['total_sent'] || $_POST['first_modal']) {
             $_SESSION['total_sent'] = $_POST['total_sent'];
         }
 
-        if($_POST['content_sent']) {
+        if($_POST['content_sent'] || $_POST['first_modal']) {
             $_SESSION['content_sent'] = $_POST['content_sent'];
         }
 
@@ -175,19 +176,19 @@
             $_SESSION['two_total'] = $_POST['two_count'] * 200;
         }
 
-        if($_POST['client_name']) {
+        if($_POST['client_name'] || $_POST['third_modal']) {
             $_SESSION['client_name'] = $_POST['client_name'];
         }
 
-        if($_POST['urikake_total']) {
+        if($_POST['urikake_total'] || $_POST['third_modal']) {
             $_SESSION['urikake_total'] = $_POST['urikake_total'];
         }
 
-        if($_POST['dc_how_much']) {
+        if($_POST['dc_how_much'] || $_POST['fifth_modal']) {
             $_SESSION['dc_how_much'] = $_POST['dc_how_much'];
         }
 
-        if($_POST['jcb_how_much']) {
+        if($_POST['jcb_how_much'] || $_POST['fifth_modal']) {
             $_SESSION['jcb_how_much'] = $_POST['jcb_how_much'];
         }
 
@@ -540,6 +541,7 @@
         </div>
 
         <div class="submit-container">
+        <a href="date.php">戻る</a>
         <a href="submit.php" id="send-btn" class="send-data">送信</a>
         </div>
 
@@ -598,6 +600,7 @@
                                 <label for="content_received">入金内容</label>
                                 <input type="text" id="content_received" name="content_received[]" value="<?php echo $_SESSION['content_received'][$i];?>" required>
                             </div>
+                            <img class="delete_received" src="https://img.icons8.com/ios-glyphs/24/000000/multiply.png"/>
                         </div>
                     <?php endfor ;?>
                 </div>
@@ -617,6 +620,7 @@
                                 <label for="content_sent">出金内容</label>
                                 <input type="text" id="content_sent" name="content_sent[]" value="<?php echo $_SESSION['content_sent'][$i];?>" required>
                             </div>
+                            <img class="delete_sent" src="https://img.icons8.com/ios-glyphs/24/000000/multiply.png"/>
                         </div>
                     <?php endfor ;?>
                 </div>
@@ -637,6 +641,7 @@
                     </div>
 
                     <input type="hidden" value=<?php echo true;?> name="from_edit_form">
+                    <input type="hidden" name="first_modal" value="<?php echo true;?>">
                 
                 <button class="ui button" type="submit" >編集を完了</button>
             </form>
@@ -710,11 +715,13 @@
                                 <label for="urikake_total">金額</label>
                                 <input type="number" name="urikake_total[]" id="urikake_total" value="<?php echo $_SESSION['urikake_total'][$i];?>" required>
                             </div>
+                            <img class="delete_client" src="https://img.icons8.com/ios-glyphs/24/000000/multiply.png"/>
                         </div>
                     <?php endfor ;?>
                 </div>
                 <div><button  class="add_client">追加</button></div>
                 <input type="hidden" value=<?php echo true;?> name="from_edit_form">
+                <input type="hidden" name="third_modal" value="<?php echo true;?>">
                 <button class="ui button" type="submit" >編集を完了</button>
             </form>
         </div>
@@ -733,6 +740,7 @@
                 <div class="dc_form_container edit_section">
                     <?php for($i = 0; $i < count($_SESSION['dc_how_much']); $i++):?>
                         <div class="field">
+                        <img class="delete_dc" src="https://img.icons8.com/ios-glyphs/30/000000/multiply.png"/>
                             <label for="dc_how_much">DC</label>
                             <input type="number" name="dc_how_much[]" value="<?php echo $_SESSION['dc_how_much'][$i];?>" required>
                         </div>
@@ -742,6 +750,7 @@
                 <div class="jcb_form_container edit_section">
                     <?php for($i = 0; $i < count($_SESSION['jcb_how_much']); $i++):?>
                         <div class="field">
+                            <img class="delete_jcb" src="https://img.icons8.com/ios-glyphs/30/000000/multiply.png"/>
                             <label for="jcb_how_much">JCB</label>
                             <input type="number" name="jcb_how_much[]" value="<?php echo $_SESSION['jcb_how_much'][$i];?>" required>
                         </div>
@@ -810,6 +819,7 @@
                 </div>
 
                 <input type="hidden" value=<?php echo true;?> name="from_edit_form">
+                <input type="hidden" name="fifth_modal" value="<?php echo true;?>">
                 
                 <button class="ui button" type="submit" >編集を完了</button>
             </form>
