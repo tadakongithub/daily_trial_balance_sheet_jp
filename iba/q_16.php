@@ -18,6 +18,8 @@ if($_POST['back']) {
     header('Location: q_12_15.php');
 }
 
+require 'back_to_top_handling.php';
+
 ?>
 
 
@@ -56,12 +58,19 @@ if($_POST['back']) {
                 <img class="add_button" src="../img/plus.png" alt="追加">
             </div>
             <!-- <input type="hidden" name="q_16" value="q_16"> -->
-            <div class="submit-container">
-            <input type="submit" name="back" value="戻る" />
-            <input type="submit" name="next" value="確認画面へ" />
+            <div class="back_next_container">
+                <input type="submit" name="next" value="確認画面へ" class="next_button"/>
+                <?php if($_SESSION['went_to_confirmation']):?>
+                <input type="submit" name="back" value="戻る" class="back_button"/>
+                <?php else:?>
+                <a href="q_12_15.php" class="back_button">戻る</a>
+                <?php endif ;?>
             </div>
+            <?php require 'back_to_top.php';?>
         </form>
     </div> 
+
+    <?php require 'back_to_top_modal.php';?>
 
         <script>
             $(document).ready(function(){

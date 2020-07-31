@@ -393,16 +393,49 @@ form.ui.form button[type=submit]{
 .back_next_container{
     position: relative;
     width: 100%;
+    height: 35px;
+
 }
 
 .back_button{
     position: absolute;
     left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 35px;
+    background-color: #babbbc;
+    color: rgba(0,0,0,.9);
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.back_button:hover{
+    background-color: #cacbcd;
+    color: rgba(0,0,0,0.8);
 }
 
 .next_button{
     position: absolute;
     right: 0;
+    display: block;
+    width: 100px;
+    height: 35px;
+    background-color: #babbbc;
+    color: rgba(0,0,0,.9);
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.next_button:hover{
+    background-color: #cacbcd;
+    color: rgba(0,0,0,0.8);
+}
+
+.back_to_top{
+    display: block;
+    margin-top: 20px;
 }
 
 @media only screen and (max-width: 500px) {

@@ -6,6 +6,8 @@
         header('Location: ../index.php');
     }
 
+    $_SESSION['went_to_confirmation'] = true;
+
     //もし１つでも項目がなかったら、トップページに戻る
     // if(!isset($_SESSION['branch']) or
     //     !isset($_SESSION['date']) or
