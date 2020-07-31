@@ -92,6 +92,7 @@
                     <td class="item_name">明細</td>
                 </tr>
 
+                <?php if($_SESSION['received_from'][0] !== '' && count($_SESSION['received_from']) !== 0):?>
                 <?php for($i = 0; $i < count($_SESSION['received_from']); $i++):?>
                     <tr class="row-2">
                         <td class="item_name">入金</td>
@@ -100,6 +101,14 @@
                         <td><?php echo $_SESSION['content_received'][$i];?></td>
                     </tr>
                 <?php endfor;?>
+                <?php else :?>
+                    <tr class="row-2">
+                        <td class="item_name">入金</td>
+                        <td class="number_cell"></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                <?php endif;?>
 
                 <?php
                     if(count($_SESSION['received_from']) < 5) {

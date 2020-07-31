@@ -36,6 +36,7 @@
             <h2 class="ui header" id="received_h2">4. 現金の<span class="received_blue">レジ入金</span>を記入してください。</h2>
             <h3 class="ui header">（取引先・お手伝いスタッフの源泉税など）</h3>
             <div class="input_fields_wrapper">
+                <?php if($_SESSION['received_from'][0] !== '' && count($_SESSION['received_from']) !== 0):?> 
                 <?php for($i = 0; $i < count($_SESSION['received_from']); $i++):?>
                     <div class="each-received">
                         <div class="icon-container">
@@ -57,6 +58,27 @@
                         </div>
                     </div>
                 <?php endfor;?>
+                <?php else :?>
+                    <div class="each-received">
+                        <!-- <div class="icon-container">
+                            <image class="remove_field" src="../img/close.png" alt="削除">
+                        </div> -->
+                        <div class="each-field field">
+                            <label for="received_from">取引先・スタッフ名など</label>
+                            <input type="text" name="received_from[]" id="received_from" placeholder="ない場合は入力しない">
+                        </div>
+
+                        <div class="each-field field">
+                            <label for="total_received">入金額</label>
+                            <input type="number" name="total_received[]" id="total_received" placeholder="ない場合は入力しない">
+                        </div>
+
+                        <div class="each-field field">
+                            <label for="content_received">入金の内容</label>
+                            <input type="text" name="content_received[]" id="content_received" placeholder="ない場合は入力しない">            
+                        </div>
+                    </div>
+                <?php endif;?>
             </div>
 
             <div class="add-container">

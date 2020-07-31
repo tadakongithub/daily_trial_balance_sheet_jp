@@ -7,18 +7,15 @@
 
     if($_POST['next'] || $_POST['back']) {
 
-        if(!$_POST['next_day_change'] || !$_POST['jisen_total'] || !$_POST['next_day_deposit']){
-            $fieldNotfilled = '入力されていないフィールドがあります。';
-        } else {
-            $_SESSION['next_day_change'] = $_POST['next_day_change'];
-            $_SESSION['jisen_total'] = $_POST['jisen_total'];
-            $_SESSION['next_day_deposit'] = $_POST['next_day_deposit'];
-            if($_POST['next']){
-                header('Location: q_9_11.php');
-            } else if($_POST['back']){
-                header('Location: q_5.php');
-            }
-        }   
+        $_SESSION['next_day_change'] = $_POST['next_day_change'];
+        $_SESSION['jisen_total'] = $_POST['jisen_total'];
+        $_SESSION['next_day_deposit'] = $_POST['next_day_deposit'];
+        if($_POST['next']){
+            header('Location: q_9_11.php');
+        } else if($_POST['back']){
+            header('Location: q_5.php');
+        }
+         
     }
 
     require 'back_to_top_handling.php';

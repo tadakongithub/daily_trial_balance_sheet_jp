@@ -278,14 +278,27 @@
                     <td class="item_name">明細</td>
                 </tr>
 
-                <?php for($i = 0; $i < count($_SESSION['received_from']); $i++):?>
+       
+                <?php if($_SESSION['received_from'] == ''):?>
+                
+                    <tr class="row-2">
+                        <td class="item_name">入金</td>
+                        <td class="number_cell"></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    
+                
+                <?php else :?>
+                    <?php for($i = 0; $i < count($_SESSION['received_from']); $i++):?>
                     <tr class="row-2">
                         <td class="item_name">入金</td>
                         <td class="number_cell"><?php echo number_format($_SESSION['total_received'][$i]);?>円</td>
                         <td><?php echo $_SESSION['received_from'][$i];?></td>
                         <td><?php echo $_SESSION['content_received'][$i];?></td>
                     </tr>
-                <?php endfor;?>
+                    <?php endfor;?>
+                <?php endif;?>
 
                 <?php
                     if(count($_SESSION['received_from']) < 5) {
