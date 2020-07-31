@@ -57,7 +57,7 @@ while($result = $results->fetch()) {
                 </select>
             </div>
                    
-            <button class="submit-btn" type="submit">ダウンロード開始</button>
+            <button id="start_download" type="submit">ダウンロード開始</button>
             
         </form>
     </div>               |

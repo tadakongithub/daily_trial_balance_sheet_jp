@@ -541,7 +541,7 @@
         </div>
 
         <div class="submit-container">
-        <a href="date.php">戻る</a>
+        <a href="date.php" class="back_to_date">戻る</a>
         <a href="submit.php" id="send-btn" class="send-data">送信</a>
         </div>
 
@@ -938,7 +938,7 @@
                 $(dc_form_container).append(
                     '<div class="field">' +
                         '<label for="dc_how_much">DC</label>' +
-                        '<img class="delete_dc" src="https://img.icons8.com/ios-glyphs/30/000000/multiply.png"/>' +
+                        '<img class="delete_dc" src="https://img.icons8.com/ios-glyphs/25/000000/multiply.png"/>' +
                         '<input type="number" name="dc_how_much[]" required>' +
                     '</div>'
                 );
@@ -956,7 +956,7 @@
                 $(jcb_form_container).append(
                     '<div class="field">' +
                             '<label for="jcb_how_much">JCB</label>' +
-                            '<img class="delete_jcb" src="https://img.icons8.com/ios-glyphs/30/000000/multiply.png"/>' +
+                            '<img class="delete_jcb" src="https://img.icons8.com/ios-glyphs/25/000000/multiply.png"/>' +
                             '<input type="number" name="jcb_how_much[]" required>' +
                         '</div>'
                 );

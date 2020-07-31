@@ -55,8 +55,12 @@
                 <input type="date" name="date" id="date" value="<?php echo $_SESSION['date'];?>" required>
             </div>
             
-            <input type="submit" name="back" value="トップページに戻る" class="back_to_top"/>
-            <input type="submit" name="next" value="次へ" />
+            <div class="date_btn_container">
+                <input type="submit" name="next" value="次へ" id="to_q1" />
+                <input type="submit" name="back" value="トップページに戻る" id="back_to_top" />
+            </div>
+            
+            
         </form>
     </div>
 

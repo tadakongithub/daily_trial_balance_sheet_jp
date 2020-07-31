@@ -17,16 +17,23 @@ h1.ui.header{
 }
 
 button.submit-btn{
-    display: inline-block;
-    width: 220px;
-    height: 38px;
-    font-size: 25px;
-    background-color: #bbb;
-    color: #fff;
+    display: block;
+    margin: auto;
+    width: 300px;
+    height: 60px;
+    background-color: #babbbc;
+    color: rgba(0,0,0,.9);
+    font-size: 40px;
+    cursor: pointer;
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     -o-border-radius: 5px;
+}
+
+button.submit-btn:hover{
+    background-color: #cacbcd;
+    color: rgba(0,0,0,0.8);
 }
 
 .to-form{
@@ -75,9 +82,65 @@ a.to-form:hover{
     color: #fff;
 }
 
+.success-message, .back_to_top{
+    font-size: 30px;
+    line-height: 1.6;
+    max-width: 80%;
+    text-align: center;
+}
+
+.back_to_top{
+    margin-top: 50px;
+}
+
+form.ui.form{
+    width: 90%;
+    max-width: 1200px;
+}
+
+form.ui.form .field input{
+    font-size: 25px;
+}
+
+form.ui.form .field select{
+    font-size: 25px;
+}
+
+form.ui.form .field option{
+    font-size: 25px;
+}
+
+form.ui.form .field label{
+    font-size: 30px;
+    line-height: 1.6;
+}
+
+div.ui.dropdown.select.selection, div.ui.dropdown.select.selection div.item, div.ui.dropdown.selection, div.ui.dropdown.selection div.item{
+    font-size: 25px;
+    line-height: 1.6;
+}
+
+#start_download{
+    display: block;
+    margin: auto;
+    width: 400px;
+    height: 60px;
+    background-color: #babbbc;
+    color: rgba(0,0,0,.9);
+    font-size: 40px;
+    cursor: pointer;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
 @media only screen and (min-width: 768px) and (max-width: 1024px){
     .success-message, .back_to_top{
         font-size: 30px;
+        max-width: 80%;
+        line-height: 1.6;
+        text-align: center;
     }
 
     .back_to_top{
@@ -93,7 +156,8 @@ a.to-form:hover{
     }
 
     .ui.form .field label{
-        font-size: 2rem;
+        font-size: 2.5rem;
+        line-height: 1.6;
         margin-bottom: 10px;
     }
 
@@ -112,7 +176,7 @@ a.to-form:hover{
 
 
 
-@media only screen and (max-device-width: 480px) {
+@media only screen and (max-width: 480px) {
     .to-form{
         width: 90%;
         height: 50px;
@@ -123,47 +187,20 @@ a.to-form:hover{
         width: 90%;
     }
 
-    /*.ui.form input[type=text], .ui.form input[type=password]{
-        font-size: 3rem;
-    }
-
-    .ui.form .field>label{
-        font-size: 3rem;
-        line-height: 3rem;
-        margin-bottom: 50px;
-    }
-
-    div.ui.select.dropdown.selection{
-        font-size: 3rem;
-    }
-
-    button.submit-btn{
-        width: 500px;
-        height: 70px;
-        font-size: 50px;
-    }
-
-    a.item{
-        height: 100px;
-        font-size: 40px;
-    }
-
-    .success-message{
-        font-size: 50px;
-        margin-bottom: 100px;;
+    .success-message, .back_to_top{
+        font-size: 25px;
+        line-height: 1.6;
+        text-align: center;
     }
 
     .back_to_top{
-        font-size: 50px;
+        margin-top: 30px;
     }
 
-    .to-form{
-        font-size: 50px;
+    #start_download{
+        width: 80%;
+        font-size: 25px;
     }
-
-    .admin-container a{
-        font-size: 4rem;
-    } */
 
 }
 

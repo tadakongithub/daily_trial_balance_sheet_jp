@@ -13,7 +13,7 @@
 
 <script>
 $(document).ready(function(){
-    $('.back_to_top').on('click', function(e){
+    $('#back_to_top').on('click', function(e){
         e.preventDefault();
 
         $('.ui.modal').modal('show');

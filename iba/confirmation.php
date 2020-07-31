@@ -8,6 +8,8 @@
 
     $_SESSION['went_to_confirmation'] = true;
 
+    require 'back_to_top_handling.php';
+
     //もし１つでも項目がなかったら、トップページに戻る
     // if(!isset($_SESSION['branch']) or
     //     !isset($_SESSION['date']) or
@@ -342,10 +344,13 @@
         </div>
 
         <div class="submit-container">
-            <a href="q_16.php">戻る</a>
+            <a href="q_16.php" class="back_to_q16">戻る</a>
             <a id="send-btn" class="send-data" href="submit.php">送信</a>
         </div>
+        <?php require 'back_to_top.php';?>
     </div>
+
+    <?php require 'back_to_top_modal.php';?>
 
 </body>
 </html>

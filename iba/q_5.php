@@ -36,8 +36,8 @@
                         <image class="remove_field" src="../img/close.png" alt="削除">
                     </div>
                     <div class="each-field field">
-                        <label for="sent_to">購入先・スタッフ名など
-                            <br>※注意※　×シェル→〇関東礦油&nbsp;&nbsp;ブランド名ではなく、会社名を記載してください。</label>
+                        <label for="sent_to">購入先・スタッフ名など</label>
+                        <small class="warning">※注意※　×シェル→〇関東礦油&nbsp;&nbsp;ブランド名ではなく、会社名を記載してください。</small>
                         <input type="text" name="sent_to[]" id="sent_to" value="<?php echo $_SESSION['sent_to'][$i];?>" required>
                     </div>
                     
@@ -83,7 +83,8 @@
                     '<image class="remove_field" src="../img/close.png" alt="削除">' +
                     '</div>' +
                     '<div class="each-field field">' +
-                    '<label for="sent_to">購入先・スタッフ名など<br>※注意※　×シェル→〇関東礦油&nbsp;&nbsp;ブランド名ではなく、会社名を記載してください。</label>' +
+                    '<label for="sent_to">購入先・スタッフ名など</label>' +
+                    '<small class="warning">※注意※　×シェル→〇関東礦油&nbsp;&nbsp;ブランド名ではなく、会社名を記載してください。</small>' +
                     '<input type="text" name="sent_to[]" id="sent_to" required>' +
                     '</div>' +
                     '<div class="each-field field">' +
