@@ -5,7 +5,7 @@ session_start();
 require 'db.php';
 
 //all data in ibaraki table
-$results = $myPDO->query('SELECT * FROM ibaraki');
+$results = $myPDO->query('SELECT * FROM okasato');
 
 //データベースにある全ての「年-月」の組み合わせを配列に入れる
 $yearMonthArray = array();

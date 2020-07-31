@@ -443,6 +443,8 @@ form.ui.form button[type=submit]{
     text-decoration: underline;
     color: dodgerblue;
     font-size: 30px;
+    background: #fff;
+    border: none;
 }
 
 .date_btn_container{
